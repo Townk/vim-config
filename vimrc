@@ -133,7 +133,7 @@ set novisualbell " don't blink
 set noerrorbells " don't make noise
 " Useful status information at bottom of screen
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%p%%]\ %)
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%P]\ %)
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{fugitive#statusline()}\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%P]\ %)
 set laststatus=2 " always show the status line
 set showtabline=1 " Only show tabs if a tab is present
 set tabpagemax=500 " maximum number of tab pages to be opened by the -p command line argument or the
@@ -307,6 +307,12 @@ map <LEADER>sr :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 map <LEADER>ij :silent %!python -m json.tool<CR>
 " Prettify XML buffer
 map <LEADER>ix :silent %!xmllint --encode UTF-8 --format -<CR>
+
+" QuickFix list navigation
+nmap <silent> [q :cprevious<CR>
+nmap <silent> ]q :cnext<CR>
+nmap <silent> [Q :cfirst<CR>
+nmap <silent> ]Q :clast<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -613,7 +619,9 @@ imap <silent> <S-F2>       <C-O>:NERDTreeFind<CR>
 map  <silent> <LEADER>d  :NERDTreeToggle<CR>
 map  <silent> <LEADER>D  :NERDTreeFind<CR>
 
-autocmd BufEnter * silent! NERDTreeMirror
+if has('autocmd')
+    autocmd BufEnter * silent! NERDTreeMirror
+endif
 
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrows = 1
@@ -717,15 +725,17 @@ noremap <silent> <F4> :exec "VoomToggle " . &ft<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " json
-augroup json_autocmd 
-  autocmd! 
-  autocmd FileType json set autoindent 
-  autocmd FileType json set formatoptions=tcq2l 
-  autocmd FileType json set textwidth=78 shiftwidth=2 
-  autocmd FileType json set softtabstop=2 tabstop=8 
-  autocmd FileType json set expandtab 
-  autocmd FileType json set foldmethod=syntax 
-augroup END
+if has('autocmd')
+    augroup json_autocmd 
+        autocmd! 
+        autocmd FileType json set autoindent 
+        autocmd FileType json set formatoptions=tcq2l 
+        autocmd FileType json set textwidth=78 shiftwidth=2 
+        autocmd FileType json set softtabstop=2 tabstop=8 
+        autocmd FileType json set expandtab 
+        autocmd FileType json set foldmethod=syntax 
+    augroup END
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -740,6 +750,22 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-i>"
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabLongestHighlight = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Rooter
+if has('autocmd')
+    autocmd BufEnter * :Rooter
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fugitive
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
