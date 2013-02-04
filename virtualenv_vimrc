@@ -1,0 +1,7 @@
+if has('python')
+python << EOF
+activate_this = os.environ['VIRTUAL_ENV'] + '/bin/activate_this.py'
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+endif
+
