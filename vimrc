@@ -95,7 +95,7 @@ if $COLORTERM == 'gnome-terminal'
 else
     set t_Co=256 " Everything else (tested on iTerm on Mac so far)
 endif
-colorscheme railscasts " a nice dark theme
+colorscheme townklight " a nice dark theme
 set cursorline " makes the current line highlighted
 
 
