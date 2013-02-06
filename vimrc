@@ -780,6 +780,21 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitive
+nmap <silent> <LEADER>gs  :Gstatus<CR>
+nmap <silent> <LEADER>gw  :Gwrite<CR>
+nmap <silent> <LEADER>gr  :Gread<CR>
+nmap <silent> <LEADER>gc  :Gcommit<CR>
+nmap <silent> <LEADER>gl  :Glog<CR>
+nmap <silent> <LEADER>gb  :Gblame<CR>
+nmap <silent> <LEADER>gh  :Gbrowse<CR>
+nmap <silent> <LEADER>gd  :Gdiff<CR>
+nmap <silent> <LEADER>go  :diffoff!<CR>
+                            \ :wincmd b<CR>
+                            \ :if exists('b:fugitive_type') \| wincmd c \| wincmd b \| endif<CR>
+                            \ :2wincmd h<CR>
+                            \ :if exists('b:fugitive_type') \| wincmd c \| endif<CR>
+nmap <silent> <LEADER>gO  :diffoff!<CR>:wincmd j<CR>:2wincmd h<CR>:wincmd l<CR>:only<CR>
+
 autocmd BufReadPost fugitive://*  set bufhidden=delete
 autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
                                     \   nnoremap <buffer> .. :edit %:h<CR> |
