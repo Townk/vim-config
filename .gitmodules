@@ -1,70 +1,74 @@
 [submodule "vim/libs/pathogen"]
-	path = vim/libs/pathogen
-	url = https://github.com/tpope/vim-pathogen.git
+  path = vim/libs/pathogen
+  url = https://github.com/tpope/vim-pathogen.git
 [submodule "vim/libs/genutils"]
-	path = vim/libs/genutils
-	url = https://github.com/vim-scripts/genutils.git
+  path = vim/libs/genutils
+  url = https://github.com/vim-scripts/genutils.git
 [submodule "vim/libs/l9"]
-	path = vim/libs/l9
-	url = https://github.com/git-mirror/vim-l9.git
+  path = vim/libs/l9
+  url = https://github.com/git-mirror/vim-l9.git
     ignore = untracked
 [submodule "vim/bundle/ack"]
-	path = vim/bundle/ack
-	url = https://github.com/mileszs/ack.vim.git
+  path = vim/bundle/ack
+  url = https://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/clang_complete"]
-	path = vim/bundle/clang_complete
-	url = https://github.com/Rip-Rip/clang_complete.git
+  path = vim/bundle/clang_complete
+  url = https://github.com/Rip-Rip/clang_complete.git
 [submodule "vim/bundle/fugitive"]
-	path = vim/bundle/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+  path = vim/bundle/fugitive
+  url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/gundo"]
-	path = vim/bundle/gundo
-	url = https://github.com/sjl/gundo.vim.git
+  path = vim/bundle/gundo
+  url = https://github.com/sjl/gundo.vim.git
 [submodule "vim/bundle/nerdcommenter"]
-	path = vim/bundle/nerdcommenter
-	url = https://github.com/scrooloose/nerdcommenter.git
+  path = vim/bundle/nerdcommenter
+  url = https://github.com/scrooloose/nerdcommenter.git
 [submodule "vim/bundle/nerdtree"]
-	path = vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
+  path = vim/bundle/nerdtree
+  url = https://github.com/scrooloose/nerdtree.git
 [submodule "vim/bundle/selectbuf"]
-	path = vim/bundle/selectbuf
-	url = https://github.com/vim-scripts/SelectBuf.git
+  path = vim/bundle/selectbuf
+  url = https://github.com/vim-scripts/SelectBuf.git
     ignore = untracked
 [submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
+  path = vim/bundle/supertab
+  url = https://github.com/ervandew/supertab.git
 [submodule "vim/bundle/swapit"]
-	path = vim/bundle/swapit
-	url = https://github.com/mjbrownie/swapit.git
+  path = vim/bundle/swapit
+  url = https://github.com/mjbrownie/swapit.git
 [submodule "vim/bundle/ultisnips"]
-	path = vim/bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
+  path = vim/bundle/ultisnips
+  url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/fuzzyfinder"]
-	path = vim/bundle/fuzzyfinder
-	url = https://github.com/vim-scripts/FuzzyFinder.git
-    ignore = untracked
+  path = vim/bundle/fuzzyfinder
+  url = https://github.com/vim-scripts/FuzzyFinder.git
+  ignore = untracked
 [submodule "vim/bundle/markdown"]
-	path = vim/bundle/markdown
-	url = https://github.com/tpope/vim-markdown.git
+  path = vim/bundle/markdown
+  url = https://github.com/tpope/vim-markdown.git
 [submodule "vim/bundle/voom"]
-	path = vim/bundle/voom
-	url = https://github.com/vim-scripts/VOoM.git
-    ignore = untracked
+  path = vim/bundle/voom
+  url = https://github.com/vim-scripts/VOoM.git
+  ignore = untracked
 [submodule "vim/bundle/rooter"]
-	path = vim/bundle/rooter
-	url = https://github.com/airblade/vim-rooter.git
+  path = vim/bundle/rooter
+  url = https://github.com/airblade/vim-rooter.git
 [submodule "vim/bundle/autoclose"]
-	path = vim/bundle/autoclose
-	url = https://github.com/Townk/vim-autoclose.git
+  path = vim/bundle/autoclose
+  url = https://github.com/Townk/vim-autoclose.git
 [submodule "vim/bundle/json"]
-	path = vim/bundle/json
-	url = https://github.com/Townk/vim-json.git
+  path = vim/bundle/json
+  url = https://github.com/Townk/vim-json.git
 [submodule "vim/bundle/logs"]
-	path = vim/bundle/logs
-	url = https://github.com/Townk/vim-logs.git
+  path = vim/bundle/logs
+  url = https://github.com/Townk/vim-logs.git
 [submodule "vim/bundle/qt"]
-	path = vim/bundle/qt
-	url = https://github.com/Townk/vim-qt.git
-[submodule "vim/bundle/tabular"]
-	path = vim/bundle/tabular
-	url = https://github.com/godlygeek/tabular.git
+  path = vim/bundle/qt
+  url = https://github.com/Townk/vim-qt.git
+[submodule "vim/bundle/align"]
+  path = vim/bundle/align
+  url = https://github.com/vim-scripts/Align.git
+  ignore = untracked
+[submodule "vim/bundle/colors-solarized"]
+  path = vim/bundle/colors-solarized
+  url = git://github.com/altercation/vim-colors-solarized.git

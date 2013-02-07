@@ -555,7 +555,7 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
-inoremap <silent> <Bar>  <Bar><Esc>:call <SID>align()<CR>a
+"inoremap <silent> <Bar>  <Bar><Esc>:call <SID>align()<CR>a
 
 " Toggle Vexplore with Ctrl-E
 function! ExploreRemote(resetHost)
@@ -799,15 +799,6 @@ autocmd BufReadPost fugitive://*  set bufhidden=delete
 autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
                                     \   nnoremap <buffer> .. :edit %:h<CR> |
                                     \ endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tabular
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
