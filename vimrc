@@ -540,19 +540,6 @@ function! QFixToggle(forced)
   endif
 endfunction
 
-" Automatically align tables with Tabularize
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
-"inoremap <silent> <Bar>  <Bar><Esc>:call <SID>align()<CR>a
-
 " Toggle Vexplore with Ctrl-E
 function! ExploreRemote(resetHost)
   if !exists('g:remoteHost') || empty(g:remoteHost) || a:resetHost == 1
@@ -667,7 +654,7 @@ let g:netrw_use_errorwindow  = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gundo
-nmap <F5>    :GundoToggle<CR>
+nmap <F6>    :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -798,6 +785,28 @@ autocmd BufReadPost fugitive://*  set bufhidden=delete
 autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
                                     \   nnoremap <buffer> .. :edit %:h<CR> |
                                     \ endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Taglist
+let g:Tlist_Exit_OnlyWindow = 1
+let g:Tlist_Auto_Highlight_Tag = 1
+let g:Tlist_Auto_Update = 1
+let g:Tlist_Close_On_Select = 1
+let g:Tlist_GainFocus_On_ToggleOpen = 1
+let g:Tlist_Use_Right_Window = 1
+let g:Tlist_Compact_Format = 1
+let g:Tlist_Display_Prototype = 0
+let g:Tlist_Display_Tag_Scope = 0
+let g:Tlist_Enable_Fold_Column = 0
+let g:Tlist_Process_File_Always = 1
+let g:Tlist_Show_One_File = 1
+let g:Tlist_Sort_Type = 1
+
+nmap <F5> :TlistToggle<CR>
+autocmd BufRead  * TlistUpdate
+autocmd BufWrite * TlistUpdate
+autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

@@ -75,3 +75,7 @@
 [submodule "vim/bundle/peepopen"]
 	path = vim/bundle/peepopen
 	url = https://github.com/shemerey/vim-peepopen.git
+[submodule "vim/bundle/taglist"]
+	path = vim/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
+  ignore = untracked
