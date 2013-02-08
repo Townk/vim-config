@@ -681,12 +681,15 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Peep open
-if has("mac")
+" Peepopen
+if has("gui_macvim")
   if mapcheck('<LEADER>t', 'n')
     nunmap <LEADER>t
   endif
   nmap <unique> <silent> <LEADER>t <Plug>PeepOpen
+  let g:peepopen_quit = 1
+else
+  let g:peepopen_loaded = 1
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
