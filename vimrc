@@ -272,10 +272,6 @@ nmap     <silent>        ]q          :cnext<CR>
 nmap     <silent>        [Q          :cfirst<CR>
 nmap     <silent>        ]Q          :clast<CR>
 
-" Map a more intuitive key for jump back on the navigation list. So with this map you navigate on 
-" your code with <C-]> to go to and <C-[> to go back
-nmap     <silent>        <C-[>       <C-O>
-
 " Horizontaly scroll
 nmap     <silent>        <C-L>       zL
 nmap     <silent>        <C-H>       zH
