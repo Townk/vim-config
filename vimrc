@@ -345,18 +345,31 @@ if has('autocmd')
   " Actions taken to every buffer
   autocmd! BufEnter           *              :syntax sync fromstart " ensure every file does syntax highlighting (full)
 
+  " Show stupid extra empty spaces
+  autocmd BufNewFile,BufRead  *              syntax match annoyingspace '^\(\t\+ \| \+\t\)\|[\t ]\+$' | highlight annoyingspace ctermbg=red guibg=red
+
+  """""""""""""""""""""""""""""""""""""""""""""""""""
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost         *              if line("'\"") > 0 && line("'\"") <= line("$") |
+                                               \   exe "normal g`\"" |
+                                               \ endif
+
   " Markdown types
-  autocmd! FileType           mkd            setfiletype markdown
+  autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown 
+  autocmd! BufRead,BufNewFile *.md           set filetype=markdown 
+  autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown 
   autocmd! FileType           markdown       set ai formatoptions=tcroqwan2 comments=n:&gt; nocindent tw=80
 
   " vim script types
   autocmd! FileType           vim            set omnifunc=syntaxcomplete#Complete
 
+  " JSON file type
+  autocmd! FileType           json           set filetype=json 
+
   " Syslog types
   autocmd! BufRead,BufNewFile *.log          set filetype=syslog 
-
-  " JSON file type
-  autocmd! BufRead,BufNewFile *.json         set filetype=json 
 
   " QML file type
   autocmd! BufRead,BufNewFile *.qml          set filetype=qml 
@@ -374,17 +387,6 @@ if has('autocmd')
   " Compiler definition
   autocmd! BufNewFile,BufRead *.p[l|m]       compiler perl
   autocmd! BufNewFile,BufRead *.py           compiler pyunit
-
-  " Show stupid extra empty spaces
-  autocmd BufNewFile,BufRead  *              syntax match annoyingspace '^\(\t\+ \| \+\t\)\|[\t ]\+$' | highlight annoyingspace ctermbg=red guibg=red
-
-  """""""""""""""""""""""""""""""""""""""""""""""""""
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost         *              if line("'\"") > 0 && line("'\"") <= line("$") |
-                                               \   exe "normal g`\"" |
-                                               \ endif
 endif
 
 
