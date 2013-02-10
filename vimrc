@@ -29,8 +29,7 @@ set shellslash    " shellslash (use a common path separator across all platforms
 " I added a second "bundle" directory called libs so I can separate scripts that are needed by other 
 " scripts and the ones that actually do something for me
 runtime libs/pathogen/autoload/pathogen.vim
-execute pathogen#infect('bundle/{}', 'libs/{}')
-set runtimepath+=$HOME/.vim/bundle/powerline/powerline/bindings/vim
+execute pathogen#infect('bundle/{}', 'libs/{}', 'quarantined/{}')
 
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.
