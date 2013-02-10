@@ -349,6 +349,9 @@ if has('autocmd')
   autocmd! FileType           mkd            setfiletype markdown
   autocmd! FileType           markdown       set ai formatoptions=tcroqwan2 comments=n:&gt; nocindent tw=80
 
+  " vim script types
+  autocmd! FileType           vim            set omnifunc=syntaxcomplete#Complete
+
   " Syslog types
   autocmd! BufRead,BufNewFile *.log          set filetype=syslog 
 
