@@ -366,7 +366,7 @@ if has('autocmd')
   autocmd! FileType           vim            set omnifunc=syntaxcomplete#Complete
 
   " JSON file type
-  autocmd! FileType           json           set filetype=json 
+  autocmd! BufRead,BufNewFile *.json         set filetype=json
 
   " Syslog types
   autocmd! BufRead,BufNewFile *.log          set filetype=syslog 
