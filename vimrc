@@ -802,6 +802,9 @@ let g:Tlist_Enable_Fold_Column = 0
 let g:Tlist_Process_File_Always = 1
 let g:Tlist_Show_One_File = 1
 let g:Tlist_Sort_Type = 1
+if has('mac')
+  let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+endif
 
 nmap <F5> :TlistToggle<CR>
 autocmd BufRead  * TlistUpdate
