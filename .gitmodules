@@ -79,3 +79,6 @@
 	path = vim/bundle/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
   ignore = untracked
+[submodule "vim/bundle/powerline"]
+	path = vim/bundle/powerline
+	url = https://github.com/Lokaltog/powerline.git

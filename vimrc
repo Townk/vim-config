@@ -30,6 +30,7 @@ set shellslash    " shellslash (use a common path separator across all platforms
 " scripts and the ones that actually do something for me
 runtime libs/pathogen/autoload/pathogen.vim
 execute pathogen#infect('bundle/{}', 'libs/{}')
+set runtimepath+=$HOME/.vim/bundle/powerline/powerline/bindings/vim
 
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.

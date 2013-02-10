@@ -16,7 +16,7 @@ set lines=35 columns=120 " Window dimensions.
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
   set guifont=Consolas:h11
 elseif has("mac") || has("macunix")
-  set guifont=Inconsolata:h16       " Font family and font size.
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h15
   set antialias                     " MacVim: smooth fonts.
 
   " some configurations only available to MacVim
