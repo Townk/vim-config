@@ -91,10 +91,12 @@ set spellsuggest=10 " how many suggestions we whant when we ask for it
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on " syntax highlighting on
 " let's have 256 colors on graphical terminals :)
-if $COLORTERM == 'gnome-terminal'
-  set term=gnome-256color " Gnome Terminal
-else
-  set t_Co=256 " Everything else (tested on iTerm on Mac so far)
+if has('mac')
+  if $COLORTERM == 'gnome-terminal'
+    set term=gnome-256color " Gnome Terminal
+  else
+    set t_Co=256 " Everything else (tested on iTerm on Mac so far)
+  endif
 endif
 colorscheme townklight " a nice dark theme
 set cursorline " makes the current line highlighted
@@ -161,9 +163,9 @@ set tw=100 " How long a comment should be before Vim automatically wraps the lin
 set fo=croqwanl2 " complex (type :he fo-table)
 set cinoptions=>1s,e0,n0,:1s,=1s,l1,b0,g0,h1s,(s,W2,m1,j1,p0,t0
 set cinwords+=try,catch
-set tabstop=2 " tab spacing (settings below are just to unify it)
-set softtabstop=2 " unify
-set shiftwidth=2 " unify
+set tabstop=4 " tab spacing (settings below are just to unify it)
+set softtabstop=4 " unify
+set shiftwidth=4 " unify
 
 
 
@@ -193,9 +195,6 @@ nmap     <silent>        <leader>eg  :e $MYGVIMRC<CR>
 nmap     <silent>        <LEADER>bn  :bnext<CR>g`"
 nmap     <silent>        <LEADER>bp  :bprevious<CR>g`"
 nmap     <silent>        <LEADER>bl  :b#<CR>g`"
-
-" Toggle QuickFix window
-nmap     <silent>        <LEADER>qt  :QFix<CR>
 
 " Explore remote files
 nmap     <silent>        <LEADER>rf  :ExploreRemote<CR>
@@ -329,7 +328,6 @@ map                      <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col
 "     new commands I create
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 command! -bang -nargs=? ExploreRemote call ExploreRemote(<bang>0)
 
 " command abbreviations
@@ -532,19 +530,6 @@ function! HasReadableExtensionIn(path, extensions)
   return 0
 endfunction
 
-" Calling ':QFix' will "toggle" the quickfix open and closed. It's easiest to map this to something 
-" fast.
-" If you want to force the window open, use ':QFix!' and the window will open or stay open.
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-
 " Toggle Vexplore with Ctrl-E
 function! ExploreRemote(resetHost)
   if !exists('g:remoteHost') || empty(g:remoteHost) || a:resetHost == 1
@@ -569,7 +554,7 @@ endfunction
 imap <silent> <C-F9>      <C-O>:AutoCloseToggle<CR>
 nmap <silent> <C-F9>      :AutoCloseToggle<CR>
 nmap <silent> <LEADER>ac  :AutoCloseToggle<CR>
-"let g:AutoClosePumvisible = {"Esc": "\<C-E>", "Enter": "\<C-Y>"}
+let g:AutoClosePumvisible = {"Esc": "\<Esc>", "Enter": "\<C-Y>"}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -767,6 +752,8 @@ let g:SuperTabLongestHighlight             = 1
 if has('autocmd')
   autocmd BufEnter * :Rooter
 endif
+let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt' ] " I only want Rooter to change my directory for make/ant based projects
+let g:rooter_use_lcd  = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -817,6 +804,26 @@ autocmd BufWrite * TlistUpdate
 autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Eclim
+let g:EclimJavaSearchSingleResult='edit'
+let g:EclimLocateFileScope='workspace'
+let g:EclimLocateFileDefaultAction='edit'
+nmap <silent> <Leader>jf :LocateFile<CR>
+nmap <silent> <Leader>jd :JavaDocSearch -x declarations<CR>
+nmap <silent> <Leader>jc :Ant clean-installd<CR>
+nmap <silent> <Leader>jt :set ft=java<CR>
+nmap <silent> <Leader>xt :set ft=xml<CR>
+nmap <silent> <Leader>bc :!my.sh connect<CR>
+autocmd BufRead  *.java nmap <C-]> :JavaSearchContext<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ToggleList
+let g:toggle_list_no_mappings = 1
+nmap <silent> <Leader>qt :call ToggleQuickfixList()<CR>
+nmap <silent> <Leader>lt :call ToggleLocationList()<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

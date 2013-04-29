@@ -79,3 +79,6 @@
 	path = vim/bundle/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
   ignore = untracked
+[submodule "vim/bundle/togglelist"]
+	path = vim/bundle/togglelist
+	url = git://github.com/milkypostman/vim-togglelist.git

@@ -25,7 +25,7 @@ elseif has("mac") || has("macunix")
     set fuoptions=background:Normal " full screen options
   endif
 else
-  set guifont=DejaVu\ Sans\ Mono\ 11
+  set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 
 " Since we use the same colorscheme for terminal and gui vim, there is no need to re-define it here.
