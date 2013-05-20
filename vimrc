@@ -385,6 +385,9 @@ if has('autocmd')
   " Compiler definition
   autocmd! BufNewFile,BufRead *.p[l|m]       compiler perl
   autocmd! BufNewFile,BufRead *.py           compiler pyunit
+
+  " YouCompleteMe and UltiSnips integration
+  autocmd! BufNewFile,BufRead *              exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=YcmUltiSnipsComplete()<CR>"
 endif
 
 
@@ -542,20 +545,27 @@ function! ExploreRemote(resetHost)
   endif
 endfunction
 
+function! YcmUltiSnipsComplete()
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Thirdy-party script integration
 "     Any variable set or custom mapping needed by a script is made in this section
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AutoClose
-imap <silent> <C-F9>      <C-O>:AutoCloseToggle<CR>
-nmap <silent> <C-F9>      :AutoCloseToggle<CR>
-nmap <silent> <LEADER>ac  :AutoCloseToggle<CR>
-let g:AutoClosePumvisible = {"Esc": "\<Esc>", "Enter": "\<C-Y>"}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoHighlight
@@ -796,6 +806,13 @@ autocmd BufRead  *.java nmap <C-]> :JavaSearchContext<CR>
 let g:toggle_list_no_mappings = 1
 nmap <silent> <Leader>qt :call ToggleQuickfixList()<CR>
 nmap <silent> <Leader>lt :call ToggleLocationList()<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe
+let g:ycm_filepath_completion_use_working_dir = 1
+let g:ycm_register_as_syntastic_checker = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

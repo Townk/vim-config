@@ -47,9 +47,6 @@
 [submodule "vim/bundle/rooter"]
   path = vim/bundle/rooter
   url = https://github.com/airblade/vim-rooter.git
-[submodule "vim/bundle/autoclose"]
-  path = vim/bundle/autoclose
-  url = https://github.com/Townk/vim-autoclose.git
 [submodule "vim/bundle/json"]
   path = vim/bundle/json
   url = https://github.com/Townk/vim-json.git
@@ -76,3 +73,6 @@
 [submodule "vim/bundle/togglelist"]
 	path = vim/bundle/togglelist
 	url = git://github.com/milkypostman/vim-togglelist.git
+[submodule "vim/bundle/youcompleteme"]
+	path = vim/bundle/youcompleteme
+	url = git://github.com/Valloric/YouCompleteMe.git
