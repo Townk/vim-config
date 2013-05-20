@@ -188,8 +188,8 @@ set foldopen-=undo " don't open folds when you undo stuff
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " edit my dot vim files
-nmap     <silent>        <leader>ev  :e $MYVIMRC<CR>
-nmap     <silent>        <leader>eg  :e $MYGVIMRC<CR>
+nmap     <silent>        <LEADER>ev  :e $MYVIMRC<CR>
+nmap     <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
 
 " maps for navigation in normal mode on console
 nmap     <silent>        <LEADER>bn  :bnext<CR>g`"
@@ -259,6 +259,9 @@ nmap     <silent>        <D-M-UP>    :cal AlternateFile()<CR>
 
 " Search selected text
 vmap                     <LEADER>ss  y/<C-R>"<CR>
+vmap                     <LEADER>sa  y:Ack "<C-R>""<CR>
+nmap                     <LEADER>sa :exec "Ack " . expand("<cword>")<CR>
+nmap                     <LEADER>sA :exec "Ack " . expand("<cWORD>")<CR>
 
 " Prettify JSON buffer
 map                      <LEADER>ij  :silent %!python -m json.tool<CR>
@@ -552,14 +555,14 @@ function! ExploreRemote(resetHost)
 endfunction
 
 function! YcmUltiSnipsComplete()
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips_JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
+    call UltiSnips_JumpForwards()
+    if g:ulti_jump_forwards_res == 0
+        call UltiSnips_ExpandSnippet()
+        if g:ulti_expand_res == 0
+            if pumvisible()
+                return "\<C-n>"
+            else
+                return "\<TAB>"
             endif
         endif
     endif
@@ -583,23 +586,28 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " FuzzyFinder
-let g:fuf_modesDisable      = []
-let g:fuf_buffer_prompt     = 'Buffer[]>'
-let g:fuf_file_prompt       = 'File[]>'
-let g:fuf_dir_prompt        = 'Directory[]>'
-let g:fuf_mrufile_prompt    = 'Recent open file[]>'
-let g:fuf_mrucmd_prompt     = 'Command[]>'
-let g:fuf_bookmark_prompt   = 'Bookmark[]>'
-let g:fuf_tag_prompt        = 'Tag[]>'
-let g:fuf_taggedfile_prompt = 'Tagged file[]>'
-let g:fuf_jumplist_prompt   = 'Jump list[]>'
-let g:fuf_changelist_prompt = 'Change list[]>'
-let g:fuf_quickfix_prompt   = 'Quickfix[]>'
-let g:fuf_line_prompt       = 'Line[]>'
-let g:fuf_help_prompt       = 'Help[]>'
+let g:fuf_file_exclude         = '\v\~$|\.(o|exe|dll|bak|orig|swp|class|DS_Store|png|jpe?g|gif|elc|rbc|pyc|psd|ai|pdf|mov|aep|dmg|zip|gz|ttf|jar|so|apk|a|ap_|ap_\.d)$|(^|[/\\])\.(hg|git|bzr|svn)($|[/\\])'
+let g:fuf_coveragefile_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp|class|DS_Store|png|jpe?g|gif|elc|rbc|pyc|psd|ai|pdf|mov|aep|dmg|zip|gz|ttf|jar|so|apk|a|ap_|ap_\.d)$|(^|[/\\])\.(hg|git|bzr|svn)($|[/\\])'
+let g:fuf_dir_exclude          = '\v(^|[/\\])(\.(hg|git|bzr|svn|sass-cache))|(build|tmp|log|vendor\/(rails|gems|plugins))($|[/\\])'
+let g:fuf_modesDisable         = []
+let g:fuf_buffer_prompt        = 'Buffer[]>'
+let g:fuf_file_prompt          = 'File[]>'
+let g:fuf_coveragefile_prompt  = 'File[]>'
+let g:fuf_dir_prompt           = 'Directory[]>'
+let g:fuf_mrufile_prompt       = 'Recent open file[]>'
+let g:fuf_mrucmd_prompt        = 'Command[]>'
+let g:fuf_bookmark_prompt      = 'Bookmark[]>'
+let g:fuf_tag_prompt           = 'Tag[]>'
+let g:fuf_taggedfile_prompt    = 'Tagged file[]>'
+let g:fuf_jumplist_prompt      = 'Jump list[]>'
+let g:fuf_changelist_prompt    = 'Change list[]>'
+let g:fuf_quickfix_prompt      = 'Quickfix[]>'
+let g:fuf_line_prompt          = 'Line[]>'
+let g:fuf_help_prompt          = 'Help[]>'
 
 nmap <silent> <LEADER>fb  :FufBuffer<CR>
 nmap <silent> <LEADER>ff  :FufFile<CR>
+nmap <silent> <LEADER>fi  :FufCoverageFile<CR>
 nmap <silent> <LEADER>fd  :FufDir<CR>
 nmap <silent> <LEADER>fr  :FufMruFile<CR>
 nmap <silent> <LEADER>fc  :FufMruCmd<CR>
@@ -660,7 +668,7 @@ let g:netrw_use_errorwindow  = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gundo
-nmap <F6>    :GundoToggle<CR>
+nmap <F5>    :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -679,7 +687,7 @@ if has("gui_macvim")
   if mapcheck('<LEADER>t', 'n')
     nunmap <LEADER>t
   endif
-  nmap <unique> <silent> <LEADER>t <Plug>PeepOpen
+  nmap <silent> <LEADER>t <Plug>PeepOpen
   let g:peepopen_quit = 1
 else
   let g:peepopen_loaded = 1
@@ -712,7 +720,7 @@ let vimpager_use_gvim = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " VOom
-noremap <silent> <F4> :exec "VoomToggle " . &ft<CR>
+noremap <silent> <F6> :exec "VoomToggle " . &ft<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -750,6 +758,7 @@ nmap <silent> <LEADER>gs  :Gstatus<CR>
 nmap <silent> <LEADER>gw  :Gwrite<CR>
 nmap <silent> <LEADER>gr  :Gread<CR>
 nmap <silent> <LEADER>gc  :Gcommit<CR>
+nmap <silent> <LEADER>gm  :Gcommit --amend<CR>
 nmap <silent> <LEADER>gl  :Glog<CR>
 nmap <silent> <LEADER>gb  :Gblame<CR>
 nmap <silent> <LEADER>gh  :Gbrowse<CR>
@@ -769,24 +778,24 @@ autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blo
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Taglist
-let g:Tlist_Exit_OnlyWindow = 1
-let g:Tlist_Auto_Highlight_Tag = 1
-let g:Tlist_Auto_Update = 1
-let g:Tlist_Close_On_Select = 1
+let g:Tlist_Exit_OnlyWindow         = 1
+let g:Tlist_Auto_Highlight_Tag      = 1
+let g:Tlist_Auto_Update             = 1
+let g:Tlist_Close_On_Select         = 1
 let g:Tlist_GainFocus_On_ToggleOpen = 1
-let g:Tlist_Use_Right_Window = 1
-let g:Tlist_Compact_Format = 1
-let g:Tlist_Display_Prototype = 0
-let g:Tlist_Display_Tag_Scope = 0
-let g:Tlist_Enable_Fold_Column = 0
-let g:Tlist_Process_File_Always = 1
-let g:Tlist_Show_One_File = 1
-let g:Tlist_Sort_Type = 1
+let g:Tlist_Use_Right_Window        = 1
+let g:Tlist_Compact_Format          = 1
+let g:Tlist_Display_Prototype       = 0
+let g:Tlist_Display_Tag_Scope       = 0
+let g:Tlist_Enable_Fold_Column      = 0
+let g:Tlist_Process_File_Always     = 1
+let g:Tlist_Show_One_File           = 1
+let g:Tlist_Sort_Type               = 1
 if has('mac')
   let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 endif
 
-nmap <F5> :TlistToggle<CR>
+nmap <F4> :TlistToggle<CR>
 autocmd BufRead  * TlistUpdate
 autocmd BufWrite * TlistUpdate
 autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
@@ -794,32 +803,76 @@ autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Eclim
-let g:EclimJavaSearchSingleResult='edit'
-let g:EclimLocateFileScope='workspace'
-let g:EclimLocateFileDefaultAction='edit'
-let g:EclimCompletionMethod = 'omnifunc'
-nmap <silent> <Leader>jf :LocateFile<CR>
-nmap <silent> <Leader>jd :JavaDocSearch -x declarations<CR>
-nmap <silent> <Leader>jc :Ant clean-installd<CR>
-nmap <silent> <Leader>jt :set ft=java<CR>
-nmap <silent> <Leader>xt :set ft=xml<CR>
-nmap <silent> <Leader>bc :!my.sh connect<CR>
+let g:EclimJavaSearchSingleResult  = 'edit'
+let g:EclimLocateFileScope         = 'workspace'
+let g:EclimLocateFileDefaultAction = 'edit'
+let g:EclimCompletionMethod        = 'omnifunc'
+
+" Extra commands
+command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.com/search?q=<query>', <q-args>, <line1>, <line2>)
+command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
+
+" Autocommands
 autocmd BufRead  *.java nmap <C-]> :JavaSearchContext<CR>
+
+" Android mappings
+nmap <silent> <LEADER>ar  :AndroidReload<CR>
+
+" Java helpers
+nmap <silent> <LEADER>jd  :JavaDocSearch -x declarations<CR>
+nmap <silent> <LEADER>jr  :JavaCorrect<CR>
+nmap <silent> <LEADER>jh  :JavaHierarchy<CR>
+nmap <silent> <LEADER>ji  :JavaImpl<CR>
+nmap <silent> <LEADER>jo  :JavaImportOrganize<CR>
+nmap <silent> <LEADER>ji  :JavaFormat<CR>
+
+" Project mappings
+nmap <silent> <LEADER>td  :Todo<CR>
+nmap <silent> <LEADER>pr  :ProjectRefresh<CR>
+nmap <silent> <LEADER>pra :ProjectRefreshAll<CR>
+nmap <silent> <LEADER>pi  :ProjectInfo<CR>
+nmap <silent> <LEADER>pp  :ProjectProblems<CR>
+nmap <silent> <LEADER>pn  :ProjectsTree<CR>
+nmap <silent> <LEADER>pd  :ProjectTodo<CR>
+
+" Eclim helpers
+nmap <silent> <LEADER>jf  :LocateFile<CR>
+
+vmap <silent> <LEADER>gt  :Google<CR>
+nmap <silent> <LEADER>gt  :exec "Google " . expand("<cword>")<CR>
+nmap <silent> <LEADER>gT  :exec "Google " . expand("<cWORD>")<CR>
+
+vmap <silent> <LEADER>ga  y:Google android <C-R>"<CR>
+nmap <silent> <LEADER>ga  :exec "Google android " . expand("<cword>")<CR>
+nmap <silent> <LEADER>gA  :exec "Google android " . expand("<cWORD>")<CR>
+
+vmap <silent> <LEADER>dt  y:Dictionary <C-R>"<CR>
+nmap <silent> <LEADER>dt  :exec "Dictionary " . expand("<cword>")<CR>
+nmap <silent> <LEADER>dT  :exec "Dictionary " . expand("<cWORD>")<CR>
+
+nmap <silent> <LEADER>vf  :Validate<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " ToggleList
 let g:toggle_list_no_mappings = 1
-nmap <silent> <Leader>qt :call ToggleQuickfixList()<CR>
-nmap <silent> <Leader>lt :call ToggleLocationList()<CR>
+nmap <silent> <LEADER>qt :call ToggleQuickfixList()<CR>
+nmap <silent> <LEADER>lt :call ToggleLocationList()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " YouCompleteMe
-let g:ycm_filepath_completion_use_working_dir = 1
-let g:ycm_register_as_syntastic_checker = 1
+let g:ycm_filepath_completion_use_working_dir       = 1
+let g:ycm_register_as_syntastic_checker             = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_insertion  = 1
+let g:ycm_filetype_blacklist                        = {
+                                                      \ 'notes' : 1,
+                                                      \ 'markdown' : 1,
+                                                      \ 'text' : 1,
+                                                      \ 'locate_prompt' : 1,
+                                                      \}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
