@@ -671,25 +671,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" clang_complete
-let g:clang_snippets          = 1
-let g:clang_snippets_engine   = 'ultisnips'
-let g:clang_complete_patterns = 1
-let g:clang_auto_select       = 1
-let g:clang_complete_auto     = 0
-if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-  if exists("$LLVMDIR")
-    let g:clang_exec = '"' . $LLVMDIR . '\bin\clang.exe'
-  else
-    let g:clang_exec = '"C:\llvm\bin\clang.exe'
-  endif
-  let g:clang_user_options = '2> NUL || exit 0 "'
-else
-  let g:clang_use_library = 1
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "UltiSnips
 let g:UltiSnipsUsePythonVersion    = 2   " or 3
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -736,15 +717,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pathogen
 noremap <silent> <LEADER>pt :Helptags<CR>:echo "Help tags updated for Pathogen bundles"<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SuperTab
-let g:SuperTabDefaultCompletionType        = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-i>"
-let g:SuperTabLongestEnhanced              = 1
-let g:SuperTabLongestHighlight             = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
