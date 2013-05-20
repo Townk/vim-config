@@ -1,0 +1,55 @@
+{
+	"common": {
+		"term_truecolor": false,
+		"dividers": {
+			"left": {
+				"hard": " ",
+				"soft": " "
+			},
+			"right": {
+				"hard": " ",
+				"soft": " "
+			}
+		},
+		"spaces": 1
+	},
+	"ext": {
+		"ipython": {
+			"colorscheme": "default",
+			"theme": "in",
+			"local_themes": {
+				"rewrite": "rewrite",
+				"out": "out",
+				"in2": "in2"
+			}
+		},
+		"shell": {
+			"colorscheme": "default",
+			"theme": "default"
+		},
+		"tmux": {
+			"colorscheme": "default",
+			"theme": "default"
+		},
+		"vim": {
+			"colorscheme": "default",
+			"theme": "default",
+			"local_themes": {
+				"cmdwin": "cmdwin",
+				"help": "help",
+				"quickfix": "quickfix",
+                                "custom_matches.selectbuf": "selectbuf",
+                                "custom_matches.taglist": "taglist",
+                                "custom_matches.fuzyfind": "fuzyfind",
+                                "custom_matches.nerdtree": "nerdtree",
+                                "custom_matches.voom": "voom",
+                                "custom_matches.gundo": "gundo",
+                                "custom_matches.gundo_preview": "gundo_preview"
+			}
+		},
+		"wm": {
+			"colorscheme": "default",
+			"theme": "default"
+		}
+	}
+}

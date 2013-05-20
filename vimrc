@@ -809,6 +809,7 @@ autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
 let g:EclimJavaSearchSingleResult='edit'
 let g:EclimLocateFileScope='workspace'
 let g:EclimLocateFileDefaultAction='edit'
+let g:EclimCompletionMethod = 'omnifunc'
 nmap <silent> <Leader>jf :LocateFile<CR>
 nmap <silent> <Leader>jd :JavaDocSearch -x declarations<CR>
 nmap <silent> <Leader>jc :Ant clean-installd<CR>
@@ -836,7 +837,6 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
 endif
 
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Powerline tweak
 " When you’re pressing Escape to leave insert mode in the terminal, it will by default take a second 
@@ -851,3 +851,10 @@ if ! has('gui_running')
     au InsertLeave * set timeoutlen=1000
   augroup END
 endif
+
+if has('python')
+  exec 'python import sys; sys.path.append("' . $HOME . '/.vim/extras/powerline-settings")'
+endif
+
+let g:powerline_config_path = expand("~/.vim/extras/powerline-settings/")
+
