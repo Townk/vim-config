@@ -1,8 +1,8 @@
 ﻿""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc       - My personal vimrc file
-" Version:      4.5
+" Version:      4.6
 " Maintainer:   Thiago Alves <talk@thiagoalves.com.br>
-" Last Change:  February 4, 2013
+" Last Change:  May 22, 2013
 " License:      This file is placed in the public domain.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -387,7 +387,13 @@ if has('autocmd')
   autocmd! BufNewFile,BufRead *.py           compiler pyunit
 
   " YouCompleteMe and UltiSnips integration
-  autocmd! BufNewFile,BufRead *              exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=YcmUltiSnipsComplete()<CR>"
+  " We need to have this mapping happening after s:SetupKeys from YCM is called and
+  " the only place is when user starts editing. To not keep mapping this everytime
+  " user enters in insert mode, we simply remove the autocommand once the mapping
+  " happened.
+  augroup YCM_UltiSnips
+    autocmd! InsertEnter        *              exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=YcmUltiSnipsComplete()<CR>" | autocmd! YCM_UltiSnips InsertEnter
+  augroup END
 endif
 
 
@@ -812,6 +818,7 @@ nmap <silent> <Leader>lt :call ToggleLocationList()<CR>
 " YouCompleteMe
 let g:ycm_filepath_completion_use_working_dir = 1
 let g:ycm_register_as_syntastic_checker = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
