@@ -197,38 +197,38 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " edit my dot vim files
-nmap     <silent>        <LEADER>ev  :e $MYVIMRC<CR>
-nmap     <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
+nnoremap <silent>        <LEADER>ev  :e $MYVIMRC<CR>
+nnoremap <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
 
 " maps for navigation in normal mode on console
-nmap     <silent>        <LEADER>bn  :bnext<CR>g`"
-nmap     <silent>        <LEADER>bp  :bprevious<CR>g`"
-nmap     <silent>        <LEADER>bl  :b#<CR>g`"
+nnoremap <silent>        <LEADER>bn  :bnext<CR>g`"
+nnoremap <silent>        <LEADER>bp  :bprevious<CR>g`"
+nnoremap <silent>        <LEADER>bl  :b#<CR>g`"
 
 " Explore remote files
-nmap     <silent>        <LEADER>rf  :ExploreRemote<CR>
-nmap     <silent>        <LEADER>rn  :ExploreRemote!<CR>
+nnoremap <silent>        <LEADER>rf  :ExploreRemote<CR>
+nnoremap <silent>        <LEADER>rn  :ExploreRemote!<CR>
 
 " Help mapping for console vim
-nmap     <silent>        <LEADER>hw  :exec "help " . expand("<cword>")<CR>
-nmap     <silent>        <LEADER>hW  :exec "help " . expand("<cWORD>")<CR>
+nnoremap <silent>        <LEADER>hw  :exec "help " . expand("<cword>")<CR>
+nnoremap <silent>        <LEADER>hW  :exec "help " . expand("<cWORD>")<CR>
 
 " Erase last search
-nmap     <silent>        <LEADER>hc  :let @/=""<CR>:echo "Search register cleaned"<CR>
+nnoremap <silent>        <LEADER>hc  :let @/=""<CR>:echo "Search register cleaned"<CR>
 " Enable and disable highlight search
-nmap     <silent>        <LEADER>ht  :set hlsearch!<CR>:echo &hlsearch==0?"Highlight search OFF":"Highlight search ON"<CR>
+nnoremap <silent>        <LEADER>ht  :set hlsearch!<CR>:echo &hlsearch==0?"Highlight search OFF":"Highlight search ON"<CR>
 
 " Toggle spell checking on/off
-nmap     <silent>        <LEADER>st  :set spell!<CR>:echo &spell==0?"Spell checking OFF":"Spell checking ON"<CR>
+nnoremap <silent>        <LEADER>st  :set spell!<CR>:echo &spell==0?"Spell checking OFF":"Spell checking ON"<CR>
 
 " Source current file
-nmap     <silent>        <LEADER>sf  :so %<CR>
+nnoremap <silent>        <LEADER>sf  :so %<CR>
 
 " Movements in wrapped lines.
-nmap     <silent>        <A-j>       gj
-nmap     <silent>        <Down>      gj
-nmap     <silent>        <A-k>       gk
-nmap     <silent>        <Up>        gk
+nnoremap <silent>        <A-j>       gj
+nnoremap <silent>        <Down>      gj
+nnoremap <silent>        <A-k>       gk
+nnoremap <silent>        <Up>        gk
 
 " Insert block characters { and } on insert mode.
 " <Ctrl>+<H> inserts { character on a new line
@@ -259,36 +259,36 @@ nnoremap <silent>        <LEADER>lw  :set wrap!<CR>:echo &wrap==0?"Wrap lines on
 nnoremap <silent>        <LEADER>sc  :set nolist!<CR>
 
 " On visual mode, <Tab> and <Shift><Tab> indent and unindent block
-xmap     <silent>        <Tab>       >gv
-xmap     <silent>        <S-Tab>     <gv
+xnoremap <silent>        <Tab>       >gv
+xnoremap <silent>        <S-Tab>     <gv
 
 " Alternate header with implementation files
-nmap     <silent>        <LEADER>A   :cal AlternateFile()<CR>
-nmap     <silent>        <D-M-UP>    :cal AlternateFile()<CR>
+nnoremap <silent>        <LEADER>A   :cal AlternateFile()<CR>
+nnoremap <silent>        <D-M-UP>    :cal AlternateFile()<CR>
 
 " Search selected text
-vmap                     <LEADER>ss  y/<C-R>"<CR>
-vmap                     <LEADER>sa  y:Ack "<C-R>""<CR>
-nmap                     <LEADER>sa :exec "Ack " . expand("<cword>")<CR>
-nmap                     <LEADER>sA :exec "Ack " . expand("<cWORD>")<CR>
+vnoremap                 <LEADER>ss  y/<C-R>"<CR>
+vnoremap                 <LEADER>sa  y:Ack "<C-R>""<CR>
+nnoremap                 <LEADER>sa :exec "Ack " . expand("<cword>")<CR>
+nnoremap                 <LEADER>sA :exec "Ack " . expand("<cWORD>")<CR>
 
 " Prettify JSON buffer
-map                      <LEADER>ij  :silent %!python -m json.tool<CR>
+nnoremap                 <LEADER>ij  :silent %!python -m json.tool<CR>
 " Prettify XML buffer
-map                      <LEADER>ix  :silent %!xmllint --encode UTF-8 --format -<CR>
+nnoremap                 <LEADER>ix  :silent %!xmllint --encode UTF-8 --format -<CR>
 
 " QuickFix list navigation
-nmap     <silent>        [q          :cprevious<CR>
-nmap     <silent>        ]q          :cnext<CR>
-nmap     <silent>        [Q          :cfirst<CR>
-nmap     <silent>        ]Q          :clast<CR>
+nnoremap <silent>        [q          :cprevious<CR>
+nnoremap <silent>        ]q          :cnext<CR>
+nnoremap <silent>        [Q          :cfirst<CR>
+nnoremap <silent>        ]Q          :clast<CR>
 
 " Horizontaly scroll
-nmap     <silent>        <C-L>       zL
-nmap     <silent>        <C-H>       zH
+nnoremap <silent>        <C-H>       zH
+nnoremap <silent>        <C-L>       zL
 
 " Map ",dt" to be a toggle between doxygen syntax On and Off
-nmap     <silent>        <LEADER>xt  :exec &syntax=~".doxygen$" ?
+nnoremap <silent>        <LEADER>xt  :exec &syntax=~".doxygen$" ?
                                        \"set syntax=".substitute(&syntax, ".doxygen", "", "") :
                                        \"set syntax=".&syntax.".doxygen" <CR>:exec &syntax=~".doxygen$"?
                                          \"echo 'Syntax DOXYGENed'":
@@ -688,36 +688,36 @@ let g:fuf_quickfix_prompt      = 'Quickfix[]>'
 let g:fuf_line_prompt          = 'Line[]>'
 let g:fuf_help_prompt          = 'Help[]>'
 
-nmap <silent> <LEADER>fb  :FufBuffer<CR>
-nmap <silent> <LEADER>ff  :FufFile<CR>
-nmap <silent> <LEADER>fi  :FufCoverageFile<CR>
-nmap <silent> <LEADER>fd  :FufDir<CR>
-nmap <silent> <LEADER>fr  :FufMruFile<CR>
-nmap <silent> <LEADER>fc  :FufMruCmd<CR>
-nmap <silent> <LEADER>fk  :FufBookmark<CR>
-nmap <silent> <LEADER>ft  :FufTag<CR>
-nmap <silent> <LEADER>fe  :FufTaggedFile<CR>
-nmap <silent> <LEADER>fj  :FufJumpList<CR>
-nmap <silent> <LEADER>fg  :FufChangeList<CR>
-nmap <silent> <LEADER>fq  :FufQuickfix<CR>
-nmap <silent> <LEADER>fl  :FufLine<CR>
-nmap <silent> <LEADER>fh  :FufHelp<CR>
+nnoremap <silent> <LEADER>fb  :FufBuffer<CR>
+nnoremap <silent> <LEADER>ff  :FufFile<CR>
+nnoremap <silent> <LEADER>fi  :FufCoverageFile<CR>
+nnoremap <silent> <LEADER>fd  :FufDir<CR>
+nnoremap <silent> <LEADER>fr  :FufMruFile<CR>
+nnoremap <silent> <LEADER>fc  :FufMruCmd<CR>
+nnoremap <silent> <LEADER>fk  :FufBookmark<CR>
+nnoremap <silent> <LEADER>ft  :FufTag<CR>
+nnoremap <silent> <LEADER>fe  :FufTaggedFile<CR>
+nnoremap <silent> <LEADER>fj  :FufJumpList<CR>
+nnoremap <silent> <LEADER>fg  :FufChangeList<CR>
+nnoremap <silent> <LEADER>fq  :FufQuickfix<CR>
+nnoremap <silent> <LEADER>fl  :FufLine<CR>
+nnoremap <silent> <LEADER>fh  :FufHelp<CR>
 
-map  <silent> <LEADER>fiw :FufTagWithCursorWord!<CR>
-nmap <silent> <LEADER>fab :FufAddBookmark<CR>
-vmap <silent> <LEADER>fas :FufAddBookmarkAsSelectedText<CR>
-nmap <silent> <LEADER>fwf :FufFileWithCurrentBufferDir<CR>
-nmap <silent> <LEADER>fwd :FufDirWithCurrentBufferDir<CR>
+nnoremap <silent> <LEADER>fiw :FufTagWithCursorWord!<CR>
+nnoremap <silent> <LEADER>fab :FufAddBookmark<CR>
+vnoremap <silent> <LEADER>fas :FufAddBookmarkAsSelectedText<CR>
+nnoremap <silent> <LEADER>fwf :FufFileWithCurrentBufferDir<CR>
+nnoremap <silent> <LEADER>fwd :FufDirWithCurrentBufferDir<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
-nmap <silent> <F2>       :NERDTreeToggle<CR>
-imap <silent> <F2>       <C-O>:NERDTreeToggle<CR>
-nmap <silent> <S-F2>     :NERDTreeFind<CR>
-imap <silent> <S-F2>     <C-O>:NERDTreeFind<CR>
-map  <silent> <LEADER>nt :NERDTreeToggle<CR>
-map  <silent> <LEADER>nT :NERDTreeFind<CR>
+nnoremap <silent> <F2>       :NERDTreeToggle<CR>
+inoremap <silent> <F2>       <C-O>:NERDTreeToggle<CR>
+nnoremap <silent> <S-F2>     :NERDTreeFind<CR>
+inoremap <silent> <S-F2>     <C-O>:NERDTreeFind<CR>
+nnoremap <silent> <LEADER>nt :NERDTreeToggle<CR>
+nnoremap <silent> <LEADER>nT :NERDTreeFind<CR>
 
 if has('autocmd')
     autocmd BufEnter * silent! NERDTreeMirror
@@ -751,8 +751,8 @@ let g:netrw_use_errorwindow  = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gundo
-nmap <silent> <F5>       :GundoToggle<CR>
-map  <silent> <LEADER>u  :GundoToggle<CR>
+nnoremap <silent> <F5>       :GundoToggle<CR>
+nnoremap <silent> <LEADER>u  :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -771,7 +771,7 @@ if has("gui_macvim")
   if mapcheck('<LEADER>t', 'n')
     nunmap <LEADER>t
   endif
-  nmap <silent> <LEADER>t <Plug>PeepOpen
+  nnoremap <silent> <LEADER>t <Plug>PeepOpen
   let g:peepopen_quit = 1
 else
   let g:peepopen_loaded = 1
@@ -839,21 +839,21 @@ let g:rooter_use_lcd  = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitive
-nmap <silent> <LEADER>gs  :Gstatus<CR>
-nmap <silent> <LEADER>gw  :Gwrite<CR>
-nmap <silent> <LEADER>gr  :Gread<CR>
-nmap <silent> <LEADER>gc  :Gcommit<CR>
-nmap <silent> <LEADER>gm  :Gcommit --amend<CR>
-nmap <silent> <LEADER>gl  :Glog<CR>
-nmap <silent> <LEADER>gb  :Gblame<CR>
-nmap <silent> <LEADER>gh  :Gbrowse<CR>
-nmap <silent> <LEADER>gd  :Gdiff<CR>
-nmap <silent> <LEADER>go  :diffoff!<CR>
+nnoremap <silent> <LEADER>gs  :Gstatus<CR>
+nnoremap <silent> <LEADER>gw  :Gwrite<CR>
+nnoremap <silent> <LEADER>gr  :Gread<CR>
+nnoremap <silent> <LEADER>gc  :Gcommit<CR>
+nnoremap <silent> <LEADER>gm  :Gcommit --amend<CR>
+nnoremap <silent> <LEADER>gl  :Glog<CR>
+nnoremap <silent> <LEADER>gb  :Gblame<CR>
+nnoremap <silent> <LEADER>gh  :Gbrowse<CR>
+nnoremap <silent> <LEADER>gd  :Gdiff<CR>
+nnoremap <silent> <LEADER>go  :diffoff!<CR>
                             \ :wincmd b<CR>
                             \ :if exists('b:fugitive_type') \| wincmd c \| wincmd b \| endif<CR>
                             \ :2wincmd h<CR>
                             \ :if exists('b:fugitive_type') \| wincmd c \| endif<CR>
-nmap <silent> <LEADER>gO  :diffoff!<CR>:wincmd j<CR>:2wincmd h<CR>:wincmd l<CR>:only<CR>
+nnoremap <silent> <LEADER>gO  :diffoff!<CR>:wincmd j<CR>:2wincmd h<CR>:wincmd l<CR>:only<CR>
 
 autocmd BufReadPost fugitive://*  set bufhidden=delete
 autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
@@ -880,8 +880,8 @@ if has('mac')
   let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 endif
 
-nmap <silent> <F4>       :TlistToggle<CR>
-nmap <silent> <LEADER>tl :TlistToggle<CR>
+nnoremap <silent> <F4>       :TlistToggle<CR>
+nnoremap <silent> <LEADER>tl :TlistToggle<CR>
 autocmd BufRead  * TlistUpdate
 autocmd BufWrite * TlistUpdate
 autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
@@ -899,52 +899,52 @@ command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.c
 command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
 
 " Autocommands
-autocmd BufRead  *.java nmap <C-]> :JavaSearchContext<CR>
+autocmd BufRead  *.java nnoremap <C-]> :JavaSearchContext<CR>
 
 " Android mappings
-nmap <silent> <LEADER>ar  :AndroidReload<CR>
+nnoremap <silent> <LEADER>ar  :AndroidReload<CR>
 
 " Java helpers
-nmap <silent> <LEADER>jd  :JavaDocSearch -x declarations<CR>
-nmap <silent> <LEADER>jr  :JavaCorrect<CR>
-nmap <silent> <LEADER>jh  :JavaHierarchy<CR>
-nmap <silent> <LEADER>jp  :JavaImpl<CR>
-nmap <silent> <LEADER>jo  :JavaImportOrganize<CR>
-nmap <silent> <LEADER>ji  :JavaFormat<CR>
+nnoremap <silent> <LEADER>jd  :JavaDocSearch -x declarations<CR>
+nnoremap <silent> <LEADER>jr  :JavaCorrect<CR>
+nnoremap <silent> <LEADER>jh  :JavaHierarchy<CR>
+nnoremap <silent> <LEADER>jp  :JavaImpl<CR>
+nnoremap <silent> <LEADER>jo  :JavaImportOrganize<CR>
+nnoremap <silent> <LEADER>ji  :JavaFormat<CR>
 
 " Project mappings
-nmap <silent> <LEADER>td  :Todo<CR>
-nmap <silent> <LEADER>pr  :ProjectRefresh<CR>
-nmap <silent> <LEADER>pra :ProjectRefreshAll<CR>
-nmap <silent> <LEADER>pi  :ProjectInfo<CR>
-nmap <silent> <LEADER>pp  :ProjectProblems<CR>
-nmap <silent> <LEADER>pn  :ProjectsTree<CR>
-nmap <silent> <LEADER>pd  :ProjectTodo<CR>
+nnoremap <silent> <LEADER>td  :Todo<CR>
+nnoremap <silent> <LEADER>pr  :ProjectRefresh<CR>
+nnoremap <silent> <LEADER>pra :ProjectRefreshAll<CR>
+nnoremap <silent> <LEADER>pi  :ProjectInfo<CR>
+nnoremap <silent> <LEADER>pp  :ProjectProblems<CR>
+nnoremap <silent> <LEADER>pn  :ProjectsTree<CR>
+nnoremap <silent> <LEADER>pd  :ProjectTodo<CR>
 
 " Eclim helpers
-nmap <silent> <LEADER>jf  :LocateFile<CR>
+nnoremap <silent> <LEADER>jf  :LocateFile<CR>
 
-vmap <silent> <LEADER>gt  :Google<CR>
-nmap <silent> <LEADER>gt  :exec "Google " . expand("<cword>")<CR>
-nmap <silent> <LEADER>gT  :exec "Google " . expand("<cWORD>")<CR>
+vnoremap <silent> <LEADER>gt  :Google<CR>
+nnoremap <silent> <LEADER>gt  :exec "Google " . expand("<cword>")<CR>
+nnoremap <silent> <LEADER>gT  :exec "Google " . expand("<cWORD>")<CR>
 
-vmap <silent> <LEADER>ga  y:Google android <C-R>"<CR>
-nmap <silent> <LEADER>ga  :exec "Google android " . expand("<cword>")<CR>
-nmap <silent> <LEADER>gA  :exec "Google android " . expand("<cWORD>")<CR>
+vnoremap <silent> <LEADER>ga  y:Google android <C-R>"<CR>
+nnoremap <silent> <LEADER>ga  :exec "Google android " . expand("<cword>")<CR>
+nnoremap <silent> <LEADER>gA  :exec "Google android " . expand("<cWORD>")<CR>
 
-vmap <silent> <LEADER>dt  y:Dictionary <C-R>"<CR>
-nmap <silent> <LEADER>dt  :exec "Dictionary " . expand("<cword>")<CR>
-nmap <silent> <LEADER>dT  :exec "Dictionary " . expand("<cWORD>")<CR>
+vnoremap <silent> <LEADER>dt  y:Dictionary <C-R>"<CR>
+nnoremap <silent> <LEADER>dt  :exec "Dictionary " . expand("<cword>")<CR>
+nnoremap <silent> <LEADER>dT  :exec "Dictionary " . expand("<cWORD>")<CR>
 
-nmap <silent> <LEADER>vf  :Validate<CR>
+nnoremap <silent> <LEADER>vf  :Validate<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " ToggleList
 let g:toggle_list_no_mappings = 1
-nmap <silent> <LEADER>qt :call ToggleQuickfixList()<CR>
-nmap <silent> <LEADER>lt :call ToggleLocationList()<CR>
+nnoremap <silent> <LEADER>qt :call ToggleQuickfixList()<CR>
+nnoremap <silent> <LEADER>lt :call ToggleLocationList()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
