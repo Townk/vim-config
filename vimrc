@@ -1,8 +1,8 @@
 ﻿""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc       - My personal vimrc file
-" Version:      4.6
+" Version:      4.7
 " Maintainer:   Thiago Alves <talk@thiagoalves.com.br>
-" Last Change:  May 22, 2013
+" Last Change:  June 2, 2013
 " License:      This file is placed in the public domain.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -26,7 +26,7 @@ set shellslash    " shellslash (use a common path separator across all platforms
 " This plugin (pathogen) makes Vim looks into a directory called 'bundles' and
 " add it to the runtime path. This way you keep each plugin file separated
 " from each other.
-" I added a second "bundle" directory called libs so I can separate scripts that are needed by other 
+" I added a second "bundle" directory called libs so I can separate scripts that are needed by other
 " scripts and the ones that actually do something for me
 runtime libs/pathogen/autoload/pathogen.vim
 execute pathogen#infect('bundle/{}', 'libs/{}', 'quarantined/{}')
@@ -46,10 +46,12 @@ endif
 " Load some default macros that are not loaded by default on Vim
 runtime macros/justify.vim
 runtime macros/matchit.vim
-"runtime macros/editexisting.vim
+if !exists("*EditExisting")
+    runtime macros/editexisting.vim
+endif
 
 " The <LEADER> key is often set to "\", unfortunately this key is not placed on a standard place
-" on a lot of keyboards. To avoid you of learning how to type on each new keyboard, lets set 
+" on a lot of keyboards. To avoid you of learning how to type on each new keyboard, lets set
 " <LEADER> key to ","
 let mapleader=","
 
@@ -67,7 +69,7 @@ set nospell " at the start we don't check spell all the time, if user want he ca
             " that we'll define on our mapping configuration
 
 set ignorecase " for default we'll ignore cases on our searches
-set smartcase " here we tell that if we put at least one letter in uppercase, than a case sensitive 
+set smartcase " here we tell that if we put at least one letter in uppercase, than a case sensitive
               " search is made. To make a search sensitive with lowercase, just append or prepend a
               " \C in your search parameter, e.g. /\Clowercase or /lowercase\C
 
@@ -107,7 +109,7 @@ set cursorline " makes the current line highlighted
 " Vim UI
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmenu " turn on wild menu
-set ruler " Always show current positions along the bottom 
+set ruler " Always show current positions along the bottom
 set number " turn on line numbers
 set lz " do not redraw while running macros (much faster) (Lazy Redraw)
 set hidden " you can change buffer without saving
@@ -136,6 +138,7 @@ set hlsearch " do not highlight searched for phrases
 set incsearch " BUT do highlight as you type you search phrase
 set novisualbell " don't blink
 set noerrorbells " don't make noise
+set showbreak=↪ " visually indicate a soft wrap
 
 set mat=2 " how many tenths of a second to blink matching brackets for
 set listchars=tab:¦.,trail:.,extends:>,precedes:<,eol:$ " what to show when I hit :set list
@@ -154,10 +157,10 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{fugitive#statusline
 " Text Formatting/Layout
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set ai " auto indent
-set si " smart indent 
+set si " smart indent
 set cindent " do c-style indenting
 set expandtab " replace tabs with space
-set nowrap " do not wrap lines  
+set nowrap " do not wrap lines
 
 set tw=100 " How long a comment should be before Vim automatically wraps the line
 set fo=croqwanl2 " complex (type :he fo-table)
@@ -171,7 +174,7 @@ set shiftwidth=4 " unify
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Folding
-"    Enable folding, but by default make it act like folding is off, because folding is annoying in 
+"    Enable folding, but by default make it act like folding is off, because folding is annoying in
 "    anything but a few rare cases
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldenable  " Turn on folding
@@ -180,6 +183,12 @@ set foldmethod=syntax " Make folding indent sensitive
 set foldlevel=100 " Don't auto fold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
 set foldopen-=undo " don't open folds when you undo stuff
+
+if exists("&foldchars")
+    set foldcolumn=1
+    set nofoldcolshowlvl
+    set foldchars=fa:\ ,fo:▾,fc:▸
+endif
 
 
 
@@ -279,19 +288,19 @@ nmap     <silent>        <C-L>       zL
 nmap     <silent>        <C-H>       zH
 
 " Map ",dt" to be a toggle between doxygen syntax On and Off
-nmap     <silent>        <LEADER>xt  :exec &syntax=~".doxygen$" ? 
-                                       \"set syntax=".substitute(&syntax, ".doxygen", "", "") : 
+nmap     <silent>        <LEADER>xt  :exec &syntax=~".doxygen$" ?
+                                       \"set syntax=".substitute(&syntax, ".doxygen", "", "") :
                                        \"set syntax=".&syntax.".doxygen" <CR>:exec &syntax=~".doxygen$"?
                                          \"echo 'Syntax DOXYGENed'":
                                          \"echo 'Syntax NORMAL'"<CR>
 
-" Makes <Enter>, <Esc>, <Tab>, <Shift>+<Tab>, <Up>, <Down>, <PgUp> and <PgDown> works as expected 
+" Makes <Enter>, <Esc>, <Tab>, <Shift>+<Tab>, <Up>, <Down>, <PgUp> and <PgDown> works as expected
 " with complete popups.
 inoremap <silent> <expr> <CR>        pumvisible() ? "\<C-Y>"                  : "\<CR>"
 inoremap <silent> <expr> <PageDown>  pumvisible() ? "\<PageDown>\<C-P>\<C-N>" : "\<PageDown>"
 inoremap <silent> <expr> <PageUp>    pumvisible() ? "\<PageUp>\<C-P>\<C-N>"   : "\<PageUp>"
 
-" On insert mode allow insert a new line above or below the current line no mater the position of 
+" On insert mode allow insert a new line above or below the current line no mater the position of
 " cursor
 inoremap                 <C-CR>      <C-O>o
 inoremap                 <C-S-CR>    <C-O>O
@@ -299,8 +308,8 @@ inoremap <silent> <expr> <C-J>       pumvisible() ? "\<Down>" : "\<C-O>o"
 inoremap <silent> <expr> <C-K>       pumvisible() ? "\<Up>" : "\<C-O>O"
 
 inoremap <silent>        <Home>      <C-R>=InsertHome()<CR>
-nnoremap <silent> <expr> <Home>      strpart(getline(line('.')), 0, col('.')-1) =~ '\S' ? 
-                                       \ "^" : 
+nnoremap <silent> <expr> <Home>      strpart(getline(line('.')), 0, col('.')-1) =~ '\S' ?
+                                       \ "^" :
                                        \ strpart(getline(line('.')), col('.')-1, 1) =~ '\s' ? "^" : "0"
 
 " Move lines Up and Down and, if needed, indent them again
@@ -320,9 +329,42 @@ nnoremap <silent>        <C-J>       :let _tmp_offset=col('.')-match(getline('.'
 vnoremap <silent>        <C-J>       :m'>+<CR>gv=gv
 
 " Dev helper mapping to show syntex region under cursor
-map                      <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
                                        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
                                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Remove trailing whitespace
+nnoremap <silent>        <LEADER>rtw :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
+
+" Toggle diff
+nnoremap <silent> <Leader>df :call DiffToggle(0)<CR>
+nnoremap <silent> <Leader>dF :call DiffToggle(1)<CR>
+
+" Extending vim objects
+let obj_delimiters = { '`'    : '`',
+                     \ '.'    : '.',
+                     \ ':'    : ':',
+                     \ '/'    : '/',
+                     \ '<bar>': '<bar>' }
+for [ firstDelim, secondDelim ] in items(obj_delimiters)
+    exec "nnoremap ci" . firstDelim . " T" . firstDelim . "ct" . secondDelim
+    exec "nnoremap ca" . firstDelim . " F" . firstDelim . "cf" . secondDelim
+    exec "nnoremap vi" . firstDelim . " T" . firstDelim . "vt" . secondDelim
+    exec "nnoremap va" . firstDelim . " F" . firstDelim . "vf" . secondDelim
+    exec "nnoremap di" . firstDelim . " T" . firstDelim . "dt" . secondDelim
+    exec "nnoremap da" . firstDelim . " F" . firstDelim . "df" . secondDelim
+    exec "nnoremap yi" . firstDelim . " T" . firstDelim . "yt" . secondDelim
+    exec "nnoremap ya" . firstDelim . " F" . firstDelim . "yf" . secondDelim
+    exec "nnoremap g~i" . firstDelim . " T" . firstDelim . "g~t" . secondDelim
+    exec "nnoremap g~a" . firstDelim . " F" . firstDelim . "g~f" . secondDelim
+    exec "nnoremap gUi" . firstDelim . " T" . firstDelim . "gUt" . secondDelim
+    exec "nnoremap gUa" . firstDelim . " F" . firstDelim . "gUf" . secondDelim
+    exec "nnoremap gui" . firstDelim . " T" . firstDelim . "gut" . secondDelim
+    exec "nnoremap gua" . firstDelim . " F" . firstDelim . "guf" . secondDelim
+    exec "nnoremap g?i" . firstDelim . " T" . firstDelim . "g?t" . secondDelim
+    exec "nnoremap g?a" . firstDelim . " F" . firstDelim . "g?f" . secondDelim
+endfor
+unlet obj_delimiters
 
 
 
@@ -347,7 +389,7 @@ if has('autocmd')
   autocmd! BufEnter           *              :syntax sync fromstart " ensure every file does syntax highlighting (full)
 
   " Show stupid extra empty spaces
-  autocmd BufNewFile,BufRead  *              syntax match annoyingspace '^\(\t\+ \| \+\t\)\|[\t ]\+$' | highlight annoyingspace ctermbg=red guibg=red
+  autocmd BufNewFile,BufRead  *              syntax match TrailWhitspace '\s\+$' | highlight TrailWhitspace ctermbg=red guibg=red
 
   """""""""""""""""""""""""""""""""""""""""""""""""""
   " When editing a file, always jump to the last known cursor position.
@@ -358,9 +400,9 @@ if has('autocmd')
                                                \ endif
 
   " Markdown types
-  autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown 
-  autocmd! BufRead,BufNewFile *.md           set filetype=markdown 
-  autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown 
+  autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown
+  autocmd! BufRead,BufNewFile *.md           set filetype=markdown
+  autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown
   autocmd! FileType           markdown       set ai formatoptions=tcroqwan2 comments=n:&gt; nocindent tw=80
 
   " vim script types
@@ -370,10 +412,10 @@ if has('autocmd')
   autocmd! BufRead,BufNewFile *.json         set filetype=json
 
   " Syslog types
-  autocmd! BufRead,BufNewFile *.log          set filetype=syslog 
+  autocmd! BufRead,BufNewFile *.log          set filetype=syslog
 
   " QML file type
-  autocmd! BufRead,BufNewFile *.qml          set filetype=qml 
+  autocmd! BufRead,BufNewFile *.qml          set filetype=qml
 
   " QMake
   autocmd! BufNewFile,BufRead *.pro          set filetype=qmake
@@ -389,6 +431,14 @@ if has('autocmd')
   autocmd! BufNewFile,BufRead *.p[l|m]       compiler perl
   autocmd! BufNewFile,BufRead *.py           compiler pyunit
 
+  " Spell checker on commit messages
+  " Git commits.
+  autocmd FileType            gitcommit      setlocal spell
+  " Subversion commits.
+  autocmd FileType            svn            setlocal spell
+  " Mercurial commits.
+  autocmd FileType            asciidoc       setlocal spell
+
   " YouCompleteMe and UltiSnips integration
   " We need to have this mapping happening after s:SetupKeys from YCM is called and
   " the only place is when user starts editing. To not keep mapping this everytime
@@ -396,6 +446,15 @@ if has('autocmd')
   " happened.
   augroup YCM_UltiSnips
     autocmd! InsertEnter        *              exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=YcmUltiSnipsComplete()<CR>" | autocmd! YCM_UltiSnips InsertEnter
+  augroup END
+
+  " Make sure that if we do any change on .vimrc or .gvimrc it gets reloaded automagically
+  augroup reload_vimrc
+      autocmd!
+      autocmd BufWritePost $MYVIMRC source $MYVIMRC
+      if has('gui_running')
+          autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+      endif
   augroup END
 endif
 
@@ -433,7 +492,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " These maps here enable the "smart" Home key. If you are on the first non blank character of line,
-" <Home> will take you to the first column, in any other place <Home> take you to the first non 
+" <Home> will take you to the first column, in any other place <Home> take you to the first non
 " blank character.
 function! InsertHome()
   let l:action = "\<C-O>0"
@@ -444,7 +503,7 @@ function! InsertHome()
 endfunction
 
 " insert the { } block on the text and position cursor between them.
-" if newline parameter is true then the start brace will be inserted on the next line where the 
+" if newline parameter is true then the start brace will be inserted on the next line where the
 " cursor is, otherwise it'll be inserted on the end of the same line.
 function! AddBracesBlock(newline)
   let l:linenr = line('.')
@@ -483,7 +542,7 @@ function! AddBracesBlock(newline)
   execute "normal " . l:togo . "G$"
 endfunction
 
-" does the same thing as AddBracesBlock but do it on a given range (used when there is a text 
+" does the same thing as AddBracesBlock but do it on a given range (used when there is a text
 " selected)
 function! AddBracesBlockToSelection(newline) range
   let l:begin = line("'<")
@@ -569,6 +628,30 @@ function! YcmUltiSnipsComplete()
     return ""
 endfunction
 
+" Define a function called DiffToggle.
+" The ! overwrites any existing definition by this name.
+function! DiffToggle(removeAllDiffs)
+    " Test the setting 'diff', to see if it's on or off.
+    " (Any :set option can be tested with &name.
+    " See :help expr-option.)
+    if &diff
+        if a:removeAllDiffs == 1
+            diffoff!
+            echo "Diff OFF for ALL buffers"
+        else
+            diffoff
+            echo "Diff OFF for " . expand('%')
+        endif
+        if exists('s:foldSize')
+            exec "set foldcolumn=" . s:foldSize
+        endif
+    else
+        let s:foldSize = &foldcolumn
+        diffthis
+        echo "Diff ON for " . expand('%')
+    endif
+endfunction
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -633,8 +716,8 @@ nmap <silent> <F2>       :NERDTreeToggle<CR>
 imap <silent> <F2>       <C-O>:NERDTreeToggle<CR>
 nmap <silent> <S-F2>     :NERDTreeFind<CR>
 imap <silent> <S-F2>     <C-O>:NERDTreeFind<CR>
-map  <silent> <LEADER>d  :NERDTreeToggle<CR>
-map  <silent> <LEADER>D  :NERDTreeFind<CR>
+map  <silent> <LEADER>nt :NERDTreeToggle<CR>
+map  <silent> <LEADER>nT :NERDTreeFind<CR>
 
 if has('autocmd')
     autocmd BufEnter * silent! NERDTreeMirror
@@ -668,7 +751,8 @@ let g:netrw_use_errorwindow  = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Gundo
-nmap <F5>    :GundoToggle<CR>
+nmap <silent> <F5>       :GundoToggle<CR>
+map  <silent> <LEADER>u  :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -720,20 +804,21 @@ let vimpager_use_gvim = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " VOom
-noremap <silent> <F6> :exec "VoomToggle " . &ft<CR>
+noremap <silent> <F6>        :exec "VoomToggle " . &ft<CR>
+map     <silent> <LEADER>vo  :exec "VoomToggle " . &ft<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " json
 if has('autocmd')
-  augroup json_autocmd 
-    autocmd! 
-    autocmd FileType json set autoindent 
-    autocmd FileType json set formatoptions=tcq2l 
-    autocmd FileType json set textwidth=78 shiftwidth=2 
-    autocmd FileType json set softtabstop=2 tabstop=8 
-    autocmd FileType json set expandtab 
-    autocmd FileType json set foldmethod=syntax 
+  augroup json_autocmd
+    autocmd!
+    autocmd FileType json set autoindent
+    autocmd FileType json set formatoptions=tcq2l
+    autocmd FileType json set textwidth=78 shiftwidth=2
+    autocmd FileType json set softtabstop=2 tabstop=8
+    autocmd FileType json set expandtab
+    autocmd FileType json set foldmethod=syntax
   augroup END
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -795,7 +880,8 @@ if has('mac')
   let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 endif
 
-nmap <F4> :TlistToggle<CR>
+nmap <silent> <F4>       :TlistToggle<CR>
+nmap <silent> <LEADER>tl :TlistToggle<CR>
 autocmd BufRead  * TlistUpdate
 autocmd BufWrite * TlistUpdate
 autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
@@ -822,7 +908,7 @@ nmap <silent> <LEADER>ar  :AndroidReload<CR>
 nmap <silent> <LEADER>jd  :JavaDocSearch -x declarations<CR>
 nmap <silent> <LEADER>jr  :JavaCorrect<CR>
 nmap <silent> <LEADER>jh  :JavaHierarchy<CR>
-nmap <silent> <LEADER>ji  :JavaImpl<CR>
+nmap <silent> <LEADER>jp  :JavaImpl<CR>
 nmap <silent> <LEADER>jo  :JavaImportOrganize<CR>
 nmap <silent> <LEADER>ji  :JavaFormat<CR>
 
@@ -888,8 +974,8 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Powerline tweak
-" When you’re pressing Escape to leave insert mode in the terminal, it will by default take a second 
-" or another keystroke to leave insert mode completely and update the statusline. The following code 
+" When you’re pressing Escape to leave insert mode in the terminal, it will by default take a second
+" or another keystroke to leave insert mode completely and update the statusline. The following code
 " avoids this behavior and exits the insert mode immediately
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if ! has('gui_running')
@@ -906,4 +992,3 @@ if has('python')
 endif
 
 let g:powerline_config_path = expand("~/.vim/extras/powerline-settings/")
-
