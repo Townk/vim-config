@@ -207,7 +207,9 @@ nnoremap <silent>        <LEADER>bl  :b#<CR>g`"
 
 " Explore remote files
 nnoremap <silent>        <LEADER>rf  :ExploreRemote<CR>
-nnoremap <silent>        <LEADER>rn  :ExploreRemote!<CR>
+nnoremap <silent>        <LEADER>rF  :ExploreRemote!<CR>
+nnoremap <silent>        <LEADER>rt  :ExploreRemoteToggle<CR>
+nnoremap <silent>        <LEADER>rT  :ExploreRemoteToggle!<CR>
 
 " Help mapping for console vim
 nnoremap <silent>        <LEADER>hw  :exec "help " . expand("<cword>")<CR>
@@ -337,7 +339,7 @@ nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col
                                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Remove trailing whitespace
-nnoremap <silent>        <LEADER>rtw :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
+nnoremap <silent>        <LEADER>rw :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
 
 " Toggle diff
 nnoremap <silent> <Leader>df :call DiffToggle(0)<CR>
@@ -377,6 +379,7 @@ unlet obj_delimiters
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! -bang -nargs=? ExploreRemote call ExploreRemote(<bang>0)
+command! -bang -nargs=? ExploreRemoteToggle call ExploreRemoteToggle(<bang>0)
 
 " command abbreviations
 cabbrev Q q!
@@ -610,11 +613,32 @@ function! ExploreRemote(resetHost)
     let g:remoteHost = input('Remote host: ')
   endif
   if !empty(g:remoteHost)
-    exec 'e scp://' . g:remoteHost . '/'
+    exec '1wincmd w'
+    exec 'silent Vexplore scp://' . g:remoteHost . '/'
+    exec 'vertical resize 31'
   else
     echo 'Canceling remote explore.'
   endif
 endfunction
+
+function! ExploreRemoteToggle(resetHost)
+    if exists('t:expl_buf_num')
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        if expl_win_num != -1
+            let cur_win_nr = winnr()
+            exec expl_win_num . 'wincmd w'
+            close
+            exec cur_win_nr . 'wincmd w'
+            unlet t:expl_buf_num
+        else
+            unlet t:expl_buf_num
+        endif
+    else
+        call ExploreRemote(a:resetHost)
+        let t:expl_buf_num = bufnr('%')
+    endif
+endfunction
+
 
 function! YcmUltiSnipsComplete()
     call UltiSnips_JumpForwards()
@@ -947,6 +971,16 @@ let g:ycm_filetype_blacklist                        = {
                                                       \ 'text' : 1,
                                                       \ 'locate_prompt' : 1,
                                                       \}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NetRW
+let g:netrw_browse_split = 4
+let g:netrw_fastbrowse = 2
+let g:netrw_keepdir = 0
+let g:netrw_liststyle = 3
+let g:netrw_silent = 1
+let g:netrw_special_syntax = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

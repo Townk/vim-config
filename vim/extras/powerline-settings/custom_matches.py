@@ -54,3 +54,7 @@ def git_blame(matcher_info):
     name = matcher_info['buffer'].name
     return name and 'fugitiveblame' in name
 
+def netrw_explorer(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and 'NetrwTreeListing' in name
+

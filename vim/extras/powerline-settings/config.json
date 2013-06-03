@@ -49,7 +49,8 @@
                                 "custom_matches.java_locate_result": "java-locate-results",
                                 "custom_matches.git_commit": "git_commit",
                                 "custom_matches.git_status": "git_status",
-                                "custom_matches.git_blame": "git_blame"
+                                "custom_matches.git_blame": "git_blame",
+                                "custom_matches.netrw_explorer": "netrw_explorer"
 			}
 		},
 		"wm": {

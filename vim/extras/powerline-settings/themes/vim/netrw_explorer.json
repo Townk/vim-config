@@ -1,0 +1,27 @@
+{
+    "segments": {
+        "left": [
+            {
+                "contents": "Remote Explorer", 
+                "draw_hard_divider": true, 
+                "draw_soft_divider": false, 
+                "highlight_group": [
+                    "line_current_symbol", 
+                    "line_current"
+                ], 
+                "type": "string"
+            }
+        ], 
+        "right": [
+            {
+                "draw_hard_divider": false, 
+                "draw_soft_divider": false, 
+                "highlight_group": [
+                    "background"
+                ], 
+                "type": "string", 
+                "width": "auto"
+            }
+        ]
+    }
+}
