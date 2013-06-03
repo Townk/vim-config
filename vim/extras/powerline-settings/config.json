@@ -39,7 +39,7 @@
 				"help": "help",
 				"quickfix": "quickfix",
                                 "custom_matches.selectbuf": "selectbuf",
-                                "custom_matches.taglist": "taglist",
+                                "custom_matches.tagbar": "tagbar",
                                 "custom_matches.fuzyfind": "fuzyfind",
                                 "custom_matches.nerdtree": "nerdtree",
                                 "custom_matches.voom": "voom",

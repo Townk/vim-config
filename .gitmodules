@@ -66,10 +66,6 @@
 [submodule "vim/bundle/peepopen"]
     path = vim/bundle/peepopen
     url = https://github.com/shemerey/vim-peepopen.git
-[submodule "vim/bundle/taglist"]
-    path = vim/bundle/taglist
-    url = https://github.com/vim-scripts/taglist.vim.git
-    ignore = untracked
 [submodule "vim/bundle/togglelist"]
     path = vim/bundle/togglelist
     url = git://github.com/milkypostman/vim-togglelist.git
@@ -86,3 +82,6 @@
     path = vim/bundle/multiple-cursors
     url = git://github.com/terryma/vim-multiple-cursors.git
     ignore = untracked
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git

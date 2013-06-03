@@ -268,9 +268,9 @@ nnoremap <silent>        <D-M-UP>    :cal AlternateFile()<CR>
 
 " Search selected text
 vnoremap                 <LEADER>ss  y/<C-R>"<CR>
-vnoremap                 <LEADER>sa  y:Ack "<C-R>""<CR>
-nnoremap                 <LEADER>sa :exec "Ack " . expand("<cword>")<CR>
-nnoremap                 <LEADER>sA :exec "Ack " . expand("<cWORD>")<CR>
+vnoremap                 <LEADER>sa  y:Ack! "<C-R>""<CR>
+nnoremap                 <LEADER>sa :exec "Ack! " . expand("<cword>")<CR>
+nnoremap                 <LEADER>sA :exec "Ack! " . expand("<cWORD>")<CR>
 
 " Prettify JSON buffer
 nnoremap                 <LEADER>ij  :silent %!python -m json.tool<CR>
@@ -862,29 +862,14 @@ autocmd User        fugitive      if fugitive#buffer().type() =~# '^\%(tree\|blo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Taglist
-let g:Tlist_Exit_OnlyWindow         = 1
-let g:Tlist_Auto_Highlight_Tag      = 1
-let g:Tlist_Auto_Update             = 1
-let g:Tlist_Close_On_Select         = 1
-let g:Tlist_GainFocus_On_ToggleOpen = 1
-let g:Tlist_Use_Right_Window        = 1
-let g:Tlist_Compact_Format          = 1
-let g:Tlist_Display_Prototype       = 0
-let g:Tlist_Display_Tag_Scope       = 0
-let g:Tlist_Enable_Fold_Column      = 0
-let g:Tlist_Process_File_Always     = 1
-let g:Tlist_Show_One_File           = 1
-let g:Tlist_Sort_Type               = 1
-if has('mac')
-  let g:Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-endif
+" Tagbar
+nnoremap <silent> <F4>        :TagbarToggle<CR>
+nnoremap <silent> <LEADER>tb  :TagbarToggle<CR>
 
-nnoremap <silent> <F4>       :TlistToggle<CR>
-nnoremap <silent> <LEADER>tl :TlistToggle<CR>
-autocmd BufRead  * TlistUpdate
-autocmd BufWrite * TlistUpdate
-autocmd BufWinEnter __Tag_List__ let &l:statusline=' '
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 0
+let g:tagbar_autoshowtag = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""

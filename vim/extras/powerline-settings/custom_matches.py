@@ -14,9 +14,9 @@ def fuzyfind(matcher_info):
     name = matcher_info['buffer'].name
     return name and os.path.basename(name) == '[fuf]'
 
-def taglist(matcher_info):
+def tagbar(matcher_info):
     name = matcher_info['buffer'].name
-    return name and os.path.basename(name) == '__Tag_List__'
+    return name and os.path.basename(name) == '__Tagbar__'
 
 def nerdtree(matcher_info):
     name = matcher_info['buffer'].name
