@@ -2,18 +2,6 @@
     "segments": {
         "left": [
             {
-                "contents": "File Explorer", 
-                "draw_hard_divider": true, 
-                "draw_soft_divider": false, 
-                "highlight_group": [
-                    "line_current_symbol", 
-                    "line_current"
-                ], 
-                "type": "string"
-            }
-        ], 
-        "right": [
-            {
                 "draw_hard_divider": false, 
                 "draw_soft_divider": false, 
                 "highlight_group": [
@@ -21,6 +9,18 @@
                 ], 
                 "type": "string", 
                 "width": "auto"
+            }
+        ], 
+        "right": [
+            {
+                "contents": "Status", 
+                "draw_hard_divider": true, 
+                "draw_soft_divider": false, 
+                "highlight_group": [
+                    "line_current_symbol", 
+                    "line_current"
+                ], 
+                "type": "string"
             }
         ]
     }

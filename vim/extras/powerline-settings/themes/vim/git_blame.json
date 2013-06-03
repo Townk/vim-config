@@ -2,7 +2,7 @@
     "segments": {
         "left": [
             {
-                "contents": "File Explorer", 
+                "contents": "Blame", 
                 "draw_hard_divider": true, 
                 "draw_soft_divider": false, 
                 "highlight_group": [

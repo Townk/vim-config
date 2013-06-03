@@ -34,3 +34,23 @@ def gundo_preview(matcher_info):
     name = matcher_info['buffer'].name
     return name and os.path.basename(name) == '__Gundo_Preview__'
 
+def java_locate(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and os.path.basename(name) == '[Locate in workspace]'
+
+def java_locate_result(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and os.path.basename(name) == '[Locate Results]'
+
+def git_status(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and '.git/index' in name
+
+def git_commit(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and os.path.basename(name) == 'COMMIT_EDITMSG'
+
+def git_blame(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and 'fugitiveblame' in name
+
