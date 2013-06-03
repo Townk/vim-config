@@ -271,6 +271,9 @@ vnoremap                 <LEADER>ss  y/<C-R>"<CR>
 vnoremap                 <LEADER>sa  y:Ack! "<C-R>""<CR>
 nnoremap                 <LEADER>sa :exec "Ack! " . expand("<cword>")<CR>
 nnoremap                 <LEADER>sA :exec "Ack! " . expand("<cWORD>")<CR>
+vnoremap                 <LEADER>sg  y:silent Ggrep! "<C-R>""<CR>:copen<CR>
+nnoremap                 <LEADER>sg :exec "silent Ggrep! " . expand("<cword>")<CR>:copen<CR>
+nnoremap                 <LEADER>sG :exec "silent Ggrep! " . expand("<cWORD>")<CR>:copen<CR>
 
 " Prettify JSON buffer
 nnoremap                 <LEADER>ij  :silent %!python -m json.tool<CR>
