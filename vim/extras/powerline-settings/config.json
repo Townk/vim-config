@@ -47,6 +47,7 @@
                                 "custom_matches.gundo_preview": "gundo_preview",
                                 "custom_matches.java_locate": "java-locate",
                                 "custom_matches.java_locate_result": "java-locate-results",
+                                "custom_matches.java_project_tree": "java-project-tree",
                                 "custom_matches.git_commit": "git_commit",
                                 "custom_matches.git_status": "git_status",
                                 "custom_matches.git_blame": "git_blame",

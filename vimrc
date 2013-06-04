@@ -339,7 +339,7 @@ nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col
                                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Remove trailing whitespace
-nnoremap <silent>        <LEADER>rw :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
+nnoremap <silent>        <LEADER>rs :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
 
 " Toggle diff
 nnoremap <silent> <Leader>df :call DiffToggle(0)<CR>
@@ -905,6 +905,11 @@ let g:EclimJavaSearchSingleResult  = 'edit'
 let g:EclimLocateFileScope         = 'workspace'
 let g:EclimLocateFileDefaultAction = 'edit'
 let g:EclimCompletionMethod        = 'omnifunc'
+let g:EclimProjectTreeActions = [
+            \ {'pattern': '.*', 'name': 'Edit', 'action': 'edit'},
+            \ {'pattern': '.*', 'name': 'Split', 'action': 'split'},
+            \ {'pattern': '.*', 'name': 'Tab', 'action': 'tabnew'},
+            \ ]
 
 " Extra commands
 command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.com/search?q=<query>', <q-args>, <line1>, <line2>)

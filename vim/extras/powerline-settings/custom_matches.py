@@ -42,6 +42,10 @@ def java_locate_result(matcher_info):
     name = matcher_info['buffer'].name
     return name and os.path.basename(name) == '[Locate Results]'
 
+def java_project_tree(matcher_info):
+    name = matcher_info['buffer'].name
+    return name and 'ProjectTree' in name
+
 def git_status(matcher_info):
     name = matcher_info['buffer'].name
     return name and '.git/index' in name
