@@ -8,9 +8,6 @@
     path = vim/libs/l9
     url = https://github.com/git-mirror/vim-l9.git
     ignore = untracked
-[submodule "vim/bundle/ack"]
-    path = vim/bundle/ack
-    url = https://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/fugitive"]
     path = vim/bundle/fugitive
     url = https://github.com/tpope/vim-fugitive.git
@@ -85,3 +82,10 @@
 [submodule "vim/bundle/tagbar"]
 	path = vim/bundle/tagbar
 	url = git://github.com/majutsushi/tagbar.git
+[submodule "vim/libs/funcoo"]
+	path = vim/libs/funcoo
+	url = git://github.com/rizzatti/funcoo.vim.git
+[submodule "vim/bundle/greper"]
+	path = vim/bundle/greper
+	url = git://github.com/rizzatti/greper.vim.git
+    ignore = untracked
