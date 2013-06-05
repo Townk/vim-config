@@ -860,7 +860,7 @@ noremap <silent> <LEADER>pt :Helptags<CR>:echo "Help tags updated for Pathogen b
 if has('autocmd')
   autocmd BufEnter * :Rooter
 endif
-let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt' ] " I only want Rooter to change my directory for make/ant based projects
+let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt', 'Android.mk' ] " I only want Rooter to change my directory for make/ant based projects
 let g:rooter_use_lcd  = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
