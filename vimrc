@@ -614,7 +614,7 @@ function! ExploreRemote(resetHost)
   endif
   if !empty(g:remoteHost)
     exec '1wincmd w'
-    exec 'silent Vexplore scp://' . g:remoteHost . '/'
+    exec 'Vexplore ftp://' . g:remoteHost . '/'
     exec 'vertical resize 31'
   else
     echo 'Canceling remote explore.'
@@ -852,7 +852,7 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pathogen
-noremap <silent> <LEADER>pt :Helptags<CR>:echo "Help tags updated for Pathogen bundles"<CR>
+noremap <silent> <LEADER>hi :Helptags<CR>:echo "Help tags updated for Pathogen bundles"<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -936,6 +936,7 @@ nnoremap <silent> <LEADER>pra :ProjectRefreshAll<CR>
 nnoremap <silent> <LEADER>pi  :ProjectInfo<CR>
 nnoremap <silent> <LEADER>pp  :ProjectProblems<CR>
 nnoremap <silent> <LEADER>pn  :ProjectsTree<CR>
+nnoremap <silent> <LEADER>pt  :ProjectTreeToggle<CR>
 nnoremap <silent> <LEADER>pd  :ProjectTodo<CR>
 
 " Eclim helpers
