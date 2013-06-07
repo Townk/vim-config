@@ -66,9 +66,6 @@
 [submodule "vim/bundle/togglelist"]
     path = vim/bundle/togglelist
     url = git://github.com/milkypostman/vim-togglelist.git
-[submodule "vim/bundle/youcompleteme"]
-    path = vim/bundle/youcompleteme
-    url = git://github.com/Valloric/YouCompleteMe.git
 [submodule "vim/bundle/easymotion"]
     path = vim/bundle/easymotion
     url = git://github.com/Lokaltog/vim-easymotion.git
@@ -89,3 +86,6 @@
 	path = vim/bundle/greper
 	url = git://github.com/rizzatti/greper.vim.git
     ignore = untracked
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = git://github.com/ervandew/supertab.git

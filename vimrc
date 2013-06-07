@@ -445,15 +445,6 @@ if has('autocmd')
   " Mercurial commits.
   autocmd FileType            asciidoc       setlocal spell
 
-  " YouCompleteMe and UltiSnips integration
-  " We need to have this mapping happening after s:SetupKeys from YCM is called and
-  " the only place is when user starts editing. To not keep mapping this everytime
-  " user enters in insert mode, we simply remove the autocommand once the mapping
-  " happened.
-  augroup YCM_UltiSnips
-    autocmd! InsertEnter        *              exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=YcmUltiSnipsComplete()<CR>" | autocmd! YCM_UltiSnips InsertEnter
-  augroup END
-
   " Make sure that if we do any change on .vimrc or .gvimrc it gets reloaded automagically
   augroup reload_vimrc
       autocmd!
@@ -639,21 +630,6 @@ function! ExploreRemoteToggle(resetHost)
     endif
 endfunction
 
-
-function! YcmUltiSnipsComplete()
-    call UltiSnips_JumpForwards()
-    if g:ulti_jump_forwards_res == 0
-        call UltiSnips_ExpandSnippet()
-        if g:ulti_expand_res == 0
-            if pumvisible()
-                return "\<C-n>"
-            else
-                return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
 
 " Define a function called DiffToggle.
 " The ! overwrites any existing definition by this name.
@@ -916,7 +892,7 @@ command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.c
 command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
 
 " Autocommands
-autocmd BufRead  *.java nnoremap <C-]> :JavaSearchContext<CR>
+autocmd BufRead  *.java nnoremap <buffer> <C-]> :JavaSearchContext<CR>
 
 " Android mappings
 nnoremap <silent> <LEADER>ar  :AndroidReload<CR>
@@ -966,20 +942,6 @@ nnoremap <silent> <LEADER>lt :call ToggleLocationList()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" YouCompleteMe
-let g:ycm_filepath_completion_use_working_dir       = 1
-let g:ycm_register_as_syntastic_checker             = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion  = 1
-let g:ycm_filetype_blacklist                        = {
-                                                      \ 'notes' : 1,
-                                                      \ 'markdown' : 1,
-                                                      \ 'text' : 1,
-                                                      \ 'locate_prompt' : 1,
-                                                      \}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NetRW
 let g:netrw_browse_split = 4
 let g:netrw_fastbrowse = 2
@@ -989,6 +951,14 @@ let g:netrw_silent = 1
 let g:netrw_special_syntax = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SuperTab
+let g:SuperTabDefaultCompletionType        = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-i>"
+let g:SuperTabLongestEnhanced              = 1
+let g:SuperTabLongestHighlight             = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Virtualenv Helper
