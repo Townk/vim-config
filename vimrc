@@ -769,19 +769,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Peepopen
-if has("gui_macvim")
-  if mapcheck('<LEADER>t', 'n')
-    nunmap <LEADER>t
-  endif
-  nnoremap <silent> <LEADER>t <Plug>PeepOpen
-  let g:peepopen_quit = 1
-else
-  let g:peepopen_loaded = 1
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "UltiSnips
 let g:UltiSnipsUsePythonVersion    = 2   " or 3
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -803,12 +790,6 @@ noremap <silent> <Plug>SelBufQuitKey <ESC>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vimpager
 let vimpager_use_gvim = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VOom
-noremap <silent> <F6>        :exec "VoomToggle " . &ft<CR>
-map     <silent> <LEADER>vo  :exec "VoomToggle " . &ft<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""

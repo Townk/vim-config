@@ -37,10 +37,6 @@
 [submodule "vim/bundle/markdown"]
     path = vim/bundle/markdown
     url = https://github.com/tpope/vim-markdown.git
-[submodule "vim/bundle/voom"]
-    path = vim/bundle/voom
-    url = https://github.com/vim-scripts/VOoM.git
-    ignore = untracked
 [submodule "vim/bundle/rooter"]
     path = vim/bundle/rooter
     url = https://github.com/airblade/vim-rooter.git
@@ -57,12 +53,6 @@
     path = vim/bundle/align
     url = https://github.com/vim-scripts/Align.git
     ignore = untracked
-[submodule "vim/bundle/colors-solarized"]
-    path = vim/bundle/colors-solarized
-    url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "vim/bundle/peepopen"]
-    path = vim/bundle/peepopen
-    url = https://github.com/shemerey/vim-peepopen.git
 [submodule "vim/bundle/togglelist"]
     path = vim/bundle/togglelist
     url = git://github.com/milkypostman/vim-togglelist.git
