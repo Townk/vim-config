@@ -198,7 +198,6 @@ endif
 
 " edit my dot vim files
 nnoremap <silent>        <LEADER>ev  :e $MYVIMRC<CR>
-nnoremap <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
 
 " maps for navigation in normal mode on console
 nnoremap <silent>        <LEADER>bn  :bnext<CR>g`"
@@ -288,6 +287,12 @@ nnoremap <silent>        ]q          :cnext<CR>
 nnoremap <silent>        [Q          :cfirst<CR>
 nnoremap <silent>        ]Q          :clast<CR>
 
+" Location list navigation
+nnoremap <silent>        [l          :lprevious<CR>
+nnoremap <silent>        ]l          :lnext<CR>
+nnoremap <silent>        [L          :lfirst<CR>
+nnoremap <silent>        ]L          :llast<CR>
+
 " Horizontaly scroll
 nnoremap <silent>        <C-H>       zH
 nnoremap <silent>        <C-L>       zL
@@ -344,6 +349,9 @@ nnoremap <silent>        <LEADER>rs :%s/\s\+$//e<CR>:echo "Trailing whitespace r
 " Toggle diff
 nnoremap <silent> <Leader>df :call DiffToggle(0)<CR>
 nnoremap <silent> <Leader>dF :call DiffToggle(1)<CR>
+
+" Helper to keep the yank register when you paste a text on a selected one
+xnoremap          p          pgvy
 
 " Extending vim objects
 let obj_delimiters = { '`'    : '`',

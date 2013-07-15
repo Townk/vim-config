@@ -28,6 +28,9 @@ else
   set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 
+" We only map this if we're in GUI mode
+nnoremap <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
+
 " Since we use the same colorscheme for terminal and gui vim, there is no need to re-define it here.
 " I'll let the line comment though as documentation of how change your theme for gui vim
 "colorscheme townklight " back to the dark background!
