@@ -49,10 +49,6 @@
 [submodule "vim/bundle/qt"]
     path = vim/bundle/qt
     url = https://github.com/Townk/vim-qt.git
-[submodule "vim/bundle/align"]
-    path = vim/bundle/align
-    url = https://github.com/vim-scripts/Align.git
-    ignore = untracked
 [submodule "vim/bundle/togglelist"]
     path = vim/bundle/togglelist
     url = git://github.com/milkypostman/vim-togglelist.git
