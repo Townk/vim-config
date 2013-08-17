@@ -71,3 +71,24 @@
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
+[submodule "vim/bundle/easy-align"]
+	path = vim/bundle/easy-align
+	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "vim/libs/vimproc"]
+	path = vim/libs/vimproc
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "vim/bundle/unite"]
+	path = vim/bundle/unite
+	url = https://github.com/Shougo/unite.vim.git
+[submodule "vim/bundle/unite-outline"]
+	path = vim/bundle/unite-outline
+	url = https://github.com/Shougo/unite-outline.git
+[submodule "vim/bundle/unite-help"]
+	path = vim/bundle/unite-help
+	url = https://github.com/tsukkee/unite-help.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/characterize"]
+	path = vim/bundle/characterize
+	url = https://github.com/tpope/vim-characterize.git

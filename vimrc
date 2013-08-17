@@ -397,7 +397,6 @@ cabbrev Q q!
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if has('autocmd')
   " Actions taken to every buffer
   autocmd! BufEnter           *              :syntax sync fromstart " ensure every file does syntax highlighting (full)
@@ -677,57 +676,6 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" AutoHighlight
-"nmap <silent> <C-F10>     :AutoHighlightToggle<CR>
-"imap <silent> <C-F10>     <C-O>:AutoHighlightToggle<CR>
-"map  <silent> <LEADER>ah  :AutoHighlightToggle<CR>
-"let g:AutoHighlightInitialStatus=0
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FuzzyFinder
-let g:fuf_file_exclude         = '\v\~$|\.(o|exe|dll|bak|orig|swp|class|DS_Store|png|jpe?g|gif|elc|rbc|pyc|psd|ai|pdf|mov|aep|dmg|zip|gz|ttf|jar|so|apk|a|ap_|ap_\.d)$|(^|[/\\])\.(hg|git|bzr|svn)($|[/\\])'
-let g:fuf_coveragefile_exclude = '\v\~$|\.(o|exe|dll|bak|orig|swp|class|DS_Store|png|jpe?g|gif|elc|rbc|pyc|psd|ai|pdf|mov|aep|dmg|zip|gz|ttf|jar|so|apk|a|ap_|ap_\.d)$|(^|[/\\])\.(hg|git|bzr|svn)($|[/\\])'
-let g:fuf_dir_exclude          = '\v(^|[/\\])(\.(hg|git|bzr|svn|sass-cache))|(build|tmp|log|vendor\/(rails|gems|plugins))($|[/\\])'
-let g:fuf_modesDisable         = []
-let g:fuf_buffer_prompt        = 'Buffer[]>'
-let g:fuf_file_prompt          = 'File[]>'
-let g:fuf_coveragefile_prompt  = 'File[]>'
-let g:fuf_dir_prompt           = 'Directory[]>'
-let g:fuf_mrufile_prompt       = 'Recent open file[]>'
-let g:fuf_mrucmd_prompt        = 'Command[]>'
-let g:fuf_bookmark_prompt      = 'Bookmark[]>'
-let g:fuf_tag_prompt           = 'Tag[]>'
-let g:fuf_taggedfile_prompt    = 'Tagged file[]>'
-let g:fuf_jumplist_prompt      = 'Jump list[]>'
-let g:fuf_changelist_prompt    = 'Change list[]>'
-let g:fuf_quickfix_prompt      = 'Quickfix[]>'
-let g:fuf_line_prompt          = 'Line[]>'
-let g:fuf_help_prompt          = 'Help[]>'
-
-nnoremap <silent> <LEADER>fb  :FufBuffer<CR>
-nnoremap <silent> <LEADER>ff  :FufFile<CR>
-nnoremap <silent> <LEADER>fi  :FufCoverageFile<CR>
-nnoremap <silent> <LEADER>fd  :FufDir<CR>
-nnoremap <silent> <LEADER>fr  :FufMruFile<CR>
-nnoremap <silent> <LEADER>fc  :FufMruCmd<CR>
-nnoremap <silent> <LEADER>fk  :FufBookmark<CR>
-nnoremap <silent> <LEADER>ft  :FufTag<CR>
-nnoremap <silent> <LEADER>fe  :FufTaggedFile<CR>
-nnoremap <silent> <LEADER>fj  :FufJumpList<CR>
-nnoremap <silent> <LEADER>fg  :FufChangeList<CR>
-nnoremap <silent> <LEADER>fq  :FufQuickfix<CR>
-nnoremap <silent> <LEADER>fl  :FufLine<CR>
-nnoremap <silent> <LEADER>fh  :FufHelp<CR>
-
-nnoremap <silent> <LEADER>fiw :FufTagWithCursorWord!<CR>
-nnoremap <silent> <LEADER>fab :FufAddBookmark<CR>
-vnoremap <silent> <LEADER>fas :FufAddBookmarkAsSelectedText<CR>
-nnoremap <silent> <LEADER>fwf :FufFileWithCurrentBufferDir<CR>
-nnoremap <silent> <LEADER>fwd :FufDirWithCurrentBufferDir<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 nnoremap <silent> <F2>       :NERDTreeToggle<CR>
 inoremap <silent> <F2>       <C-O>:NERDTreeToggle<CR>
@@ -737,7 +685,7 @@ nnoremap <silent> <LEADER>nt :NERDTreeToggle<CR>
 nnoremap <silent> <LEADER>nT :NERDTreeFind<CR>
 
 if has('autocmd')
-    autocmd BufEnter * silent! NERDTreeMirror
+    autocmd BufEnter * if exists(':NERDTreeMirror') | silent! NERDTreeMirror | endif
 endif
 
 let g:NERDTreeQuitOnOpen  = 1
@@ -745,25 +693,6 @@ let g:NERDTreeDirArrows   = 1
 let g:NERDTreeStatusline  = "  "
 let g:NERDTreeMinimalUI   = 1
 let g:NERDTreeHijackNetrw = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" netrw
-if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-  " uses PuTTY on windows
-  let g:netrw_scp_cmd  = 'pscp -q -batch'
-  let g:netrw_sftp_cmd = 'psftp'
-  let g:netrw_cygwin   = 0
-endif
-
-let g:netrw_browse_split     = 4
-let g:netrw_altv             = 1
-let g:netrw_winsize          = 26
-let g:netrw_silent           = 1
-let g:netrw_special_syntax   = 1
-let g:netrw_fastbrowse       = 2
-let g:netrw_menu             = 0
-let g:netrw_use_errorwindow  = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -883,6 +812,15 @@ let g:EclimProjectTreeActions = [
             \ {'pattern': '.*', 'name': 'Tab', 'action': 'tabnew'},
             \ ]
 
+function! EclimCustomStatusline()
+    let eclim_status = ''
+    let eclim_proj = eclim#project#util#GetProject(expand('%:p'))
+    if !empty(eclim_proj) && has_key(eclim_proj, "name")
+        let eclim_status = '⚙ ' . eclim_proj['name']
+    endif
+    return eclim_status
+endfunction
+
 " Extra commands
 command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.com/search?q=<query>', <q-args>, <line1>, <line2>)
 command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
@@ -906,7 +844,7 @@ nnoremap <silent> <LEADER>td  :Todo<CR>
 nnoremap <silent> <LEADER>pr  :ProjectRefresh<CR>
 nnoremap <silent> <LEADER>pra :ProjectRefreshAll<CR>
 nnoremap <silent> <LEADER>pi  :ProjectInfo<CR>
-nnoremap <silent> <LEADER>pp  :ProjectProblems<CR>
+nnoremap <silent> <LEADER>pp  :ProjectProblems!<CR>
 nnoremap <silent> <LEADER>pn  :ProjectsTree<CR>
 nnoremap <silent> <LEADER>pt  :ProjectTreeToggle<CR>
 nnoremap <silent> <LEADER>pd  :ProjectTodo<CR>
@@ -944,6 +882,17 @@ let g:netrw_keepdir = 0
 let g:netrw_liststyle = 3
 let g:netrw_silent = 1
 let g:netrw_special_syntax = 1
+let g:netrw_altv             = 1
+let g:netrw_winsize          = 26
+let g:netrw_menu             = 0
+let g:netrw_use_errorwindow  = 0
+
+if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
+  " uses PuTTY on windows
+  let g:netrw_scp_cmd  = 'pscp -q -batch'
+  let g:netrw_sftp_cmd = 'psftp'
+  let g:netrw_cygwin   = 0
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -952,14 +901,96 @@ let g:SuperTabDefaultCompletionType        = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-i>"
 let g:SuperTabLongestEnhanced              = 1
 let g:SuperTabLongestHighlight             = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>ff :<C-u>Unite -buffer-name=files      file_rec/async:!<cr>
+nnoremap <leader>fl :<C-u>Unite -buffer-name=files      file<cr>
+nnoremap <leader>fr :<C-u>Unite -buffer-name=mru        file_mru<cr>
+nnoremap <leader>fo :<C-u>Unite -buffer-name=outline    outline<cr>
+nnoremap <leader>fh :<C-u>Unite -buffer-name=help       help<cr>
+nnoremap <leader>fb :<C-u>Unite -buffer-name=buffer     -no-start-insert buffer<cr>
+nnoremap <leader>fy :<C-u>Unite -buffer-name=yank       -no-start-insert history/yank<cr>
+
+" Start insert.
+let g:unite_enable_start_insert = 1
+let g:unite_enable_short_source_names = 1
+
+" To track long mru history.
+let g:unite_source_file_mru_long_limit = 3000
+let g:unite_source_directory_mru_long_limit = 3000
+
+" Like ctrlp.vim settings.
+let g:unite_enable_start_insert = 1
+let g:unite_winheight = 10
+"let g:unite_split_rule = 'botright'
+
+" Prompt choices.
+"let g:unite_prompt = '❫ '
+let g:unite_prompt = '> '
+
+function! s:unite_my_settings()
+  " Overwrite settings.
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+
+  imap     <silent><buffer>       <ESC>     <Plug>(unite_exit)
+  imap     <silent><buffer>       <C-j>     <Plug>(unite_select_next_line)
+  imap     <silent><buffer>       <C-k>     <Plug>(unite_select_previous_line)
+  imap     <silent><buffer>       jj        <Plug>(unite_insert_leave)
+  "imap     <silent><buffer><expr> j         unite#smart_map('j', '')
+  imap     <silent><buffer>       <TAB>     <Plug>(unite_select_next_line)
+  imap     <silent><buffer>       <S-TAB>   <Plug>(unite_select_previous_line)
+  imap     <silent><buffer>       <C-w>     <Plug>(unite_delete_backward_path)
+  imap     <silent><buffer>       '         <Plug>(unite_quick_match_default_action)
+  imap     <silent><buffer>       "         <Plug>(unite_quick_match_choose_action)
+  imap     <silent><buffer>       <C-y>     <Plug>(unite_narrowing_path)
+  imap     <silent><buffer>       <C-r>     <Plug>(unite_narrowing_input_history)
+
+  nmap     <silent><buffer>       <ESC>     <Plug>(unite_exit)
+  nmap     <silent><buffer>       '         <Plug>(unite_quick_match_default_action)
+  nmap     <silent><buffer>       "         <Plug>(unite_quick_match_choose_action)
+  nmap     <silent><buffer>       <C-y>     <Plug>(unite_narrowing_path)
+  nmap     <silent><buffer>       <C-r>     <Plug>(unite_narrowing_input_history)
+  nnoremap <silent><buffer><expr> l         unite#smart_map('l', unite#do_action('default'))
+
+  let unite = unite#get_current_unite()
+  if unite.buffer_name =~# '^search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+  else
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+  endif
+
+  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+          \ empty(unite#mappings#get_current_filters()) ?
+          \ ['sorter_reverse'] : [])
+
+  " Runs "split" action by <C-s>.
+  imap <silent><buffer><expr> <C-s>     unite#do_action('split')
+endfunction
+autocmd FileType unite call s:unite_my_settings()
+
+let g:unite_source_file_mru_limit = 200
+
+" For optimize.
+let g:unite_source_file_mru_filename_format = ''
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyAlign
+vnoremap <silent> <Enter> :EasyAlign<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Virtualenv Helper
 "     If I do have a virtualenv active, give it a chance to load its own .vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if filereadable($VIRTUAL_ENV . '/.vimrc')
   source $VIRTUAL_ENV/.vimrc
 endif
