@@ -30,13 +30,3 @@ endif
 
 " We only map this if we're in GUI mode
 nnoremap <silent>        <LEADER>eg  :e $MYGVIMRC<CR>
-
-" Since we use the same colorscheme for terminal and gui vim, there is no need to re-define it here.
-" I'll let the line comment though as documentation of how change your theme for gui vim
-"colorscheme townklight " back to the dark background!
-
-" If we decide to use a different colorscheme from terminal, we need to redefine the annoyingspace 
-" highlight. This is needed because the different colorscheme ususally clean up all syntax before 
-" start changing its colors.
-"autocmd BufNewFile,BufRead * syntax match annoyingspace '^\(\t\+ \| \+\t\)\|[\t ]\+$' | highlight annoyingspace ctermbg=red guibg=red
-
