@@ -179,7 +179,7 @@ set shiftwidth=4 " unify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldenable  " Turn on folding
 
-set foldmethod=syntax " Make folding indent sensitive
+"set foldmethod=syntax " Make folding indent sensitive
 set foldlevel=100 " Don't auto fold anything (but I can still fold manually)
 set foldopen-=search " don't open folds when you search into them
 set foldopen-=undo " don't open folds when you undo stuff
@@ -209,6 +209,7 @@ nnoremap <silent>        <LEADER>rf  :ExploreRemote<CR>
 nnoremap <silent>        <LEADER>rF  :ExploreRemote!<CR>
 nnoremap <silent>        <LEADER>rt  :ExploreRemoteToggle<CR>
 nnoremap <silent>        <LEADER>rT  :ExploreRemoteToggle!<CR>
+nnoremap <silent>        <LEADER>ro  :set ro!<CR>
 
 " Help mapping for console vim
 nnoremap <silent>        <LEADER>hw  :exec "help " . expand("<cword>")<CR>
@@ -259,10 +260,6 @@ nnoremap <silent>        <LEADER>lw  :set wrap!<CR>:echo &wrap==0?"Wrap lines on
 " Toggle SHOW SPECIAL CHARS
 nnoremap <silent>        <LEADER>sc  :set nolist!<CR>
 
-" On visual mode, <Tab> and <Shift><Tab> indent and unindent block
-xnoremap <silent>        <Tab>       >gv
-xnoremap <silent>        <S-Tab>     <gv
-
 " Alternate header with implementation files
 nnoremap <silent>        <LEADER>A   :cal AlternateFile()<CR>
 nnoremap <silent>        <D-M-UP>    :cal AlternateFile()<CR>
@@ -296,8 +293,12 @@ nnoremap <silent>        [L          :lfirst<CR>
 nnoremap <silent>        ]L          :llast<CR>
 
 " Horizontaly scroll
-nnoremap <silent>        <C-H>       zH
-nnoremap <silent>        <C-L>       zL
+nnoremap <silent>        <C-H>       z20h
+nnoremap <silent>        <C-L>       z20l
+
+" Toggle folds
+nnoremap <silent>        <Space>     za
+vnoremap <silent>        <Space>     zf
 
 " Map ",dt" to be a toggle between doxygen syntax On and Off
 nnoremap <silent>        <LEADER>xt  :exec &syntax=~".doxygen$" ?
@@ -325,20 +326,14 @@ nnoremap <silent> <expr> <Home>      strpart(getline(line('.')), 0, col('.')-1) 
                                        \ strpart(getline(line('.')), col('.')-1, 1) =~ '\s' ? "^" : "0"
 
 " Move lines Up and Down and, if needed, indent them again
+" Notice that using move doesn't cut the line, therefore our yank register keeps
+" intact.
 " Up
-nnoremap <silent>        <C-K>       :let _tmp_offset=col('.')-match(getline('.'), "\\S")<CR>
-                                       \:move -2<CR>
-                                       \=
-                                       \:execute "normal " . (match(getline('.'), "\\S")+_tmp_offset < 0 ? 1: match(getline('.'), "\\S")+_tmp_offset) . "\|"<CR>
-                                       \:unlet _tmp_offset<CR>
-vnoremap <silent>        <C-K>       :m'<-2<CR>gv=gv
+nnoremap <silent>        <C-K>       :move .-2<CR>==
+vnoremap <silent>        <C-K>       :move '<-2<CR>gv=gv
 " Down
-nnoremap <silent>        <C-J>       :let _tmp_offset=col('.')-match(getline('.'), "\\S")<CR>
-                                       \:move +<CR>
-                                       \==
-                                       \:execute "normal " . (match(getline('.'), "\\S")+_tmp_offset < 0 ? 1: match(getline('.'), "\\S")+_tmp_offset) . "\|"<CR>
-                                       \:unlet _tmp_offset<CR>
-vnoremap <silent>        <C-J>       :m'>+<CR>gv=gv
+nnoremap <silent>        <C-J>       :move .+1<CR>==
+vnoremap <silent>        <C-J>       :move '>+1<CR>gv=gv
 
 " Dev helper mapping to show syntex region under cursor
 nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -364,8 +359,6 @@ let obj_delimiters = { '`'    : '`',
 for [ firstDelim, secondDelim ] in items(obj_delimiters)
     exec "nnoremap ci" . firstDelim . " T" . firstDelim . "ct" . secondDelim
     exec "nnoremap ca" . firstDelim . " F" . firstDelim . "cf" . secondDelim
-    exec "nnoremap vi" . firstDelim . " T" . firstDelim . "vt" . secondDelim
-    exec "nnoremap va" . firstDelim . " F" . firstDelim . "vf" . secondDelim
     exec "nnoremap di" . firstDelim . " T" . firstDelim . "dt" . secondDelim
     exec "nnoremap da" . firstDelim . " F" . firstDelim . "df" . secondDelim
     exec "nnoremap yi" . firstDelim . " T" . firstDelim . "yt" . secondDelim
@@ -378,6 +371,8 @@ for [ firstDelim, secondDelim ] in items(obj_delimiters)
     exec "nnoremap gua" . firstDelim . " F" . firstDelim . "guf" . secondDelim
     exec "nnoremap g?i" . firstDelim . " T" . firstDelim . "g?t" . secondDelim
     exec "nnoremap g?a" . firstDelim . " F" . firstDelim . "g?f" . secondDelim
+    exec "vnoremap i" . firstDelim . " T" . firstDelim . "ot" . secondDelim
+    exec "vnoremap a" . firstDelim . " F" . firstDelim . "of" . secondDelim
 endfor
 unlet obj_delimiters
 
@@ -393,6 +388,8 @@ command! -bang -nargs=? ExploreRemoteToggle call ExploreRemoteToggle(<bang>0)
 
 " command abbreviations
 cabbrev Q q!
+cabbrev Bw bw
+cabbrev W w
 
 
 
@@ -562,7 +559,7 @@ endfunction
 " Switch from header file to implementation file (and vice versa).
 function! AlternateFile()
   let path = expand('%:p:r').'.'
-  let header_extensions = ['h', 'hh', 'H', 'HH', 'hxx', 'HXX']
+  let header_extensions = ['h', 'hh', 'H', 'HH', 'hxx', 'HXX', 'hpp', 'HPP']
   let impl_extensions = ['m', 'mm', 'c', 'cpp', 'C', 'CC']
   let is_header = (count(header_extensions, expand('%:e')) > 0)
 
