@@ -146,7 +146,7 @@ set scrolloff=2 " Keep 2 (top/bottom) for scope
 set laststatus=2 " always show the status line
 set showtabline=1 " Only show tabs if a tab is present
 set tabpagemax=500 " maximum number of tab pages to be opened by the -p command line argument or the
-                      " :tab all" command. (default 10)
+                   " :tab all" command. (default 10)
 
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{fugitive#statusline()}\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%P]\ %)
@@ -162,7 +162,7 @@ set cindent " do c-style indenting
 set expandtab " replace tabs with space
 set nowrap " do not wrap lines
 
-set tw=100 " How long a comment should be before Vim automatically wraps the line
+set tw=80 " How long a comment should be before Vim automatically wraps the line
 set fo=croqwanl2 " complex (type :he fo-table)
 set cinoptions=>1s,e0,n0,:1s,=1s,l1,b0,g0,h1s,(s,W2,m1,j1,p0,t0
 set cinwords+=try,catch
@@ -269,12 +269,14 @@ nnoremap <silent>        <D-M-UP>    :cal AlternateFile()<CR>
 
 " Search selected text
 vnoremap                 <LEADER>ss  y/<C-R>"<CR>
+" use the best 'grep' too available: ag -> ack -> grep
 vnoremap                 <LEADER>sa  y:G! "<C-R>""<CR>
 nnoremap <silent>        <LEADER>sa <Plug>GreperBangWord
 nnoremap <silent>        <LEADER>sA <Plug>GreperBangWORD
-vnoremap                 <LEADER>sg  y:silent Ggrep! "<C-R>""<CR>:copen<CR>
-nnoremap                 <LEADER>sg :exec "silent Ggrep! " . expand("<cword>")<CR>:copen<CR>
-nnoremap                 <LEADER>sG :exec "silent Ggrep! " . expand("<cWORD>")<CR>:copen<CR>
+" force search in current directory with default 'grep'
+vnoremap                 <LEADER>sg  y:silent Grep! "<C-R>""<CR>:copen<CR>
+nnoremap                 <LEADER>sg :exec "silent Grep! " . expand("<cword>")<CR>:copen<CR>
+nnoremap                 <LEADER>sG :exec "silent Grep! " . expand("<cWORD>")<CR>:copen<CR>
 
 " Prettify JSON buffer
 nnoremap                 <LEADER>ij  :silent %!python -m json.tool<CR>
@@ -416,10 +418,6 @@ if has('autocmd')
   autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown
   autocmd! BufRead,BufNewFile *.md           set filetype=markdown
   autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown
-  autocmd! FileType           markdown       set ai formatoptions=tcroqwan2 comments=n:&gt; nocindent tw=80
-
-  " vim script types
-  autocmd! FileType           vim            set omnifunc=syntaxcomplete#Complete
 
   " JSON file type
   autocmd! BufRead,BufNewFile *.json         set filetype=json
@@ -439,18 +437,6 @@ if has('autocmd')
 
   " Objective-Cpp
   autocmd! BufNewFile,BufRead *.mm           set filetype=objcpp
-
-  " Compiler definition
-  autocmd! BufNewFile,BufRead *.p[l|m]       compiler perl
-  autocmd! BufNewFile,BufRead *.py           compiler pyunit
-
-  " Spell checker on commit messages
-  " Git commits.
-  autocmd FileType            gitcommit      setlocal spell
-  " Subversion commits.
-  autocmd FileType            svn            setlocal spell
-  " Mercurial commits.
-  autocmd FileType            asciidoc       setlocal spell
 
   " Don't screw up folds when inserting text that might affect them, until
   " leaving insert mode. Foldmethod is local to the window. Protect against
@@ -484,14 +470,6 @@ for p in sys.path:
   if os.path.isdir(p):
     vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
 EOF
-endif
-
-if has('autocmd')
-  autocmd! BufNewFile,BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-  autocmd! BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
-  autocmd! BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-  autocmd! BufWritePre *.py normal m`:%s/\s\+$//e ``
-  autocmd! FileType python setlocal foldmethod=indent
 endif
 
 
@@ -702,16 +680,6 @@ nnoremap <silent> <LEADER>u  :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" swapit.vim
-if exists(":SwapList")
-  SwapList tfUpper TRUE FALSE
-  SwapList cardinalsLower north south east west
-  SwapList cardinalsUpper NORTH SOUTH EAST WEST
-  SwapList cardinalsCamel North South East West
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "UltiSnips
 let g:UltiSnipsUsePythonVersion    = 2   " or 3
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -734,21 +702,6 @@ noremap <silent> <Plug>SelBufQuitKey <ESC>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vimpager
 let vimpager_use_gvim = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" json
-if has('autocmd')
-  augroup json_autocmd
-    autocmd!
-    autocmd FileType json set autoindent
-    autocmd FileType json set formatoptions=tcq2l
-    autocmd FileType json set textwidth=78 shiftwidth=2
-    autocmd FileType json set softtabstop=2 tabstop=8
-    autocmd FileType json set expandtab
-    autocmd FileType json set foldmethod=syntax
-  augroup END
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -824,9 +777,6 @@ endfunction
 " Extra commands
 command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.com/search?q=<query>', <q-args>, <line1>, <line2>)
 command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
-
-" Autocommands
-autocmd BufRead  *.java nnoremap <buffer> <C-]> :JavaSearchContext<CR>
 
 " Android mappings
 nnoremap <silent> <LEADER>ar  :AndroidReload<CR>
