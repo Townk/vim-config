@@ -788,10 +788,11 @@ let g:UltiSnipsUsePythonVersion    = 2   " or 3
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-  let g:UltiSnipsSnippetsDir = $HOME . "/vimfiles/snippets"
+    let g:UltiSnipsSnippetsDir = $HOME . "/vimfiles/snippets"
 else
-  let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets"
+    let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets"
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -829,9 +830,9 @@ noremap <silent> <LEADER>hi :Helptags<CR>:echo "Help tags updated for Pathogen b
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rooter
 if has('autocmd')
-  autocmd BufEnter * :Rooter
+    autocmd BufEnter,BufRead * Rooter
 endif
-let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt', 'Android.mk' ] " I only want Rooter to change my directory for make/ant based projects
+let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt', 'AndroidManifest.xml', '.git', 'ProjectSettings' ]
 let g:rooter_use_lcd  = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -926,7 +927,6 @@ nnoremap <silent> <LEADER>dt  :exec "Dictionary " . expand("<cword>")<CR>
 nnoremap <silent> <LEADER>dT  :exec "Dictionary " . expand("<cWORD>")<CR>
 
 nnoremap <silent> <LEADER>vf  :Validate<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
