@@ -98,3 +98,6 @@
 [submodule "vim/bundle/notes"]
 	path = vim/bundle/notes
 	url = https://github.com/xolox/vim-notes.git
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
