@@ -92,3 +92,9 @@
 [submodule "vim/bundle/characterize"]
 	path = vim/bundle/characterize
 	url = https://github.com/tpope/vim-characterize.git
+[submodule "vim/libs/misc"]
+	path = vim/libs/misc
+	url = https://github.com/xolox/vim-misc.git
+[submodule "vim/bundle/notes"]
+	path = vim/bundle/notes
+	url = https://github.com/xolox/vim-notes.git

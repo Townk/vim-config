@@ -932,6 +932,13 @@ let g:unite_source_file_mru_filename_format = ''
 vnoremap <silent> <Enter> :EasyAlign<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VimNotes
+let g:notes_directories = ['~/Depot/Dropbox/Documents/Drafts/Notes']
+let g:notes_suffix = '.mmd'
+let g:notes_smart_quotes = 0
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
