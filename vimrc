@@ -756,6 +756,7 @@ let g:EclimJavaSearchSingleResult  = 'edit'
 let g:EclimLocateFileScope         = 'workspace'
 let g:EclimLocateFileDefaultAction = 'edit'
 let g:EclimCompletionMethod        = 'omnifunc'
+let g:EclimJavaSearchMapping       = 1
 let g:EclimProjectTreeActions = [
             \ {'pattern': '.*', 'name': 'Edit', 'action': 'edit'},
             \ {'pattern': '.*', 'name': 'Split', 'action': 'split'},
@@ -852,15 +853,21 @@ let g:SuperTabLongestHighlight             = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
-let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>ff :<C-u>Unite -buffer-name=files      file_rec/async:!<cr>
-nnoremap <leader>fl :<C-u>Unite -buffer-name=files      file<cr>
-nnoremap <leader>fr :<C-u>Unite -buffer-name=mru        file_mru<cr>
-nnoremap <leader>fo :<C-u>Unite -buffer-name=outline    outline<cr>
-nnoremap <leader>fh :<C-u>Unite -buffer-name=help       help<cr>
-nnoremap <leader>fb :<C-u>Unite -buffer-name=buffer     -no-start-insert buffer<cr>
-nnoremap <leader>fy :<C-u>Unite -buffer-name=yank       -no-start-insert history/yank<cr>
+call unite#custom#source('buffer,file,file_mru,file_rec,help','sorters','sorter_rank')
+
+nnoremap <leader>ff :<C-u>Unite -buffer-name=Files\ (recursive)          file_rec<cr>
+nnoremap <leader>fl :<C-u>Unite -buffer-name=Files\ (current\ directory) file<cr>
+nnoremap <leader>fr :<C-u>Unite -buffer-name=Recent\ Files               file_mru<cr>
+nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                     outline<cr>
+nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                        help<cr>
+nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers               buffer<cr>
+nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History               history/yank<cr>
+
+nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
+nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
+
+let g:unite_source_history_yank_enable = 1
 
 " Start insert.
 let g:unite_enable_start_insert = 1
@@ -869,62 +876,30 @@ let g:unite_enable_short_source_names = 1
 " To track long mru history.
 let g:unite_source_file_mru_long_limit = 3000
 let g:unite_source_directory_mru_long_limit = 3000
+" For optimize.
+let g:unite_source_file_mru_limit = 200
+let g:unite_source_file_mru_filename_format = ''
 
 " Like ctrlp.vim settings.
 let g:unite_enable_start_insert = 1
 let g:unite_winheight = 10
-"let g:unite_split_rule = 'botright'
 
 " Prompt choices.
-"let g:unite_prompt = '❫ '
 let g:unite_prompt = '> '
 
-function! s:unite_my_settings()
-  " Overwrite settings.
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
+" Use ag for search, if not present, fall back to ack and if that is not present 
+" just use normal grep
+let g:unite_source_grep_max_candidates = 200
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack')
+  let g:unite_source_grep_command = 'ack'
+  let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 
-  imap     <silent><buffer>       <ESC>     <Plug>(unite_exit)
-  imap     <silent><buffer>       <C-j>     <Plug>(unite_select_next_line)
-  imap     <silent><buffer>       <C-k>     <Plug>(unite_select_previous_line)
-  imap     <silent><buffer>       jj        <Plug>(unite_insert_leave)
-  "imap     <silent><buffer><expr> j         unite#smart_map('j', '')
-  imap     <silent><buffer>       <TAB>     <Plug>(unite_select_next_line)
-  imap     <silent><buffer>       <S-TAB>   <Plug>(unite_select_previous_line)
-  imap     <silent><buffer>       <C-w>     <Plug>(unite_delete_backward_path)
-  imap     <silent><buffer>       '         <Plug>(unite_quick_match_default_action)
-  imap     <silent><buffer>       "         <Plug>(unite_quick_match_choose_action)
-  imap     <silent><buffer>       <C-y>     <Plug>(unite_narrowing_path)
-  imap     <silent><buffer>       <C-r>     <Plug>(unite_narrowing_input_history)
-
-  nmap     <silent><buffer>       <ESC>     <Plug>(unite_exit)
-  nmap     <silent><buffer>       '         <Plug>(unite_quick_match_default_action)
-  nmap     <silent><buffer>       "         <Plug>(unite_quick_match_choose_action)
-  nmap     <silent><buffer>       <C-y>     <Plug>(unite_narrowing_path)
-  nmap     <silent><buffer>       <C-r>     <Plug>(unite_narrowing_input_history)
-  nnoremap <silent><buffer><expr> l         unite#smart_map('l', unite#do_action('default'))
-
-  let unite = unite#get_current_unite()
-  if unite.buffer_name =~# '^search'
-    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-  else
-    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-  endif
-
-  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-          \ empty(unite#mappings#get_current_filters()) ?
-          \ ['sorter_reverse'] : [])
-
-  " Runs "split" action by <C-s>.
-  imap <silent><buffer><expr> <C-s>     unite#do_action('split')
-endfunction
-autocmd FileType unite call s:unite_my_settings()
-
-let g:unite_source_file_mru_limit = 200
-
-" For optimize.
-let g:unite_source_file_mru_filename_format = ''
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -936,7 +911,7 @@ vnoremap <silent> <Enter> :EasyAlign<cr>
 " VimNotes
 let g:notes_directories = ['~/Depot/Dropbox/Documents/Drafts/Notes']
 let g:notes_suffix = '.mmd'
-let g:notes_smart_quotes = 0
+let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
