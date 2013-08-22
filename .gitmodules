@@ -104,3 +104,9 @@
 [submodule "vim/bundle/airline"]
 	path = vim/bundle/airline
 	url = https://github.com/bling/vim-airline.git
+[submodule "vim/bundle/townk-theme"]
+	path = vim/bundle/townk-theme
+	url = https://github.com/Townk/vim-theme.git
+[submodule "vim/bundle/gitgutter"]
+	path = vim/bundle/gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
