@@ -350,6 +350,9 @@ nnoremap <silent> <Leader>dF :call DiffToggle(1)<CR>
 " Helper to keep the yank register when you paste a text on a selected one
 xnoremap          p          pgvy
 
+" Utility to toggle lock the current row in the middle of the screen
+nnoremap <silent> <LEADER>zl  :let &scrolloff =  999 - &scrolloff<CR>:echo &scrolloff > 900 ? "Scroll locked on the center" : "Scroll back to normal"<CR>
+
 " Extending vim objects
 let obj_delimiters = { '`'    : '`',
                      \ '.'    : '.',
@@ -940,6 +943,11 @@ let g:notes_directories = ['~/Depot/Dropbox/Documents/Drafts/Notes']
 let g:notes_suffix = '.mmd'
 let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""'
+let g:tcommentMapLeader2 = '<Leader>c'
+let g:tcommentModeExtra = '#'
+""""""
 
 
 
