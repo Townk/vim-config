@@ -457,24 +457,6 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Python integration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if has('python')
-" add python path to vim path. This way we can use 'gf' on imports!
-python << EOF
-import os
-import sys
-import vim
-for p in sys.path:
-  if os.path.isdir(p):
-    vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-EOF
-endif
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 "     These functions are used on some mappings.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
