@@ -667,11 +667,10 @@ let g:UltiSnipsUsePythonVersion    = 2   " or 3
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-    let g:UltiSnipsSnippetsDir = $HOME . "/vimfiles/snippets"
+    let g:UltiSnipsSnippetsDir = $HOME . "/vimfiles/ultisnips"
 else
-    let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets"
+    let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips"
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -733,71 +732,6 @@ let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 0
 let g:tagbar_autoshowtag = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Eclim
-let g:EclimJavaSearchSingleResult  = 'edit'
-let g:EclimLocateFileScope         = 'workspace'
-let g:EclimLocateFileDefaultAction = 'edit'
-let g:EclimCompletionMethod        = 'omnifunc'
-let g:EclimJavaSearchMapping       = 1
-let g:EclimProjectTreeActions = [
-            \ {'pattern': '.*', 'name': 'Edit', 'action': 'edit'},
-            \ {'pattern': '.*', 'name': 'Split', 'action': 'split'},
-            \ {'pattern': '.*', 'name': 'Tab', 'action': 'tabnew'},
-            \ ]
-
-function! EclimCustomStatusline()
-    let eclim_status = ''
-    let eclim_proj = eclim#project#util#GetProject(expand('%:p'))
-    if !empty(eclim_proj) && has_key(eclim_proj, "name")
-        let eclim_status = '⚙ ' . eclim_proj['name']
-    endif
-    return eclim_status
-endfunction
-
-" Extra commands
-command! -range -nargs=* Google call eclim#web#SearchEngine('http://www.google.com/search?q=<query>', <q-args>, <line1>, <line2>)
-command! -nargs=? Dictionary call eclim#web#WordLookup('http://dictionary.reference.com/search?q=<query>', '<args>')
-
-" Android mappings
-nnoremap <silent> <LEADER>ar  :AndroidReload<CR>
-
-" Java helpers
-nnoremap <silent> <LEADER>jd  :JavaDocSearch -x declarations<CR>
-nnoremap <silent> <LEADER>jr  :JavaCorrect<CR>
-nnoremap <silent> <LEADER>jh  :JavaHierarchy<CR>
-nnoremap <silent> <LEADER>jp  :JavaImpl<CR>
-nnoremap <silent> <LEADER>jo  :JavaImportOrganize<CR>
-nnoremap <silent> <LEADER>ji  :JavaFormat<CR>
-
-" Project mappings
-nnoremap <silent> <LEADER>td  :Todo<CR>
-nnoremap <silent> <LEADER>pr  :ProjectRefresh<CR>
-nnoremap <silent> <LEADER>pra :ProjectRefreshAll<CR>
-nnoremap <silent> <LEADER>pi  :ProjectInfo<CR>
-nnoremap <silent> <LEADER>pp  :ProjectProblems!<CR>
-nnoremap <silent> <LEADER>pn  :ProjectsTree<CR>
-nnoremap <silent> <LEADER>pt  :ProjectTreeToggle<CR>
-nnoremap <silent> <LEADER>pd  :ProjectTodo<CR>
-
-" Eclim helpers
-nnoremap <silent> <LEADER>jf  :LocateFile<CR>
-
-vnoremap <silent> <LEADER>gt  :Google<CR>
-nnoremap <silent> <LEADER>gt  :exec "Google " . expand("<cword>")<CR>
-nnoremap <silent> <LEADER>gT  :exec "Google " . expand("<cWORD>")<CR>
-
-vnoremap <silent> <LEADER>ga  y:Google android <C-R>"<CR>
-nnoremap <silent> <LEADER>ga  :exec "Google android " . expand("<cword>")<CR>
-nnoremap <silent> <LEADER>gA  :exec "Google android " . expand("<cWORD>")<CR>
-
-vnoremap <silent> <LEADER>dt  y:Dictionary <C-R>"<CR>
-nnoremap <silent> <LEADER>dt  :exec "Dictionary " . expand("<cword>")<CR>
-nnoremap <silent> <LEADER>dT  :exec "Dictionary " . expand("<cWORD>")<CR>
-
-nnoremap <silent> <LEADER>vf  :Validate<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -906,7 +840,7 @@ let g:airline_inactive_collapse=1
 let g:airline_theme='townkpowerline'
 let g:airline_powerline_fonts=1
 let g:airline_enable_hunks = 0
-let g:airline_section_b = '%{EclimCustomStatusline()} %{get(w:, "airline_current_branch", "")}'
+let g:airline_section_b = '%{get(w:, "airline_current_branch", "")}'
 " .vimrc reload workaround:
 "     For our convenience we defined that every time our vimrc is saved, we
 "     re-load it. This causes the AirLine to disapears because we'll re-set the
