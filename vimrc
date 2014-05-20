@@ -438,6 +438,9 @@ if has('autocmd')
   " Objective-Cpp
   autocmd! BufNewFile,BufRead *.mm           set filetype=objcpp
 
+  " Gradle
+  autocmd! BufNewFile,BufRead *.gradle       set filetype=groovy
+
   " Don't screw up folds when inserting text that might affect them, until
   " leaving insert mode. Foldmethod is local to the window. Protect against
   " screwing up folding when switching between windows.
