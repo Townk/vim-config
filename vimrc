@@ -267,9 +267,9 @@ nnoremap <silent>        <D-M-UP>    :cal AlternateFile()<CR>
 " Search selected text
 vnoremap                 <LEADER>ss  y/<C-R>"<CR>
 " use the best 'grep' too available: ag -> ack -> grep
-vnoremap                 <LEADER>sa  y:G! "<C-R>""<CR>
-nnoremap <silent>        <LEADER>sa <Plug>GreperBangWord
-nnoremap <silent>        <LEADER>sA <Plug>GreperBangWORD
+vnoremap                 <LEADER>sa  y:G! /<C-R>"/<CR>
+nmap     <silent>        <LEADER>sa <Plug>GreperBangWord
+nmap     <silent>        <LEADER>sA <Plug>GreperBangWORD
 " force search in current directory with default 'grep'
 vnoremap                 <LEADER>sg  y:silent Grep! "<C-R>""<CR>:copen<CR>
 nnoremap                 <LEADER>sg :exec "silent Grep! " . expand("<cword>")<CR>:copen<CR>
