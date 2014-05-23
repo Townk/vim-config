@@ -698,7 +698,7 @@ noremap <silent> <LEADER>hi :Helptags<CR>:echo "Help tags updated for Pathogen b
 if has('autocmd')
     autocmd BufEnter,BufRead * Rooter
 endif
-let g:rooter_patterns = [ 'build.xml', 'Makefile', 'CMakeList.txt', 'AndroidManifest.xml', '.git', 'ProjectSettings' ]
+let g:rooter_patterns = [ 'build.gradle', 'build.xml', 'Makefile', 'CMakeList.txt', '.git', '.hg' ]
 let g:rooter_use_lcd  = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
