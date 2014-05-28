@@ -822,6 +822,10 @@ elseif executable('ack')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
+if filereadable('/usr/local/bin/ctags')
+  let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
