@@ -872,6 +872,15 @@ let g:tcommentMapLeader2 = '<Leader>c'
 let g:tcommentModeExtra = '#'
 """"""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Dash
+nmap <silent> <leader>k <Plug>DashSearch
+nmap <silent> <leader>K <Plug>DashGlobalSearch
+let g:dash_map = {
+    \ 'python' : ['python2', 'django', 'twisted', 'sphinx', 'flask', 'cvp'],
+    \ 'java'   : 'android'
+    \ }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
