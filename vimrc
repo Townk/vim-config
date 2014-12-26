@@ -785,6 +785,7 @@ nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                     outline
 nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                        help<cr>
 nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers               buffer<cr>
 nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History               history/yank<cr>
+nnoremap <leader>fp :<C-u>Unite -buffer-name=Project\ Files              file_rec/git<cr>
 
 nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
 nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
@@ -809,7 +810,7 @@ let g:unite_winheight = 10
 " Prompt choices.
 let g:unite_prompt = '> '
 
-" Use ag for search, if not present, fall back to ack and if that is not present 
+" Use ag for search, if not present, fall back to ack and if that is not present
 " just use normal grep
 let g:unite_source_grep_max_candidates = 200
 if executable('ag')
@@ -880,6 +881,16 @@ let g:dash_map = {
     \ 'python' : ['python2', 'django', 'twisted', 'sphinx', 'flask', 'cvp'],
     \ 'java'   : 'android'
     \ }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" IndentLine
+let g:indentLine_char = '┆' " ¦, ┆, ︙ or │
+let g:indentLine_noConcealCursor = 1
+let g:indentLine_fileTypeExclude = ['text', 'md']
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
+let g:indentLine_enabled = 0
+nnoremap <silent> <LEADER>is :IndentLinesToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

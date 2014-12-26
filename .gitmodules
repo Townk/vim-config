@@ -113,3 +113,12 @@
 [submodule "vim/bundle/dash"]
 	path = vim/bundle/dash
 	url = https://github.com/rizzatti/dash.vim.git
+[submodule "vim/bundle/neomru"]
+	path = vim/bundle/neomru
+	url = https://github.com/Shougo/neomru.vim.git
+[submodule "vim/bundle/makeshift"]
+	path = vim/bundle/makeshift
+	url = https://github.com/johnsyweb/vim-makeshift.git
+[submodule "vim/bundle/indentLine"]
+	path = vim/bundle/indentLine
+	url = https://github.com/Yggdroot/indentLine.git
