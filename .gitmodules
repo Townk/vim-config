@@ -116,6 +116,7 @@
 [submodule "vim/bundle/neomru"]
 	path = vim/bundle/neomru
 	url = https://github.com/Shougo/neomru.vim.git
+    ignore = untracked
 [submodule "vim/bundle/makeshift"]
 	path = vim/bundle/makeshift
 	url = https://github.com/johnsyweb/vim-makeshift.git
