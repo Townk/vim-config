@@ -11,12 +11,12 @@ set guioptions=aegim     " make vim less clutter
 set encoding=utf-8       " Use UTF-8 everywhere.
 
 set cmdheight=2          " the command bar is 2 high
-set lines=45 columns=150 " Window dimensions.
+set lines=50 columns=160 " Window dimensions.
 
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
   set guifont=Consolas:h11
 elseif has("mac") || has("macunix")
-  set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h11
+  set guifont=InputMonoCondensed:h12
   set antialias                     " MacVim: smooth fonts.
 
   " some configurations only available to MacVim
