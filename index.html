@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Full Vim Configuration : This is my full vim configuration">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Full Vim Configuration</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Townk/vim-config">View on GitHub</a>
+
+          <h1 id="project_title">Full Vim Configuration</h1>
+          <h2 id="project_tagline">This is my full vim configuration</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Townk/vim-config/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Townk/vim-config/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="full-vim-configuration" class="anchor" href="#full-vim-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Full Vim Configuration</h1>
+
+<p>Welcome to my full vim configuration!</p>
+
+<p>Before you clone this project I would like to take some time to explain you my 
+decisions here and to try to warn you of possible problems you might face.</p>
+
+<h2>
+<a id="plugin-manager" class="anchor" href="#plugin-manager" aria-hidden="true"><span class="octicon octicon-link"></span></a>Plugin manager</h2>
+
+<p>I'm still not convinced there is a good <em>automagic</em> plugin manager yet, so for 
+the time being I'll continue to use 
+<a href="https://github.com/tpope/vim-pathogen">pathogen</a>.</p>
+
+<p>Notice that I mentioned the words '<em>yet</em>' and '<em>for the time being</em>'. This means 
+that I am looking into automatic plugin managers but I still didn't decided 
+which one is better and what advantages it might give me over the full control I 
+have with pathogen.</p>
+
+<h2>
+<a id="target-audience" class="anchor" href="#target-audience" aria-hidden="true"><span class="octicon octicon-link"></span></a>Target audience</h2>
+
+<p>Anyone can use and modify my configurations in any way needed. I would only 
+suggest that you 1) give me credit for something interesting you find here and 
+2) share your changes so other could benefit from it.</p>
+
+<p>That being said I would like to point out that I work as a software engineer so 
+most of my configurations are target for that kind of work.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>You can use this in any way you prefer but I would like to show you how I use 
+it in my machines.</p>
+
+<ol>
+<li>Clone this project on any directory;</li>
+<li>Initialize the submodules;</li>
+<li>Link the <code>vimrc</code> and <code>gvimrc</code> files to your home directory with a <code>.</code> 
+prepended;</li>
+<li>Link the directory <code>vim</code> to your home directory with a <code>.</code> prepended;</li>
+</ol>
+
+<p>Like this:</p>
+
+<div class="highlight highlight-sh"><pre>$ mkdir -p <span class="pl-k">~</span>/Projects/vim
+$ <span class="pl-s3">cd</span> <span class="pl-k">~</span>/Projects/vim
+$ git clone https://github.com/Townk/vim-config.git
+$ <span class="pl-s3">cd</span> vim-config
+$ git submodule update --init --recursive
+$ ln -sf <span class="pl-k">~</span>/Projects/vim/vim-config/vimrc <span class="pl-k">~</span>/.vimrc
+$ ln -sf <span class="pl-k">~</span>/Projects/vim/vim-config/gvimrc <span class="pl-k">~</span>/.gvimrc
+$ ln -sf <span class="pl-k">~</span>/Projects/vim/vim-config/vim <span class="pl-k">~</span>/.vim</pre></div>
+
+<p><strong>Note:</strong> I only tested these configurations on Unix environments. You'll see 
+some Win32 checks here but I can't guarantee this will work perfectly on 
+Windows, so use at your own discretion.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Full Vim Configuration maintained by <a href="https://github.com/Townk">Townk</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-21368777-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
