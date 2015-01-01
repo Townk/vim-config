@@ -199,10 +199,12 @@ endif
 " edit my dot vim files
 nnoremap <silent>        <LEADER>ev  :e $MYVIMRC<CR>
 
-" maps for navigation in normal mode on console
+" maps for buffer operations in normal mode on console
 nnoremap <silent>        <LEADER>bn  :bnext<CR>g`"
 nnoremap <silent>        <LEADER>bp  :bprevious<CR>g`"
 nnoremap <silent>        <LEADER>bl  :b#<CR>g`"
+nnoremap <silent>        <LEADER>bd  :Bclose<CR>
+nnoremap <silent>        <LEADER>bx  :Bclose!<CR>
 
 " Explore remote files
 nnoremap <silent>        <LEADER>rf  :ExploreRemote<CR>
