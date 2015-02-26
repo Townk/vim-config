@@ -1,13 +1,6 @@
 [submodule "vim/libs/pathogen"]
     path = vim/libs/pathogen
     url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/libs/genutils"]
-    path = vim/libs/genutils
-    url = https://github.com/vim-scripts/genutils.git
-[submodule "vim/libs/l9"]
-    path = vim/libs/l9
-    url = https://github.com/git-mirror/vim-l9.git
-    ignore = untracked
 [submodule "vim/bundle/fugitive"]
     path = vim/bundle/fugitive
     url = https://github.com/tpope/vim-fugitive.git
@@ -17,10 +10,6 @@
 [submodule "vim/bundle/nerdtree"]
     path = vim/bundle/nerdtree
     url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/selectbuf"]
-    path = vim/bundle/selectbuf
-    url = https://github.com/vim-scripts/SelectBuf.git
-    ignore = untracked
 [submodule "vim/bundle/swapit"]
     path = vim/bundle/swapit
     url = https://github.com/mjbrownie/swapit.git
@@ -86,15 +75,6 @@
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "vim/bundle/characterize"]
-	path = vim/bundle/characterize
-	url = https://github.com/tpope/vim-characterize.git
-[submodule "vim/libs/misc"]
-	path = vim/libs/misc
-	url = https://github.com/xolox/vim-misc.git
-[submodule "vim/bundle/notes"]
-	path = vim/bundle/notes
-	url = https://github.com/xolox/vim-notes.git
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
