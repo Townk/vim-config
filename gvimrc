@@ -1,8 +1,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " gvimrc      - Only GUI Vim configurations (GVim)
-" Version:      3.0
+" Version:      3.1
 " Maintainer:   Thiago Alves <contact@thiagoalves.org>
-" Last Change:  October 24, 2010
+" Last Change:  February 27, 2015
 " License:      This file is placed in the public domain.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -16,7 +16,7 @@ set lines=50 columns=160 " Window dimensions.
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
   set guifont=Consolas:h11
 elseif has("mac") || has("macunix")
-  set guifont=InputMonoCondensed:h12
+  set guifont=InputMonoCondensed\ ExLight:h12
   set antialias                     " MacVim: smooth fonts.
 
   " some configurations only available to MacVim
