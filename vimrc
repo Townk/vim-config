@@ -36,11 +36,11 @@ set nowritebackup " And again.
 
 " Let temporary files to be on their place!
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-  set backupdir=$HOME/_tmp,$HOME/Temp,/Windows/Temp,/WinNT/Temp,/Temp
-  set directory=$HOME/_tmp,$HOME/Temp,/Windows/Temp,/WinNT/Temp,/Temp
+    set backupdir=$HOME/_tmp,$HOME/Temp,/Windows/Temp,/WinNT/Temp,/Temp
+    set directory=$HOME/_tmp,$HOME/Temp,/Windows/Temp,/WinNT/Temp,/Temp
 else
-  set backupdir=$HOME/.tmp,$HOME/tmp,/var/tmp,/tmp
-  set directory=$HOME/.tmp,$HOME/tmp,/var/tmp,/tmp
+    set backupdir=$HOME/.tmp,$HOME/tmp,/var/tmp,/tmp
+    set directory=$HOME/.tmp,$HOME/tmp,/var/tmp,/tmp
 endif
 
 " Load some default macros that are not loaded by default on Vim
@@ -72,6 +72,7 @@ set ignorecase " for default we'll ignore cases on our searches
 set smartcase " here we tell that if we put at least one letter in uppercase, than a case sensitive
               " search is made. To make a search sensitive with lowercase, just append or prepend a
               " \C in your search parameter, e.g. /\Clowercase or /lowercase\C
+set smarttab " make sure <BS> delets tab size of whitespaces
 
 set title " let xterm shows vim information on its window title
 behave xterm " default behavior to be exactly as in linux/xterm
@@ -94,11 +95,11 @@ set spellsuggest=10 " how many suggestions we whant when we ask for it
 syntax on " syntax highlighting on
 " let's have 256 colors on graphical terminals :)
 if has('mac')
-  if $COLORTERM == 'gnome-terminal'
-    set term=gnome-256color " Gnome Terminal
-  else
-    set t_Co=256 " Everything else (tested on iTerm on Mac so far)
-  endif
+    if $COLORTERM == 'gnome-terminal'
+        set term=gnome-256color " Gnome Terminal
+    else
+        set t_Co=256 " Everything else (tested on iTerm on Mac so far)
+    endif
 endif
 colorscheme townklight " a nice dark theme
 set cursorline " makes the current line highlighted
@@ -402,61 +403,61 @@ cabbrev W w
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('autocmd')
-  " Actions taken to every buffer
-  autocmd! BufEnter           *              :syntax sync fromstart " ensure every file does syntax highlighting (full)
+    " Actions taken to every buffer
+    autocmd! BufEnter           *              :syntax sync fromstart " ensure every file does syntax highlighting (full)
 
-  " Show stupid extra empty spaces
-  autocmd BufNewFile,BufRead  *              syntax match TrailWhitspace '\s\+$' | highlight TrailWhitspace ctermbg=red guibg=red
+    " Show stupid extra empty spaces
+    autocmd BufNewFile,BufRead  *              syntax match TrailWhitspace '\s\+$' | highlight TrailWhitspace ctermbg=red guibg=red
 
-  """""""""""""""""""""""""""""""""""""""""""""""""""
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost         *              if line("'\"") > 0 && line("'\"") <= line("$") |
-                                               \   exe "normal g`\"" |
-                                               \ endif
+    """""""""""""""""""""""""""""""""""""""""""""""""""
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost         *              if line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
 
-  " Markdown types
-  autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown
-  autocmd! BufRead,BufNewFile *.md           set filetype=markdown
-  autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown
+    " Markdown types
+    autocmd! BufRead,BufNewFile *.mkd          set filetype=markdown
+    autocmd! BufRead,BufNewFile *.md           set filetype=markdown
+    autocmd! BufRead,BufNewFile *.mmd          set filetype=markdown
 
-  " JSON file type
-  autocmd! BufRead,BufNewFile *.json         set filetype=json
+    " JSON file type
+    autocmd! BufRead,BufNewFile *.json         set filetype=json
 
-  " Syslog types
-  autocmd! BufRead,BufNewFile *.log          set filetype=syslog
+    " Syslog types
+    autocmd! BufRead,BufNewFile *.log          set filetype=syslog
 
-  " QML file type
-  autocmd! BufRead,BufNewFile *.qml          set filetype=qml
+    " QML file type
+    autocmd! BufRead,BufNewFile *.qml          set filetype=qml
 
-  " QMake
-  autocmd! BufNewFile,BufRead *.pro          set filetype=qmake
-  autocmd! BufNewFile,BufRead *.pri          set filetype=qmake
+    " QMake
+    autocmd! BufNewFile,BufRead *.pro          set filetype=qmake
+    autocmd! BufNewFile,BufRead *.pri          set filetype=qmake
 
-  " Git commits
-  autocmd! BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
+    " Git commits
+    autocmd! BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
-  " Objective-Cpp
-  autocmd! BufNewFile,BufRead *.mm           set filetype=objcpp
+    " Objective-Cpp
+    autocmd! BufNewFile,BufRead *.mm           set filetype=objcpp
 
-  " Gradle
-  autocmd! BufNewFile,BufRead *.gradle       set filetype=groovy
+    " Gradle
+    autocmd! BufNewFile,BufRead *.gradle       set filetype=groovy
 
-  " Don't screw up folds when inserting text that might affect them, until
-  " leaving insert mode. Foldmethod is local to the window. Protect against
-  " screwing up folding when switching between windows.
-  autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-  autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+    " Don't screw up folds when inserting text that might affect them, until
+    " leaving insert mode. Foldmethod is local to the window. Protect against
+    " screwing up folding when switching between windows.
+    autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+    autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
-  " Make sure that if we do any change on .vimrc or .gvimrc it gets reloaded automagically
-  augroup reload_vimrc
-      autocmd!
-      autocmd BufWritePost $MYVIMRC source $MYVIMRC
-      if has('gui_running')
-          autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
-      endif
-  augroup END
+    " Make sure that if we do any change on .vimrc or .gvimrc it gets reloaded automagically
+    augroup reload_vimrc
+        autocmd!
+        autocmd BufWritePost $MYVIMRC source $MYVIMRC
+        if has('gui_running')
+            autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+        endif
+    augroup END
 endif
 
 
@@ -470,124 +471,124 @@ endif
 " <Home> will take you to the first column, in any other place <Home> take you to the first non
 " blank character.
 function! InsertHome()
-  let l:action = "\<C-O>0"
-  if strpart(getline(line('.')), 0, col('.')-1) =~ '\S' || strpart(getline(line('.')), col('.')-1, 1) =~ '\s'
-    let l:action = "\<C-O>^"
-  endif
-  return l:action
+    let l:action = "\<C-O>0"
+    if strpart(getline(line('.')), 0, col('.')-1) =~ '\S' || strpart(getline(line('.')), col('.')-1, 1) =~ '\s'
+        let l:action = "\<C-O>^"
+    endif
+    return l:action
 endfunction
 
 " insert the { } block on the text and position cursor between them.
 " if newline parameter is true then the start brace will be inserted on the next line where the
 " cursor is, otherwise it'll be inserted on the end of the same line.
 function! AddBracesBlock(newline)
-  let l:linenr = line('.')
-  let l:line = getline(l:linenr)
-  let l:blankline = (l:line =~ '^\s*$')
+    let l:linenr = line('.')
+    let l:line = getline(l:linenr)
+    let l:blankline = (l:line =~ '^\s*$')
 
-  if l:blankline
-    if &expandtab
-      let l:blk_ind = repeat(" ", indent(l:linenr-1))
-      let l:prepend = repeat(" ", &shiftwidth)
+    if l:blankline
+        if &expandtab
+            let l:blk_ind = repeat(" ", indent(l:linenr-1))
+            let l:prepend = repeat(" ", &shiftwidth)
+        else
+            let l:blk_ind = repeat("\<TAB>", indent(l:linenr-1)/&tabstop)
+            let l:prepend = "\<TAB>"
+        endif
+        let l:before = ''
     else
-      let l:blk_ind = repeat("\<TAB>", indent(l:linenr-1)/&tabstop)
-      let l:prepend = "\<TAB>"
+        if &expandtab
+            let l:blk_ind = repeat(" ", indent(l:linenr))
+            let l:prepend = repeat(" ", &shiftwidth)
+        else
+            let l:blk_ind = repeat("\<TAB>", indent(l:linenr)/&tabstop)
+            let l:prepend = "\<TAB>"
+        endif
+        let l:before = ' '
     endif
-    let l:before = ''
-  else
-    if &expandtab
-      let l:blk_ind = repeat(" ", indent(l:linenr))
-      let l:prepend = repeat(" ", &shiftwidth)
-    else
-      let l:blk_ind = repeat("\<TAB>", indent(l:linenr)/&tabstop)
-      let l:prepend = "\<TAB>"
-    endif
-    let l:before = ' '
-  endif
 
-  call append(l:linenr, l:blk_ind . "}")
-  call append(l:linenr, l:blk_ind . l:prepend)
-  if !a:newline || l:blankline
-    call setline(l:linenr, l:line . l:before . "{")
-    let l:togo = l:linenr + 1
-  else
-    call append(l:linenr, l:blk_ind . "{")
-    let l:togo = l:linenr + 2
-  endif
-  execute "normal " . l:togo . "G$"
+    call append(l:linenr, l:blk_ind . "}")
+    call append(l:linenr, l:blk_ind . l:prepend)
+    if !a:newline || l:blankline
+        call setline(l:linenr, l:line . l:before . "{")
+        let l:togo = l:linenr + 1
+    else
+        call append(l:linenr, l:blk_ind . "{")
+        let l:togo = l:linenr + 2
+    endif
+    execute "normal " . l:togo . "G$"
 endfunction
 
 " does the same thing as AddBracesBlock but do it on a given range (used when there is a text
 " selected)
 function! AddBracesBlockToSelection(newline) range
-  let l:begin = line("'<")
-  let l:end = line("'>")
-  let l:difsize = l:end - l:begin + 1
-  if &expandtab
-    let l:blk_ind = repeat(" ", indent(l:begin-1))
-    let l:prepend = repeat(" ", &shiftwidth)
-  else
-    let l:blk_ind = repeat("\<TAB>", indent(l:begin-1)/&tabstop)
-    let l:prepend = "\<TAB>"
-  endif
+    let l:begin = line("'<")
+    let l:end = line("'>")
+    let l:difsize = l:end - l:begin + 1
+    if &expandtab
+        let l:blk_ind = repeat(" ", indent(l:begin-1))
+        let l:prepend = repeat(" ", &shiftwidth)
+    else
+        let l:blk_ind = repeat("\<TAB>", indent(l:begin-1)/&tabstop)
+        let l:prepend = "\<TAB>"
+    endif
 
-  if indent(l:begin-1) == indent(l:begin)
-    for i in range(l:difsize)
-      call setline(l:begin+i, l:prepend . getline(l:begin+i))
-    endfor
-  endif
+    if indent(l:begin-1) == indent(l:begin)
+        for i in range(l:difsize)
+            call setline(l:begin+i, l:prepend . getline(l:begin+i))
+        endfor
+    endif
 
-  call append(l:end, l:blk_ind . "}")
-  if a:newline
-    call append(l:begin-1, l:blk_ind . "{")
-  else
-    call setline(l:begin-1, getline(l:begin-1) . " {")
-  endif
-  normal gv
+    call append(l:end, l:blk_ind . "}")
+    if a:newline
+        call append(l:begin-1, l:blk_ind . "{")
+    else
+        call setline(l:begin-1, getline(l:begin-1) . " {")
+    endif
+    normal gv
 endfunction
 
 " Switch from header file to implementation file (and vice versa).
 function! AlternateFile()
-  let path = expand('%:p:r').'.'
-  let header_extensions = ['h', 'hh', 'H', 'HH', 'hxx', 'HXX', 'hpp', 'HPP']
-  let impl_extensions = ['m', 'mm', 'c', 'cpp', 'C', 'CC']
-  let is_header = (count(header_extensions, expand('%:e')) > 0)
+    let path = expand('%:p:r').'.'
+    let header_extensions = ['h', 'hh', 'H', 'HH', 'hxx', 'HXX', 'hpp', 'HPP']
+    let impl_extensions = ['m', 'mm', 'c', 'cpp', 'C', 'CC']
+    let is_header = (count(header_extensions, expand('%:e')) > 0)
 
-  if is_header
-    if !HasReadableExtensionIn(path, impl_extensions)
-      echoh ErrorMsg | echo 'Alternate file not readable.' | echoh None
+    if is_header
+        if !HasReadableExtensionIn(path, impl_extensions)
+            echoh ErrorMsg | echo 'Alternate file not readable.' | echoh None
+        endif
+    else
+        if !HasReadableExtensionIn(path, header_extensions)
+            echoh ErrorMsg | echo 'Alternate file not readable.' | echoh None
+        endif
     endif
-  else
-    if !HasReadableExtensionIn(path, header_extensions)
-      echoh ErrorMsg | echo 'Alternate file not readable.' | echoh None
-    endif
-  endif
 endfunction
 
 " Returns true and switches to file if file with extension in any of
 " |extensions| is readable, or returns false if not.
 function! HasReadableExtensionIn(path, extensions)
-  for ext in a:extensions
-    if filereadable(a:path.ext)
-      exe 'e '.fnameescape(a:path.ext)
-      return 1
-    endif
-  endfor
-  return 0
+    for ext in a:extensions
+        if filereadable(a:path.ext)
+            exe 'e '.fnameescape(a:path.ext)
+            return 1
+        endif
+    endfor
+    return 0
 endfunction
 
 " Toggle Vexplore with Ctrl-E
 function! ExploreRemote(resetHost)
-  if !exists('g:remoteHost') || empty(g:remoteHost) || a:resetHost == 1
-    let g:remoteHost = input('Remote host: ')
-  endif
-  if !empty(g:remoteHost)
-    exec '1wincmd w'
-    exec 'Vexplore ftp://' . g:remoteHost . '/'
-    exec 'vertical resize 31'
-  else
-    echo 'Canceling remote explore.'
-  endif
+    if !exists('g:remoteHost') || empty(g:remoteHost) || a:resetHost == 1
+        let g:remoteHost = input('Remote host: ')
+    endif
+    if !empty(g:remoteHost)
+        exec '1wincmd w'
+        exec 'Vexplore ftp://' . g:remoteHost . '/'
+        exec 'vertical resize 31'
+    else
+        echo 'Canceling remote explore.'
+    endif
 endfunction
 
 function! ExploreRemoteToggle(resetHost)
@@ -760,10 +761,10 @@ let g:netrw_menu             = 0
 let g:netrw_use_errorwindow  = 0
 
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-  " uses PuTTY on windows
-  let g:netrw_scp_cmd  = 'pscp -q -batch'
-  let g:netrw_sftp_cmd = 'psftp'
-  let g:netrw_cygwin   = 0
+    " uses PuTTY on windows
+    let g:netrw_scp_cmd  = 'pscp -q -batch'
+    let g:netrw_sftp_cmd = 'psftp'
+    let g:netrw_cygwin   = 0
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -816,17 +817,17 @@ let g:unite_prompt = '> '
 " just use normal grep
 let g:unite_source_grep_max_candidates = 200
 if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
 elseif executable('ack')
-  let g:unite_source_grep_command = 'ack'
-  let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
-  let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_command = 'ack'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+    let g:unite_source_grep_recursive_opt = ''
 endif
 
 if filereadable('/usr/local/bin/ctags')
-  let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
+    let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -882,7 +883,7 @@ nmap <silent> <leader>K <Plug>DashGlobalSearch
 let g:dash_map = {
     \ 'python' : ['python2', 'django', 'twisted', 'sphinx', 'flask', 'cvp'],
     \ 'java'   : 'android'
-    \ }
+\ }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -901,5 +902,7 @@ nnoremap <silent> <LEADER>is :IndentLinesToggle<CR>
 "     If I do have a virtualenv active, give it a chance to load its own .vimrc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if filereadable($VIRTUAL_ENV . '/.vimrc')
-  source $VIRTUAL_ENV/.vimrc
+    source $VIRTUAL_ENV/.vimrc
 endif
+
+" vim:tw=100:ts=4:sw=4:expandtab:
