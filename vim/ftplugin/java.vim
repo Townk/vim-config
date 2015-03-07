@@ -1,4 +1,1 @@
-if exists(':JavaSearchContext')
-    nnoremap <buffer> <C-]> :JavaSearchContext<CR>
-endif
-
+" Specific configuraiton for Java files
