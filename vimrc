@@ -94,15 +94,6 @@ set shellslash    " shellslash (use a common path separator across all platforms
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim behavior
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make vim behave more like TexMate in relation to its plugins
-" This plugin (pathogen) makes Vim looks into a directory called 'bundles' and
-" add it to the runtime path. This way you keep each plugin file separated
-" from each other.
-" I added a second "bundle" directory called libs so I can separate scripts that are needed by other
-" scripts and the ones that actually do something for me
-runtime libs/pathogen/autoload/pathogen.vim
-execute pathogen#infect('bundle/{}', 'libs/{}', 'quarantined/{}')
-
 set nobackup " Don't make a backup before overwriting a file.
 set nowritebackup " And again.
 
@@ -185,7 +176,9 @@ if has('mac')
         set t_Co=256 " Everything else (tested on iTerm on Mac so far)
     endif
 endif
-colorscheme townklight " a nice dark theme
+if !empty(globpath(&rtp, 'colors/townklight.vim'))
+    colorscheme townklight " a nice dark theme
+endif
 set cursorline " makes the current line highlighted
 
 
@@ -238,7 +231,7 @@ set tabpagemax=500 " maximum number of tab pages to be opened by the -p command 
                    " :tab all" command. (default 10)
 
 " Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{fugitive#statusline()}\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%P]\ %)
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ [FORMAT=%{&ff}]\ %{exists('*fugitive#statusline')?fugitive#statusline():''}\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%([POS=%l,%v][%P]\ %)
 
 
 
@@ -969,7 +962,7 @@ noremap <silent> <LEADER>hi :Helptags<CR>:echo "Help tags updated for Pathogen b
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rooter
 if has('autocmd')
-    autocmd BufEnter,BufRead * Rooter
+    autocmd BufEnter,BufRead * if exists(':Rooter') | Rooter | endif
 endif
 let g:rooter_patterns = [ 'build.gradle', 'build.xml', 'Makefile', 'CMakeList.txt', '.git', '.hg' ]
 let g:rooter_use_lcd  = 1
@@ -1048,60 +1041,61 @@ let g:SuperTabLongestHighlight             = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source('buffer,file,file_mru,file_rec,help','sorters','sorter_rank')
-call unite#custom#source('file_rec/async', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
-call unite#custom#source('file_rec/git', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
-call unite#custom#profile('default', 'context', {
-\   'start_insert': 1,
-\   'short_source_names': 1,
-\   'auto_resize': 1,
-\   'winheight': 10,
-\   'direction': 'topleft',
-\ })
+if exists(':Unite')
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#custom#source('buffer,file,file_mru,file_rec,help','sorters','sorter_rank')
+    call unite#custom#source('file_rec/async', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
+    call unite#custom#source('file_rec/git', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
+    call unite#custom#profile('default', 'context', {
+    \   'start_insert': 1,
+    \   'short_source_names': 1,
+    \   'auto_resize': 1,
+    \   'winheight': 10,
+    \   'direction': 'topleft',
+    \ })
 
-let g:unite_source_history_yank_enable = 1
+    let g:unite_source_history_yank_enable = 1
 
-" To track long mru history.
-let g:unite_source_file_mru_long_limit = 3000
-let g:unite_source_directory_mru_long_limit = 3000
-" For optimize.
-let g:unite_source_file_mru_limit = 200
-let g:unite_source_file_mru_filename_format = ''
+    " To track long mru history.
+    let g:unite_source_file_mru_long_limit = 3000
+    let g:unite_source_directory_mru_long_limit = 3000
+    " For optimize.
+    let g:unite_source_file_mru_limit = 200
+    let g:unite_source_file_mru_filename_format = ''
 
-" Prompt choices.
-let g:unite_prompt = '> '
+    " Prompt choices.
+    let g:unite_prompt = '> '
 
-" Use ag for search, if not present, fall back to ack and if that is not present
-" just use normal grep
-let g:unite_source_grep_max_candidates = 200
-if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-    let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
-    let g:unite_source_grep_recursive_opt = ''
+    " Use ag for search, if not present, fall back to ack and if that is not present
+    " just use normal grep
+    let g:unite_source_grep_max_candidates = 200
+    if executable('ag')
+        let g:unite_source_grep_command = 'ag'
+        let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+        let g:unite_source_grep_recursive_opt = ''
+    elseif executable('ack')
+        let g:unite_source_grep_command = 'ack'
+        let g:unite_source_grep_default_opts = '--no-heading --no-color -a -H'
+        let g:unite_source_grep_recursive_opt = ''
+    endif
+
+    if filereadable('/usr/local/bin/ctags')
+        let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
+    endif
+
+    nnoremap <leader>ff :<C-u>Unite -buffer-name=Files\ (recursive)             file_rec/async:!<cr>
+    nnoremap <leader>fl :<C-u>Unite -buffer-name=Files\ (current\ directory)    file<cr>
+    nnoremap <leader>fr :<C-u>Unite -buffer-name=Recent\ Files                  file_mru<cr>
+    nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                        outline<cr>
+    nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                           help<cr>
+    nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
+    nnoremap <F3>       :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
+    nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History                  history/yank<cr>
+    nnoremap <leader>fp :<C-u>Unite -buffer-name=Project\ Files                 file_rec/git<cr>
+
+    nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
+    nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
 endif
-
-if filereadable('/usr/local/bin/ctags')
-    let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
-endif
-
-nnoremap <leader>ff :<C-u>Unite -buffer-name=Files\ (recursive)             file_rec/async:!<cr>
-nnoremap <leader>fl :<C-u>Unite -buffer-name=Files\ (current\ directory)    file<cr>
-nnoremap <leader>fr :<C-u>Unite -buffer-name=Recent\ Files                  file_mru<cr>
-nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                        outline<cr>
-nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                           help<cr>
-nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
-nnoremap <F3>       :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
-nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History                  history/yank<cr>
-nnoremap <leader>fp :<C-u>Unite -buffer-name=Project\ Files                 file_rec/git<cr>
-
-nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
-nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1201,7 +1195,9 @@ let g:syntastic_style_warning_symbol = "❕"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Java Complete
-call javacomplete#SetSearchdeclMethod(1)
+if exists('*javacomplete#SetSearchdeclMethod')
+    call javacomplete#SetSearchdeclMethod(1)
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
