@@ -99,12 +99,24 @@ confirm " if you try to quit from an unsaved file, Vim warns you about that and 
         " to do.
 
 set history=1000 " How many lines of history to remember
-set clipboard-=unnamed " turns out I do not stand sharing windows clipboard any more
+set clipboard=unnamed " I want to share vim clipboard with the OS
 set ffs=unix,dos,mac " support all three, in this order
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set wildignore="*.swp,*.bak,*.pyc,*.class" " ignore theese files when expanding with %
 set spellsuggest=10 " how many suggestions we whant when we ask for it
+set gdefault " assume the /g flag on :s substitutions to replace all matches in a line
+set ttimeoutlen=50 " make the timeout after a key press very short. This makes Airline update the
+                   " normal mode when leaving insert.
+
+set matchpairs+=<:>,=:; " make vim match <> as pairs to make it easy to jump on them using %
+
+" tries to use the best grep tool available
+if executable('ag')
+    set grepprg=ag " Use Silver Searcher instead of grep
+elseif executable('ack')
+    set grepprg=ack " Use ACK instead of grep
+endif
 
 
 
@@ -130,6 +142,7 @@ set cursorline " makes the current line highlighted
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmenu " turn on wild menu
 set ruler " Always show current positions along the bottom
+set relativenumber " turn on relative numbers
 set number " turn on line numbers
 set lz " do not redraw while running macros (much faster) (Lazy Redraw)
 set hidden " you can change buffer without saving
@@ -142,6 +155,7 @@ set backspace=2 " make backspace work normal
 set whichwrap+=<,>,h,l  " backspace and cursor keys wrap to
 set mouse=a " use mouse everywhere
 set mousemodel=popup_setpos " make the right click of the mouse trigger the pop-up menu
+set ttymouse=sgr " make mouse scroll works on terminal as well
 set shortmess=atI " shortens messages to avoid 'press a key' prompt
 set report=0 " tell us when anything is changed via ':' commands
 set fillchars=vert:\ ,stl:\ ,stlnc:\ ,diff:~ " make the splitters between windows be blank
@@ -189,6 +203,7 @@ set cinwords+=try,catch
 set tabstop=4 " tab spacing (settings below are just to unify it)
 set softtabstop=4 " unify
 set shiftwidth=4 " unify
+set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 
 
 
@@ -477,6 +492,13 @@ if has('autocmd')
             autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
         endif
     augroup END
+    " Make sure the bell doesn't beep on Insert mode
+    augroup NoError
+        au!
+        au InsertEnter * :call SetBell(1)
+        au InsertLeave * :call SetBell(0)
+    augroup END
+
 endif
 
 
