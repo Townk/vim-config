@@ -884,6 +884,11 @@ else
     let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips"
 endif
 
+function! UltiSnipsCallUnite()
+    Unite -start-insert -immediately -no-empty ultisnips
+    return ''
+endfunction
+inoremap <silent> <C-B> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -980,24 +985,17 @@ let g:SuperTabLongestHighlight             = 1
 " Unite
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source('buffer,file,file_mru,file_rec,help','sorters','sorter_rank')
-
-nnoremap <leader>ff :<C-u>Unite -buffer-name=Files\ (recursive)          file_rec<cr>
-nnoremap <leader>fl :<C-u>Unite -buffer-name=Files\ (current\ directory) file<cr>
-nnoremap <leader>fr :<C-u>Unite -buffer-name=Recent\ Files               file_mru<cr>
-nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                     outline<cr>
-nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                        help<cr>
-nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers               buffer<cr>
-nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History               history/yank<cr>
-nnoremap <leader>fp :<C-u>Unite -buffer-name=Project\ Files              file_rec/git<cr>
-
-nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
-nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
+call unite#custom#source('file_rec/async', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
+call unite#custom#source('file_rec/git', 'ignore_pattern', '.idea/\|.gradle/\|.build/')
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'short_source_names': 1,
+\   'auto_resize': 1,
+\   'winheight': 10,
+\   'direction': 'topleft',
+\ })
 
 let g:unite_source_history_yank_enable = 1
-
-" Start insert.
-let g:unite_enable_start_insert = 1
-let g:unite_enable_short_source_names = 1
 
 " To track long mru history.
 let g:unite_source_file_mru_long_limit = 3000
@@ -1005,10 +1003,6 @@ let g:unite_source_directory_mru_long_limit = 3000
 " For optimize.
 let g:unite_source_file_mru_limit = 200
 let g:unite_source_file_mru_filename_format = ''
-
-" Like ctrlp.vim settings.
-let g:unite_enable_start_insert = 1
-let g:unite_winheight = 10
 
 " Prompt choices.
 let g:unite_prompt = '> '
@@ -1029,6 +1023,19 @@ endif
 if filereadable('/usr/local/bin/ctags')
     let g:unite_source_outline_ctags_program='/usr/local/bin/ctags'
 endif
+
+nnoremap <leader>ff :<C-u>Unite -buffer-name=Files\ (recursive)             file_rec/async:!<cr>
+nnoremap <leader>fl :<C-u>Unite -buffer-name=Files\ (current\ directory)    file<cr>
+nnoremap <leader>fr :<C-u>Unite -buffer-name=Recent\ Files                  file_mru<cr>
+nnoremap <leader>fo :<C-u>Unite -buffer-name=Outline                        outline<cr>
+nnoremap <leader>fh :<C-u>Unite -buffer-name=Help                           help<cr>
+nnoremap <leader>fb :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
+nnoremap <F3>       :<C-u>Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
+nnoremap <leader>fy :<C-u>Unite -buffer-name=Copy\ History                  history/yank<cr>
+nnoremap <leader>fp :<C-u>Unite -buffer-name=Project\ Files                 file_rec/git<cr>
+
+nnoremap <leader>fg :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cword>")<cr>
+nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
