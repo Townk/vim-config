@@ -263,7 +263,7 @@ nnoremap <silent>        <LEADER>ht  :set hlsearch!<CR>:echo &hlsearch==0?"Highl
 nnoremap <silent>        <LEADER>st  :set spell!<CR>:echo &spell==0?"Spell checking OFF":"Spell checking ON"<CR>
 
 " Source current file
-nnoremap <silent>        <LEADER>sf  :so %<CR>
+nnoremap <silent>        <LEADER>sf  :so %<CR>:AirlineRefresh<CR>
 
 " Toggle paste mode
 nnoremap <silent>        <LEADER>sp  :set paste!<CR>:echo &paste==0?"Paste mode OFF":"Paste mode ON"<CR>
@@ -514,9 +514,9 @@ if has('autocmd')
     " Make sure that if we do any change on .vimrc or .gvimrc it gets reloaded automagically
     augroup reload_vimrc
         autocmd!
-        autocmd BufWritePost $MYVIMRC source $MYVIMRC
+        autocmd BufWritePost $MYVIMRC source $MYVIMRC | call airline#load_theme() | call airline#update_statusline()
         if has('gui_running')
-            autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+            autocmd BufWritePost $MYGVIMRC source $MYGVIMRC | call airline#load_theme() | call airline#update_statusline()
         endif
     augroup END
 
@@ -1039,19 +1039,16 @@ vnoremap <silent> <Enter> :EasyAlign<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " AirLine
-let g:airline_enable_branch=1
-let g:airline_branch_empty_message=''
-let g:airline_enable_syntastic=1
-let g:airline_enable_tagbar=0
-let g:airline_detect_modified=0
-let g:airline_detect_paste=1
-let g:airline_detect_iminsert=0
-let g:airline_detect_whitespace=0
-let g:airline_inactive_collapse=1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#whitespace#enabled = 1
+
 let g:airline_theme='townkpowerline'
 let g:airline_powerline_fonts=1
-let g:airline_enable_hunks = 0
-let g:airline_section_b = '%{get(w:, "airline_current_branch", "")}'
+
 " .vimrc reload workaround:
 "     For our convenience we defined that every time our vimrc is saved, we
 "     re-load it. This causes the AirLine to disapears because we'll re-set the
