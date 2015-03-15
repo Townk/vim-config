@@ -160,6 +160,8 @@ set shortmess=atI " shortens messages to avoid 'press a key' prompt
 set report=0 " tell us when anything is changed via ':' commands
 set fillchars=vert:\ ,stl:\ ,stlnc:\ ,diff:~ " make the splitters between windows be blank
 set completeopt=longest,menuone " allow popup menu for completion but only if there is more than one opt available
+set tabline=%!TabLine() " When using tabs, only show the file name on it
+
 
 
 
@@ -416,6 +418,19 @@ for [ firstDelim, secondDelim ] in items(obj_delimiters)
 endfor
 unlet obj_delimiters
 
+" Move around tabs
+nnoremap <silent>        <LEADER>tl  :tablast<CR>
+nnoremap <silent>        <LEADER>tn  :tabnext<CR>
+nnoremap <silent>        <LEADER>tp  :tabprevious<CR>
+nnoremap <silent>        <LEADER>tc  :tabclose<CR>
+
+" Some window shortcuts
+nnoremap <silent>        <C-W><C-J>  <C-W>s<C-W>j
+nnoremap <silent>        <C-W><C-K>  <C-W>s<C-W>k
+nnoremap <silent>        <C-W><C-H>  <C-W>v<C-W>h
+nnoremap <silent>        <C-W><C-L>  <C-W>v<C-W>l
+nnoremap <silent>        <LEADER>wz  :call ToggleWinZoonMode()<CR>
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -430,6 +445,7 @@ command! -bang -nargs=? ExploreRemoteToggle call ExploreRemoteToggle(<bang>0)
 cabbrev Q q!
 cabbrev Bw bw
 cabbrev W w
+cabbrev Wq wq
 
 
 
@@ -492,6 +508,15 @@ if has('autocmd')
             autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
         endif
     augroup END
+
+    " Open help texts on new tabs instead of new window
+    augroup HelpTabs
+        autocmd!
+        autocmd BufEnter *.txt   call HelpInNewTab()
+    augroup END
+
+    autocmd VimResized * :wincmd =
+
     " Make sure the bell doesn't beep on Insert mode
     augroup NoError
         au!
@@ -672,6 +697,113 @@ function! DiffToggle(removeAllDiffs)
         let s:foldSize = &foldcolumn
         diffthis
         echo "Diff ON for " . expand('%')
+    endif
+endfunction
+
+
+" Opens the help buffer on a new window
+" The ! overwrites any existing definition by this name.
+function! HelpInNewTab()
+    if &buftype == 'help'
+        "Convert the help window to a tab...
+        execute "normal \<C-W>T"
+        nnoremap <buffer> q :tabclose<CR>
+    endif
+endfunction
+
+" Defines the entire tab line to be displayed when more than one tab is opened
+function! TabLine()
+    let s = ''
+    let prev_selected = 0
+    for i in range(tabpagenr('$'))
+        " select the highlighting
+        if i + 1 == tabpagenr()
+            let s .= '%#TabLineSel#['
+        else
+            let s .= '%#TabLine#'
+        endif
+
+        " set the tab page number (for mouse clicks)
+        let s .= '%' . (i + 1) . 'T'
+
+        " the label is made by MyTabLabel()
+        let s .= ' %{TabLabel(' . (i + 1) . ')} '
+
+        if i + 1 == tabpagenr()
+            let s .= ']'
+        endif
+    endfor
+
+    " after the last tab fill with TabLineFill and reset tab page nr
+    let s .= '%#TabLineFill#%T'
+
+    " right-align the label to close the current tab page
+    if tabpagenr('$') > 1
+        let s .= '%=%#TabLine#%999X❌  '
+    endif
+
+    return s
+endfunction
+
+" Helper function to return the file name of a buffer on a given tab
+function! TabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    return a:n . " " . fnamemodify(bufname(buflist[winnr - 1]), ':t')
+endfunction
+
+" Toggle window layout on the Zoon mode.
+" The Zoon mode will make the focus window bigger than the others
+function! ToggleWinZoonMode()
+    if &winminwidth == 1
+        let &winwidth = 999
+        let &winminwidth = 35
+        let &winheight = 5
+        let &winminheight = 5
+        let &winheight = 999
+        exe "wincmd l"
+        exe "wincmd h"
+        exe "wincmd j"
+        exe "wincmd k"
+    else
+        try
+            let &winminwidth = 1
+        catch /.*/
+        endtry
+        let &winwidth = 20
+        let &winheight = 10
+        let &winminheight = 1
+        let &winminwidth = 1
+        exe "wincmd ="
+    endif
+    AirlineRefresh
+endfunction
+
+" Enable or Disable the system bell
+function! SetBell(disable)
+    if a:disable
+        let s:mybell = [&eb, &vb, &t_vb]
+        " need to set visualbell, else bell will still be called.
+        set noeb vb t_vb=
+    else
+        let [&eb, &vb, &t_vb] = s:mybell
+    endif
+endfunction
+
+" Makes a douple pane layout swap between horizontal and vertical.
+" Notice that if you try co call this function on a layout with more than two windows on it, it'll
+" not work
+function! SwitchWindowLayout()
+    if s:CheckWindowsCount(2, "switch layout orientation")
+        let l:cur_win = winnr()
+        wincmd t
+        echo "width=" . winwidth(l:cur_win) . ", height=" . winheight(l:cur_win)
+        if winwidth(l:cur_win) == &co
+            wincmd H
+        else
+            wincmd K
+        endif
+        execute l:cur_win . " wincmd w"
     endif
 endfunction
 
