@@ -1,12 +1,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " gvimrc      - Only GUI Vim configurations (GVim)
-" Version:      3.1
+" Version:      3.2
 " Maintainer:   Thiago Alves <contact@thiagoalves.org>
-" Last Change:  February 27, 2015
+" Last Change:  March 14, 2015
 " License:      This file is placed in the public domain.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set guioptions=aegim     " make vim less clutter
+set guioptions=egim     " make vim less clutter
 
 set encoding=utf-8       " Use UTF-8 everywhere.
 
