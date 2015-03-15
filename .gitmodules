@@ -106,3 +106,21 @@
 [submodule "vim/bundle/butane"]
 	path = vim/bundle/butane
 	url = https://github.com/Soares/butane.vim.git
+[submodule "vim/bundle/javacomplete"]
+	path = vim/bundle/javacomplete
+	url = https://github.com/vim-scripts/javacomplete.git
+[submodule "vim/bundle/open-browser"]
+	path = vim/bundle/open-browser
+	url = https://github.com/tyru/open-browser.vim.git
+[submodule "vim/bundle/tcomment"]
+	path = vim/bundle/tcomment
+	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "vim/bundle/vim-diff-enhanced"]
+	path = vim/bundle/vim-diff-enhanced
+	url = https://github.com/chrisbra/vim-diff-enhanced.git
+[submodule "vim/bundle/vim-tmux-navigator"]
+	path = vim/bundle/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "vim/bundle/vim-tmux-runner"]
+	path = vim/bundle/vim-tmux-runner
+	url = https://github.com/christoomey/vim-tmux-runner.git

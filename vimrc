@@ -1104,6 +1104,35 @@ nnoremap <silent> <LEADER>is :IndentLinesToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+" VTR
+"let g:VtrUseVtrMaps = 1
+let g:VtrClearOnResize = 1
+let g:VtrAppendNewline = 1
+let g:VtrGitCdUpOnOpen = 1
+let g:VtrInitialCommand = 'PROMPT="$\ "PROMPT2="\>\ "RPROMPT='
+
+vnoremap <silent> <F8>         :<C-U>VtrSendSelectedToRunner<CR>
+nnoremap <silent> <LEADER>vs   :VtrSendCommandToRunner<CR>
+nnoremap <silent> <LEADER>vl   :VtrSendLineToRunner<CR>
+nnoremap <silent> <LEADER>vo   :VtrOpenRunner<CR>
+nnoremap <silent> <LEADER>vk   :VtrKillRunner<CR>
+nnoremap <silent> <LEADER>vc   :VtrClearRunner<CR>
+nnoremap <silent> <LEADER>vr   :VtrReorientRunner<CR>
+nnoremap <silent> <LEADER>vf   :VtrFocusRunner<CR>
+nnoremap <silent> <LEADER>vd   :VtrDetachRunner<CR>
+nnoremap <silent> <LEADER>va   :VtrReattachRunner<CR>
+nnoremap <silent> <LEADER>vf   :VtrFlushCommand<CR>
+nnoremap <silent> <LEADER>vp   :VtrOpenRunner {'cmd': g:VtrInitialCommand.'ipython'}<CR>:VtrFlushCommand<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open Browser
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
