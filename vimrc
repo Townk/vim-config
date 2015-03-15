@@ -1041,7 +1041,10 @@ nnoremap <leader>fG :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWO
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " EasyAlign
-vnoremap <silent> <Enter> :EasyAlign<cr>
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <silent> <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <silent> ga      <Plug>(EasyAlign)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1087,6 +1090,21 @@ let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 let g:indentLine_enabled = 0
 nnoremap <silent> <LEADER>is :IndentLinesToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { "mode": "passive" }
+
+let g:syntastic_error_symbol = "⛔️"
+let g:syntastic_style_error_symbol = "❗️"
+let g:syntastic_warning_symbol = "⚠️"
+let g:syntastic_style_warning_symbol = "❕"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
