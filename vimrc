@@ -442,6 +442,14 @@ nnoremap <silent>        <C-W><C-H>  <C-W>v<C-W>h
 nnoremap <silent>        <C-W><C-L>  <C-W>v<C-W>l
 nnoremap <silent>        <LEADER>wz  :call ToggleWinZoonMode()<CR>
 
+" Tag navigation
+" Make sure we don't request a 'Press Enter' after finding a tag
+nnoremap <silent>        <C-]>       :<C-U>execute 'tag ' . expand('<cword>')<CR>
+" <Alt-]>
+nnoremap <silent>        ‘           :tnext<CR>
+" <Alt-[>
+nnoremap <silent>        “           :tprevious<CR>
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -504,6 +512,10 @@ if has('autocmd')
 
     " Gradle
     autocmd! BufNewFile,BufRead *.gradle       set filetype=groovy
+
+    " Java class files
+    autocmd! BufRead,BufNewFile *.jad          set filetype=java
+    autocmd! BufRead,BufNewFile *.class        set filetype=class
 
     " Don't screw up folds when inserting text that might affect them, until
     " leaving insert mode. Foldmethod is local to the window. Protect against
@@ -1103,6 +1115,11 @@ let g:syntastic_error_symbol = "⛔️"
 let g:syntastic_style_error_symbol = "❗️"
 let g:syntastic_warning_symbol = "⚠️"
 let g:syntastic_style_warning_symbol = "❕"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Java Complete
+call javacomplete#SetSearchdeclMethod(1)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
