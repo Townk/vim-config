@@ -265,6 +265,9 @@ nnoremap <silent>        <LEADER>st  :set spell!<CR>:echo &spell==0?"Spell check
 " Source current file
 nnoremap <silent>        <LEADER>sf  :so %<CR>
 
+" Toggle paste mode
+nnoremap <silent>        <LEADER>sp  :set paste!<CR>:echo &paste==0?"Paste mode OFF":"Paste mode ON"<CR>
+
 " Movements in wrapped lines.
 nnoremap <silent>        <A-j>       gj
 nnoremap <silent>        <Down>      gj
@@ -332,8 +335,8 @@ nnoremap <silent>        [L          :lfirst<CR>
 nnoremap <silent>        ]L          :llast<CR>
 
 " Horizontaly scroll
-nnoremap <silent>        <C-H>       z20h
-nnoremap <silent>        <C-L>       z20l
+nnoremap <silent>        ˙           z20h
+nnoremap <silent>        ¬           z20l
 
 " Toggle folds
 nnoremap <silent>        <Space>     za
@@ -368,11 +371,11 @@ nnoremap <silent> <expr> <Home>      strpart(getline(line('.')), 0, col('.')-1) 
 " Notice that using move doesn't cut the line, therefore our yank register keeps
 " intact.
 " Up
-nnoremap <silent>        <C-K>       :move .-2<CR>==
-vnoremap <silent>        <C-K>       :move '<-2<CR>gv=gv
+nnoremap <silent>        ˚           :move .-2<CR>==
+vnoremap <silent>        ˚           :move '<-2<CR>gv=gv
 " Down
-nnoremap <silent>        <C-J>       :move .+1<CR>==
-vnoremap <silent>        <C-J>       :move '>+1<CR>gv=gv
+nnoremap <silent>        ∆           :move .+1<CR>==
+vnoremap <silent>        ∆           :move '>+1<CR>gv=gv
 
 " Dev helper mapping to show syntex region under cursor
 nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -382,9 +385,17 @@ nnoremap                 <LEADER>sr  :echo "hi<" . synIDattr(synID(line("."),col
 " Remove trailing whitespace
 nnoremap <silent>        <LEADER>rs :%s/\s\+$//e<CR>:echo "Trailing whitespace removed!"<CR>
 
-" Toggle diff
-nnoremap <silent> <Leader>df :call DiffToggle(0)<CR>
-nnoremap <silent> <Leader>dF :call DiffToggle(1)<CR>
+" Diff utils
+" ,df will toggle diff between two open windows. Notice here that if you have more than 2 open 
+" windows, this shortcut will rais an error message.
+" The other two mappings are simply wrappers to obtain and put plus a move to the next chunk.
+nnoremap <silent> <Leader>df   :call DiffToggle()<CR>
+nnoremap <silent> <Leader>do   do]c
+nnoremap <silent> <Leader>dp   dp]c
+
+
+" Window layout switch
+nnoremap <silent> <LEADER>sl   :call SwitchWindowLayout()<CR>
 
 " Helper to keep the yank register when you paste a text on a selected one
 xnoremap          p          pgvy
@@ -675,26 +686,47 @@ function! ExploreRemoteToggle(resetHost)
     endif
 endfunction
 
+" Fundtion to validate the amount od windows open.
+" @param count - Maximum windows allowed on the current tab
+" @param actoun_descr - The action to be displayed if there are less or more windows open than count
+"                       allow
+function! s:CheckWindowsCount(count, action_descr)
+    let l:wincount = winnr('$')
+    let l:result = 1
+    if l:wincount != a:count
+        echohl WarningMsg
+        if l:wincount < 1
+            echomsg "You can only " . a:action_descr . " with 2 windows. Currently you have only (" . l:wincount . ") window open"
+        else
+            echomsg "You can only " . a:action_descr . " with 2 windows. Currently you have (" . l:wincount . ") windows open"
+        endif
+        echohl NONE
+        let l:result = 0
+    endif
+    return l:result
+endfunction
+
 
 " Define a function called DiffToggle.
 " The ! overwrites any existing definition by this name.
-function! DiffToggle(removeAllDiffs)
+function! DiffToggle()
     " Test the setting 'diff', to see if it's on or off.
     " (Any :set option can be tested with &name.
     " See :help expr-option.)
     if &diff
-        if a:removeAllDiffs == 1
+        for wnr in range(winnr("$"))
+            execute wnr . " wincmd w"
             diffoff!
-            echo "Diff OFF for ALL buffers"
-        else
-            diffoff
-            echo "Diff OFF for " . expand('%')
-        endif
+        endfor
+        echo "Diff OFF for ALL windows"
         if exists('s:foldSize')
             exec "set foldcolumn=" . s:foldSize
         endif
-    else
+    elseif s:CheckWindowsCount(2, "do diff")
         let s:foldSize = &foldcolumn
+        wincmd t
+        diffthis
+        wincmd b
         diffthis
         echo "Diff ON for " . expand('%')
     endif
