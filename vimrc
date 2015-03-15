@@ -25,6 +25,59 @@
 " OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" List of plugins I use
+" =====================
+" 3rd Party Plugins
+" -----------------
+" abolish (vim-abolish: git://github.com/tpope/vim-abolish.git)
+" airline (vim-airline: https://github.com/bling/vim-airline.git)
+" butane (butane.vim: https://github.com/Soares/butane.vim.git)
+" dash (dash.vim: https://github.com/rizzatti/dash.vim.git)
+" easy-align (vim-easy-align: https://github.com/junegunn/vim-easy-align.git)
+" easymotion (vim-easymotion: git://github.com/Lokaltog/vim-easymotion.git)
+" fugitive (vim-fugitive: https://github.com/tpope/vim-fugitive.git)
+" gitgutter (vim-gitgutter: git://github.com/airblade/vim-gitgutter.git)
+" greper (greper.vim: git://github.com/rizzatti/greper.vim.git)
+"     funcoo (funcoo.vim: git://github.com/rizzatti/funcoo.vim.git)
+" gundo (gundo.vim: https://github.com/sjl/gundo.vim.git)
+" indentLine (indentLine: https://github.com/Yggdroot/indentLine.git)
+" javacomplete (javacomplete: https://github.com/vim-scripts/javacomplete.git)
+" makeshift (vim-makeshift: https://github.com/johnsyweb/vim-makeshift.git)
+" markdown (vim-markdown: https://github.com/tpope/vim-markdown.git)
+" multiple-cursors (vim-multiple-cursors: git://github.com/terryma/vim-multiple-cursors.git)
+" neomru (neomru.vim: https://github.com/Shougo/neomru.vim.git)
+" nerdtree (nerdtree: https://github.com/scrooloose/nerdtree.git)
+" open-browser (open-browser.vim: https://github.com/tyru/open-browser.vim.git)
+" rooter (vim-rooter: https://github.com/airblade/vim-rooter.git)
+" supertab (supertab: git://github.com/ervandew/supertab.git)
+" surround (vim-surround: https://github.com/tpope/vim-surround.git)
+" swapit (swapit: https://github.com/mjbrownie/swapit.git)
+" syntastic (syntastic: git://github.com/scrooloose/syntastic.git)
+" tagbar (tagbar: git://github.com/majutsushi/tagbar.git)
+" tcomment (tcomment_vim: https://github.com/tomtom/tcomment_vim.git)
+" togglelist (vim-togglelist: git://github.com/milkypostman/vim-togglelist.git)
+" ultisnips (ultisnips: https://github.com/SirVer/ultisnips.git)
+" unite (unite.vim: https://github.com/Shougo/unite.vim.git)
+"     vimproc (vimproc.vim: https://github.com/Shougo/vimproc.vim.git)"
+" unite-help (unite-help: https://github.com/tsukkee/unite-help.git)
+" unite-outline (unite-outline: https://github.com/Shougo/unite-outline.git)
+" vim-diff-enhanced (vim-diff-enhanced: https://github.com/chrisbra/vim-diff-enhanced.git)
+" vim-snippets (vim-snippets: https://github.com/honza/vim-snippets.git)
+" vim-tmux-navigator (vim-tmux-navigator: https://github.com/christoomey/vim-tmux-navigator.git)
+" vim-tmux-runner (vim-tmux-runner: https://github.com/christoomey/vim-tmux-runner.git)
+"
+" Personal Plugins
+" ----------------
+" json (vim-json: https://github.com/Townk/vim-json.git)
+" logs (vim-logs: https://github.com/Townk/vim-logs.git)
+" qt (vim-qt: https://github.com/Townk/vim-qt.git)
+" townk-theme (vim-theme: https://github.com/Townk/vim-theme.git)
+"
+" Plugin Manager
+" --------------
+" pathogen (vim-pathogen: https://github.com/tpope/vim-pathogen.git)
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " First things first
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
