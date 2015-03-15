@@ -1,9 +1,28 @@
 ﻿""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc       - My personal vimrc file
-" Version:      4.7
+" Version:      4.9
 " Maintainer:   Thiago Alves <talk@thiagoalves.com.br>
-" Last Change:  June 2, 2013
-" License:      This file is placed in the public domain.
+" Last Change:  March 14, 2015
+" License:
+" Copyright (C) 2015 Thiago Alves
+"
+" Permission is hereby granted, free of charge, to any person obtaining
+" a copy of this software and associated documentation files (the "Software"),
+" to deal in the Software without restriction, including without limitation
+" the rights to use, copy, modify, merge, publish, distribute, sublicense,
+" and/or sell copies of the Software, and to permit persons to whom the
+" Software is furnished to do so, subject to the following conditions:
+"
+" The above copyright notice and this permission notice shall be included
+" in all copies or substantial portions of the Software.
+"
+" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+" EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+" OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+" IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+" TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+" OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -50,9 +69,9 @@ if !exists("*EditExisting")
     runtime macros/editexisting.vim
 endif
 
-" The <LEADER> key is often set to "\", unfortunately this key is not placed on a standard place
-" on a lot of keyboards. To avoid you of learning how to type on each new keyboard, lets set
-" <LEADER> key to ","
+" The <LEADER> key is often set to "\", unfortunately this key has no standard
+" location across different keyboards. To avoid you learning how to type on each
+" new keyboard, let set <LEADER> key to "," which do have a standar location.
 let mapleader=","
 
 
@@ -678,12 +697,7 @@ if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") 
 else
     let g:UltiSnipsSnippetsDir = $HOME . "/.vim/ultisnips"
 endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Selectbuf
-"nmap <unique> <silent> <F3> <Plug>SelectBuf
-noremap <silent> <Plug>SelBufQuitKey <ESC>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -761,7 +775,7 @@ let g:netrw_menu             = 0
 let g:netrw_use_errorwindow  = 0
 
 if has("win32") || has("dos32") || has("win16") || has("dos16") || has("win95") || has("win64")
-    " uses PuTTY on windows
+  " uses PuTTY on windows
     let g:netrw_scp_cmd  = 'pscp -q -batch'
     let g:netrw_sftp_cmd = 'psftp'
     let g:netrw_cygwin   = 0
@@ -865,25 +879,13 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" VimNotes
-let g:notes_directories = ['~/Depot/Dropbox/Documents/Drafts/Notes']
-let g:notes_suffix = '.mmd'
-let g:notes_list_bullets = ['•', '◦', '▸', '▹', '▪', '▫']
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""'
-let g:tcommentMapLeader2 = '<Leader>c'
-let g:tcommentModeExtra = '#'
-""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Dash
 nmap <silent> <leader>k <Plug>DashSearch
 nmap <silent> <leader>K <Plug>DashGlobalSearch
 let g:dash_map = {
     \ 'python' : ['python2', 'django', 'twisted', 'sphinx', 'flask', 'cvp'],
     \ 'java'   : 'android'
-\ }
+    \ }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
