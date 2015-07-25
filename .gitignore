@@ -2,4 +2,8 @@ icon.png
 .netrwhist
 quarantined
 quarantined/*
+vim/plugged
+vim/autoload
+vim/spell/*
+vim/ultisnips/*
 *.pyc
