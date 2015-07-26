@@ -99,6 +99,7 @@ silent! if plug#begin('~/.vim/plugged')
     Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python completion
     Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' } " Plugin to make Vim recognize the virtualenv it's being running into
     Plug 'sukima/xmledit' " xml like helpers
+    Plug 'whatot/gtags-cscope.vim' " better tagging for source files
     " Plug 'Shougo/neocomplete.vim'
 
     " Unite: Fuzzy search for vim
