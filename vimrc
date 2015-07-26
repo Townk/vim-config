@@ -97,7 +97,7 @@ silent! if plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-github-dashboard' " Github dashboard integration
     Plug 'glts/vim-textobj-comment' " add ic, ac and aC for comment text objects
     Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python completion
-    Plug 'jmcantrell/vim-virtualenv' " Plugin to make Vim recognize the virtualenv it's being running into
+    Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' } " Plugin to make Vim recognize the virtualenv it's being running into
     Plug 'sukima/xmledit' " xml like helpers
     " Plug 'Shougo/neocomplete.vim'
 
