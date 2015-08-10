@@ -1227,13 +1227,17 @@ nnoremap [unite]g   :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cwo
 nnoremap [unite]G   :<C-u>exec "Unite -buffer-name=Grep grep:.::" . expand("<cWORD>")<cr>
 
 " Global shortcuts
-nmap <F3>       :<C-u>silent Unite -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
+nnoremap <silent> <F3>       :<C-u>silent Unite -toggle -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
 
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-    " nmap <buffer> <F3> <Plug>(unite_all_exit)
+    " My terminal keeps giving me trouble with my <F3> key and Unite. For some reason inside an
+    " Unite buffer, the <F3> key sends the original terminal vt100 ^[OR combination.
+    " So, to prevent <F3> from adding a new line with the letter "R" on it I simply remat the key
+    " combination to the original mapping only inside an Unite buffer.
+    nnoremap <buffer> <silent> <ESC>OR :<C-u>silent Unite -toggle -buffer-name=Open\ Buffers -no-start-insert buffer<cr>
     " Play nice with supertab
     let b:SuperTabDisabled=1
 endfunction
